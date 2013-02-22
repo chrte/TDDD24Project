@@ -80,30 +80,32 @@ public class TDDD24Project implements EntryPoint {
 
 
 	private void addLink(AbsolutePanel absolutePanel, final String url) {
-		Image plusSign = new Image("images/link.png");
-		plusSign.setPixelSize(160, 160);
+//		Image link = new Image("images/link.png");
+		Image link = new Image("http://www.google.com/s2/favicons?domain="+url);
+		link.setPixelSize(160, 160);
 
 
-		plusSign.addClickHandler(new ClickHandler(){
+		link.addClickHandler(new ClickHandler(){
 
 			@Override
 			public void onClick(ClickEvent event) {
+			
 				String httpUrl;
 				
-				if(!url.substring(0, Math.min(url.length(), 3)).equals("http")){
+				if(!url.substring(0, Math.min(url.length(), 7)).equals("http://")){
 					httpUrl = "http://" + url;
 				}
 				else{
 					httpUrl = url;
 				}
-
+//				System.out.println(httpUrl);
 				Window.Location.assign(httpUrl);
 
 			}
 
 		});
 
-		absolutePanel.add(plusSign); //TODO: shouldn't add plussign eventually!!
+		absolutePanel.add(link); //TODO: shouldn't add plussign eventually!!
 		
 	}
 
