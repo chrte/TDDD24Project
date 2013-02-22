@@ -2,16 +2,21 @@ package com.TDDD24Project.client;
 
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.LoadEvent;
+import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -83,7 +88,8 @@ public class TDDD24Project implements EntryPoint {
 //		Image link = new Image("images/link.png");
 		Image link = new Image("http://www.google.com/s2/favicons?domain="+url);
 		link.setPixelSize(160, 160);
-
+		
+		
 
 		link.addClickHandler(new ClickHandler(){
 
