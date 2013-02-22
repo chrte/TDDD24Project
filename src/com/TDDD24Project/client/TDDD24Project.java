@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -68,9 +69,45 @@ public class TDDD24Project implements EntryPoint {
 	}
 
 
-	private void addWidget(){
-
+	private void addWidget(int index, String url){
+		
+		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
+		tempPanel.clear();
+		
+		addLink(tempPanel, url);
+		
 	}
+
+
+	private void addLink(AbsolutePanel absolutePanel, final String url) {
+		Image plusSign = new Image("images/link.png");
+		plusSign.setPixelSize(160, 160);
+
+
+		plusSign.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				String httpUrl;
+				
+				if(!url.substring(0, Math.min(url.length(), 3)).equals("http")){
+					httpUrl = "http://" + url;
+				}
+				else{
+					httpUrl = url;
+				}
+
+				Window.Location.assign(httpUrl);
+
+			}
+
+		});
+
+		absolutePanel.add(plusSign); //TODO: shouldn't add plussign eventually!!
+		
+	}
+
+
 
 
 	private void removeWidget(int column, int row){
@@ -79,7 +116,7 @@ public class TDDD24Project implements EntryPoint {
 
 	}
 
-	private Widget createEmptyWidget(){
+	private Widget createEmptyWidget(final int index){
 
 		Image plusSign = new Image("images/plus_sign.png");
 		plusSign.setPixelSize(160, 160);
@@ -90,7 +127,7 @@ public class TDDD24Project implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 
-				ChooseNewWidget();
+				ChooseNewWidget(index);
 				System.out.println("You just clicked my buttons!");
 
 
@@ -105,31 +142,46 @@ public class TDDD24Project implements EntryPoint {
 
 	}
 
-	private void ChooseNewWidget() {
+	private void ChooseNewWidget(final int index) {
 		final PopupPanel chooseWidget = new PopupPanel(false);	
 
 		chooseWidget.setStyleName("demo-popup");
 		chooseWidget.setPixelSize(200,100);
 		VerticalPanel popUpPanelContents = new VerticalPanel();
 		chooseWidget.setTitle("Add Widget");
-		TextBox widgetLink = new TextBox();
+		final TextBox widgetLink = new TextBox();
 		HTML message = new HTML("Insert link here:");
 		message.setStyleName("demo-PopUpPanel-message");
-		ClickListener listener = new ClickListener()
+		ClickListener cancelListener = new ClickListener()
 		{
 			public void onClick(Widget sender)
 			{
 				chooseWidget.hide();
 			}
 		};
-		Button button = new Button("Close");
-		button.addClickListener(listener);
+		ClickListener addListener = new ClickListener()
+		{
+			public void onClick(Widget sender)
+			{
+			
+				String url = widgetLink.getText();
+				addWidget(index, url);
+				chooseWidget.hide();
+			}
+		};
+		Button addButton = new Button("Add");
+		addButton.addClickListener(addListener);
+		Button cancelButton = new Button("Cancel");
+		cancelButton.addClickListener(cancelListener);
 		SimplePanel holder = new SimplePanel();
-		holder.add(button);
+		SimplePanel holder2 = new SimplePanel();
+		holder.add(addButton);
+		holder2.add(cancelButton);
 		holder.setStyleName("demo-PopUpPanel-footer");
 		popUpPanelContents.add(message);
 		popUpPanelContents.add(widgetLink);
 		popUpPanelContents.add(holder);
+		popUpPanelContents.add(holder2);
 		chooseWidget.setWidget(popUpPanelContents);
 		chooseWidget.setGlassEnabled(true);
 		chooseWidget.center();
@@ -150,11 +202,12 @@ public class TDDD24Project implements EntryPoint {
 		for(int i=0;i<9;i++){
 			AbsolutePanel tempPanel = new AbsolutePanel();
 			tempPanel.getElement().getStyle().setProperty("margin", "10px");
-			widgets.add(tempPanel);
-			Image plusSign = (Image) createEmptyWidget();
+			Image plusSign = (Image) createEmptyWidget(i);
 			plusSigns.add(plusSign);
-			tempPanel = (AbsolutePanel) widgets.get(i);
 			tempPanel.add(plusSigns.get(i));
+			widgets.add(tempPanel);
+			
+			
 		}
 
 
