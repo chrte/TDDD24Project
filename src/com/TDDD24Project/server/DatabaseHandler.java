@@ -107,6 +107,7 @@ public class DatabaseHandler {
 	
 	public void addWidget(int userId, String widgetData, int widgetPosition){
 		initiateConnection();
+		int id = 0;
 		
 		//Connects with UserId
 		try {
@@ -121,8 +122,12 @@ public class DatabaseHandler {
 		//Adds data and position
 		try {
 			java.sql.Statement stmt=null;
-			stmt =connection.createStatement();			
-			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES ('SELECT LAST_INSERT_ID()','"+widgetData+"',"+widgetPosition+");");			
+			stmt =connection.createStatement();
+			ResultSet rs= stmt.executeQuery("SELECT LAST_INSERT_ID()");
+			while (rs.next()){
+				id = rs.getInt(1);
+			}
+			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES ('"+id+"','"+widgetData+"',"+widgetPosition+");");			
 			} catch (SQLException e) {
 
 			e.printStackTrace();

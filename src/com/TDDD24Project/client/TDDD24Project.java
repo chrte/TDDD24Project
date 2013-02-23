@@ -2,23 +2,18 @@ package com.TDDD24Project.client;
 
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.LoadEvent;
-import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -65,7 +60,7 @@ public class TDDD24Project implements EntryPoint {
 		RootPanel.get("main").setStyleName("main");	
 		LoadStandardView();
 		LoadUserData();
-		testAddToDatabase(); //TODO: remove
+
 
 	}
 
@@ -77,26 +72,27 @@ public class TDDD24Project implements EntryPoint {
 
 	}
 
-	//TODO: Remove this test function!!
 	
-	private void testAddToDatabase(){
-		System.out.println("testAddToDatabase");
-		
+	private void addLinkToDatabase(String link, int userId){
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
 				System.out.println("failure");
 			}
 			@Override
 			public void onSuccess(String result) {
-				System.out.println("i'm a sucess");				
+				System.out.println("success");				
 				
 			}
 			
 		};
 		
 		
-		projectSvc.addWidget(1, "Lorem Ipsum", 11, callback);
+		projectSvc.addWidget(1, link, 11, callback); //TODO: fix numbers
+		
 	}
+	//TODO: Remove this test function!!
+	
+
 
 	private void addWidget(int index, String url){
 		
@@ -128,7 +124,6 @@ public class TDDD24Project implements EntryPoint {
 				else{
 					httpUrl = url;
 				}
-//				System.out.println(httpUrl);
 				Window.Location.assign(httpUrl);
 
 			}
@@ -136,14 +131,17 @@ public class TDDD24Project implements EntryPoint {
 		});
 
 		absolutePanel.add(link); //TODO: shouldn't add plussign eventually!!
-		
+		addLinkToDatabase(url, 1); //TODO: Fix numbers
 	}
 
 
 
 
-	private void removeWidget(int column, int row){
-
+	private void removeWidget(int column, int row, int userId){
+		int removePos = column*10+row;
+		
+		
+		//TODO: Fix
 
 
 	}
