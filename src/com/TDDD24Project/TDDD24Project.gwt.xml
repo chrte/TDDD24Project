@@ -18,7 +18,7 @@
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
   <!-- Other module inherits                                      -->
-
+ <inherits name='com.allen_sauer.gwt.dnd.gwt-dnd'/>
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.TDDD24Project.client.TDDD24Project'/>
 

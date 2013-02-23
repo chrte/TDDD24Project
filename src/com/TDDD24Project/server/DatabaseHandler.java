@@ -11,7 +11,7 @@ public class DatabaseHandler {
 	private static final String IP ="chrte.dyndns.org"; 
 	private static final String DATABASENAME ="TDDD24";
 	private static final String WIDGETS = "widgets";
-	private static final String USERTOWIDGET = "userToWidget";
+	private static final String USERTOWIDGET = "userToWidgets";
 	private static final String WIDGETID = "widgetId";
 	private static final String USERID = "userId";
 	private static final String WIDGETDATA ="widgetData";	
@@ -122,7 +122,7 @@ public class DatabaseHandler {
 		try {
 			java.sql.Statement stmt=null;
 			stmt =connection.createStatement();			
-			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES (SELECT LAST_INSERT_ID(),"+widgetData+"','"+widgetPosition+");");			
+			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES ('SELECT LAST_INSERT_ID()','"+widgetData+"',"+widgetPosition+");");			
 			} catch (SQLException e) {
 
 			e.printStackTrace();

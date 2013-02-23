@@ -13,12 +13,13 @@ public class ProjectServiceImpl extends RemoteServiceServlet implements
 	
 	private static final long serialVersionUID = 1L;
 	DatabaseHandler dbHandler = new DatabaseHandler();
-
+	@Override
 	
 
 	public String addWidget(int userId, String widgetData, int widgetPosition) {
+		System.out.println("addWidget");
 		dbHandler.addWidget(userId, widgetData, widgetPosition);
-		return "i'm awesome";
+		return "return";
 	}
 	
 	

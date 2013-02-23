@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -51,6 +53,7 @@ public class TDDD24Project implements EntryPoint {
 	private ArrayList<AbsolutePanel> widgets = new ArrayList<AbsolutePanel>();
 	private ArrayList<FlowPanel> flowPanels = new ArrayList<FlowPanel>();
 
+	private ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
 
 
 
@@ -62,6 +65,7 @@ public class TDDD24Project implements EntryPoint {
 		RootPanel.get("main").setStyleName("main");	
 		LoadStandardView();
 		LoadUserData();
+		testAddToDatabase(); //TODO: remove
 
 	}
 
@@ -73,6 +77,26 @@ public class TDDD24Project implements EntryPoint {
 
 	}
 
+	//TODO: Remove this test function!!
+	
+	private void testAddToDatabase(){
+		System.out.println("testAddToDatabase");
+		
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(Throwable caught) {
+				System.out.println("failure");
+			}
+			@Override
+			public void onSuccess(String result) {
+				System.out.println("i'm a sucess");				
+				
+			}
+			
+		};
+		
+		
+		projectSvc.addWidget(1, "Lorem Ipsum", 11, callback);
+	}
 
 	private void addWidget(int index, String url){
 		

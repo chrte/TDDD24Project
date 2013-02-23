@@ -1,19 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-	<!-- TODO: Add <servlet> tags for each servlet here. -->
-	<!-- TODO: Add <servlet-mapping> tags for each <servlet> here. -->
-	<!-- TODO: Optionally add a <welcome-file-list> tag to display a welcome file. -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>TDDD24Project.html</welcome-file>
+  </welcome-file-list>
+
+  <!-- Servlets -->
   <servlet>
-    <servlet-name>SystemServiceServlet</servlet-name>
-    <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
-    <init-param>
-      <param-name>services</param-name>
-      <param-value/>
-    </init-param>
+    <servlet-name>projectServiceImpl</servlet-name>
+    <servlet-class>com.TDDD24Project.server.ProjectServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>SystemServiceServlet</servlet-name>
-    <url-pattern>/_ah/spi/*</url-pattern>
+    <servlet-name>projectServiceImpl</servlet-name>
+    <url-pattern>/tddd24project/project</url-pattern>
   </servlet-mapping>
-
+  
+  
 </web-app>
