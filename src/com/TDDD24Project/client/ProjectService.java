@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface ProjectService extends RemoteService {
 
 	String addWidget(int userId, String widgetData, int widgetPosition);
+	String removeWidget(int i);
 
 
 

@@ -21,6 +21,11 @@ public class ProjectServiceImpl extends RemoteServiceServlet implements
 		dbHandler.addWidget(userId, widgetData, widgetPosition);
 		return "return";
 	}
+	@Override
+	public String removeWidget(int widgetId) {
+		dbHandler.removeWidget(widgetId);
+		return "";
+	}
 	
 	
 	

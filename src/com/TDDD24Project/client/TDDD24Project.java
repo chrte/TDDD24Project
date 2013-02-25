@@ -61,7 +61,6 @@ public class TDDD24Project implements EntryPoint {
 		LoadStandardView();
 		LoadUserData();
 
-
 	}
 
 
@@ -90,7 +89,27 @@ public class TDDD24Project implements EntryPoint {
 		projectSvc.addWidget(1, link, 11, callback); //TODO: fix numbers
 		
 	}
-	//TODO: Remove this test function!!
+	//TODO: Remove/change this test function!!
+	
+	private void deleteFromDatabase(int widgetId){
+		
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(Throwable caught) {
+				System.out.println("failure");
+			}
+			@Override
+			public void onSuccess(String result) {
+				System.out.println("success");				
+				
+			}
+			
+		};
+		
+		
+		projectSvc.removeWidget(12, callback);
+		
+	}
+	
 	
 
 
@@ -102,6 +121,8 @@ public class TDDD24Project implements EntryPoint {
 		addLink(tempPanel, url);
 		
 	}
+	
+
 
 
 	private void addLink(AbsolutePanel absolutePanel, final String url) {

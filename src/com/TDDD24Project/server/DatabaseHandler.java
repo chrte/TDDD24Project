@@ -135,6 +135,46 @@ public class DatabaseHandler {
 	}
 	
 	
+	public String removeWidget(int widgetId){
+		initiateConnection();
+		java.sql.Statement stmt=null;
+		try {
+			stmt =connection.createStatement();
+			
+			String query = "DELETE FROM `"+DATABASENAME+"`.`"+WIDGETS+"` WHERE `"+WIDGETS+"`.`"+WIDGETID+"`='"+widgetId+"';";
+			connection.prepareStatement(query);
+
+			int statResult = stmt.executeUpdate(query);
+			System.out.println(statResult+". query:" +query);
+			
+		
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		stmt=null;
+		try {
+			stmt =connection.createStatement();
+			
+			String query = "DELETE FROM `"+DATABASENAME+"`.`"+USERTOWIDGET+"` WHERE `"+USERTOWIDGET+"`.`"+WIDGETID+"`='"+widgetId+"';";
+			connection.prepareStatement(query);
+
+			int statResult = stmt.executeUpdate(query);
+			System.out.println(statResult+". query:" +query);
+			stmt.close();
+			connection.close();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return("");
+		
+	}	
+	
 	
 
 }
