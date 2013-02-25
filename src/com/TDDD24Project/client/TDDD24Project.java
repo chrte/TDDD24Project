@@ -42,9 +42,9 @@ public class TDDD24Project implements EntryPoint {
 	private VerticalPanel mainPanel = new VerticalPanel();
 	private HorizontalPanel widgetsPanel = new HorizontalPanel();
 	private Image logo = new Image("images/logo.jpg");
-	private Image background = new Image("images/background.jpg");
+//	private Image background = new Image("images/background.jpg");
 	private Image bottomlogo = new Image("images/logo.jpg");
-	private AbsolutePanel tempPanel;
+
 	private ArrayList<AbsolutePanel> widgets = new ArrayList<AbsolutePanel>();
 	private ArrayList<FlowPanel> flowPanels = new ArrayList<FlowPanel>();
 
@@ -221,7 +221,7 @@ public class TDDD24Project implements EntryPoint {
 			}
 		};
 		Button addButton = new Button("Add");
-		addButton.addClickListener(addListener);
+		addButton.addClickListener(addListener); 		//TODO: deprecated, should use something else probably..
 		Button cancelButton = new Button("Cancel");
 		cancelButton.addClickListener(cancelListener);
 		SimplePanel holder = new SimplePanel();
