@@ -7,6 +7,9 @@ html{
 	
 	background-image:url('images/background.jpg');
 }
+.login {
+	background-color:gray;
+}
 
 .table-center
 {

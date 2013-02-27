@@ -13,6 +13,7 @@ public class TDDD24Project implements EntryPoint {
 	
 	public void onModuleLoad() {
 
+		RootPanel.get("main").setStyleName("main");
 		RootPanel.get("main").add(mainPanel);
 		loginManager = new LoginManager(this);
 		mainPanel.add(loginManager);

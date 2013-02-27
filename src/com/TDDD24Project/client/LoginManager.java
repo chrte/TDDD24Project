@@ -32,14 +32,11 @@ public class LoginManager extends Composite {
 		VerticalPanel verticalPanel = new VerticalPanel();
 		horizontalPanel.add(verticalPanel);
 		
-		Label lblWelcomeToThe = new Label("Welcome to my login page");
-		lblWelcomeToThe.setStyleName("gwt-Label-Login");
-		verticalPanel.add(lblWelcomeToThe);
-		lblWelcomeToThe.setSize("206px", "124px");
 		
 		Login login = new Login(this);
 		horizontalPanel.add(login);
 	
+		horizontalPanel.setStyleName("login");
 		this.initWidget(horizontalPanel);
 		
 		
