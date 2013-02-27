@@ -1,18 +1,18 @@
 package com.TDDD24Project.client;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.i18n.client.HasDirection.Direction;
-import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Form google tutorial
@@ -48,8 +48,7 @@ public class Login extends Composite {
 		lblPassword.setStyleName("gwt-Label-Login");
 		flexTable.setWidget(1, 0, lblPassword);
 
-		textBoxPassword = new TextBox();
-		textBoxPassword.setDirection(Direction.RTL);
+		textBoxPassword = new PasswordTextBox();
 		flexTable.setWidget(1, 1, textBoxPassword);
 
 		CheckBox chckbxRememberMeOn = new CheckBox("Remember me on this computer");
