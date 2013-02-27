@@ -25,12 +25,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 
-
-
-
 /**
  * Main
  */
+@SuppressWarnings("deprecation")
 public class MainPage extends Composite {
 
 	//Defining globals	
@@ -41,32 +39,25 @@ public class MainPage extends Composite {
 	private Image logo = new Image("images/logo.jpg");
 //	private Image background = new Image("images/background.jpg");
 	private Image bottomlogo = new Image("images/logo.jpg");
+	private int userId;
 
 	private ArrayList<AbsolutePanel> widgets = new ArrayList<AbsolutePanel>();
 	private ArrayList<FlowPanel> flowPanels = new ArrayList<FlowPanel>();
 
 	private ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
 
-
-
-
-
 	public MainPage(int userId) {
 
-
+		this.userId=userId;
 //		RootPanel.get("main").setStyleName("main");	
 		LoadStandardView();
 		LoadUserData();
 		initWidget(mainPanel);
 		
-
 	}
 
-
-
-
 	private void LoadUserData() {
-		// TODO Auto-generated method stub
+		// TODO: Implement this?
 
 	}
 
@@ -85,7 +76,7 @@ public class MainPage extends Composite {
 		};
 		
 		
-		projectSvc.addWidget(1, link, 11, callback); //TODO: fix numbers
+		projectSvc.addWidget(userId, link, 11, callback);
 		
 	}
 	//TODO: Remove/change this test function!!
@@ -151,7 +142,7 @@ public class MainPage extends Composite {
 		});
 
 		absolutePanel.add(link); //TODO: shouldn't add plussign eventually!!
-		addLinkToDatabase(url, 1); //TODO: Fix numbers
+		addLinkToDatabase(url, userId); 
 	}
 
 
@@ -180,11 +171,7 @@ public class MainPage extends Composite {
 				ChooseNewWidget(index);
 				System.out.println("You just clicked my buttons!");
 
-
 			}
-
-
-
 
 		});
 
@@ -276,23 +263,13 @@ public class MainPage extends Composite {
 			widgetsPanel.add(flowPanels.get(i));
 		}
 
-
-
-
 		logo.setPixelSize(1024, 60);
 		bottomlogo.setPixelSize(1024, 60);
 		mainPanel.add(logo);
 		mainPanel.add(widgetsPanel);
 		mainPanel.add(bottomlogo);
 
-
-
-
-
-
-
 		RootPanel.get("main").add(mainPanel);	
-
 
 	}
 }
