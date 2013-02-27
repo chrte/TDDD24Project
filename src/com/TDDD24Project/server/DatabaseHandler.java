@@ -13,10 +13,13 @@ public class DatabaseHandler {
 	private static final String WIDGETS = "widgets";
 	private static final String USERTOWIDGET = "userToWidgets";
 	private static final String WIDGETID = "widgetId";
+	private static final String USERS = "users";
 	private static final String USERID = "userId";
+	private static final String USERNAME = "userName";
+	private static final String USERPASSWORD = "password";
 	private static final String WIDGETDATA ="widgetData";	
 	private static final String WIDGETPOSITION ="widgetPosition";
-	private static final String USERNAME="TDDD24";
+	private static final String USERNAMEFORDB="TDDD24";
 	private static final String PASSWORD="TDDD24";
 	private Connection connection;
 
@@ -34,7 +37,7 @@ public class DatabaseHandler {
 			if (connection==null || connection.isClosed()){
 				try {
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
-					connection  = DriverManager.getConnection("jdbc:mysql://"+IP+"/"+DATABASENAME,USERNAME,PASSWORD);
+					connection  = DriverManager.getConnection("jdbc:mysql://"+IP+"/"+DATABASENAME,USERNAMEFORDB,PASSWORD);
 					connection.setAutoCommit(true);
 				} catch (Exception e) {
 
@@ -47,7 +50,7 @@ public class DatabaseHandler {
 		}
 	}
 
-	
+
 	/**
 	 * Gets the widget data (String) given a widgetId
 	 * @param widgetId The widget which to get the data from
@@ -70,14 +73,14 @@ public class DatabaseHandler {
 
 		return ""; 
 	}
-	
+
 	/**
 	 * Gets the widget position (String) given a widgetId
 	 * @param widgetId The widget which to get the position for
 	 * @return The widget position
 	 */
-	
-	
+
+
 	public int getWidgetPosition(int widgetId){
 		initiateConnection();
 		java.sql.Statement stmt = null;
@@ -95,7 +98,7 @@ public class DatabaseHandler {
 
 		return 0; 
 	}
-	
+
 	/**
 	 * Inserts a new Widget together with it's data and it's position into the database,
 	 *  and connects it to it's user
@@ -103,22 +106,22 @@ public class DatabaseHandler {
 	 * @param widgetData
 	 * @param widgetPosition
 	 */
-	
-	
+
+
 	public void addWidget(int userId, String widgetData, int widgetPosition){
 		initiateConnection();
 		int id = 0;
-		
+
 		//Connects with UserId
 		try {
 			java.sql.Statement stmt=null;
 			stmt =connection.createStatement();			
 			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+USERTOWIDGET+" VALUES (NULL,"+userId+");");
-			} catch (SQLException e) {
+		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
-		
+
 		//Adds data and position
 		try {
 			java.sql.Statement stmt=null;
@@ -128,28 +131,28 @@ public class DatabaseHandler {
 				id = rs.getInt(1);
 			}
 			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES ('"+id+"','"+widgetData+"',"+widgetPosition+");");			
-			} catch (SQLException e) {
+		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}	
 	}
-	
-	
+
+
 	public String removeWidget(int widgetId){
 		initiateConnection();
 		java.sql.Statement stmt=null;
 		try {
 			stmt =connection.createStatement();
-			
+
 			String query = "DELETE FROM `"+DATABASENAME+"`.`"+WIDGETS+"` WHERE `"+WIDGETS+"`.`"+WIDGETID+"`='"+widgetId+"';";
 			connection.prepareStatement(query);
 
 			int statResult = stmt.executeUpdate(query);
 			System.out.println(statResult+". query:" +query);
-			
-		
-			
-			
+
+
+
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -157,7 +160,7 @@ public class DatabaseHandler {
 		stmt=null;
 		try {
 			stmt =connection.createStatement();
-			
+
 			String query = "DELETE FROM `"+DATABASENAME+"`.`"+USERTOWIDGET+"` WHERE `"+USERTOWIDGET+"`.`"+WIDGETID+"`='"+widgetId+"';";
 			connection.prepareStatement(query);
 
@@ -165,16 +168,36 @@ public class DatabaseHandler {
 			System.out.println(statResult+". query:" +query);
 			stmt.close();
 			connection.close();
-			
-			
+
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return("");
-		
-	}	
-	
-	
+
+	}
+
+	public int authUser(String userName, String password) {
+
+		initiateConnection();
+		java.sql.Statement stmt = null;
+		ResultSet rs=null;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery("SELECT "+USERID+" FROM " +DATABASENAME+"."+USERS+" WHERE "+USERNAME+"='"+userName+"' AND "+USERPASSWORD+"='"+password+"';");
+			while (rs.next()){
+				return rs.getInt(USERID);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return 0; 
+	}
+
+
+
 
 }

@@ -51,7 +51,7 @@ public class MainPage extends Composite {
 
 
 
-	public MainPage() {
+	public MainPage(int userId) {
 
 
 //		RootPanel.get("main").setStyleName("main");	

@@ -8,6 +8,7 @@ public interface ProjectService extends RemoteService {
 
 	String addWidget(int userId, String widgetData, int widgetPosition);
 	String removeWidget(int i);
+	int authUser(String userName, String password);
 
 
 

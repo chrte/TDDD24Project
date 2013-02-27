@@ -26,6 +26,12 @@ public class ProjectServiceImpl extends RemoteServiceServlet implements
 		dbHandler.removeWidget(widgetId);
 		return "";
 	}
+	@Override
+	public int authUser(String userName, String password) {
+		int userId = dbHandler.authUser(userName, password);
+		return userId;
+		
+	}
 	
 	
 	
