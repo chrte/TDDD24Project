@@ -21,7 +21,6 @@
  <inherits name='com.allen_sauer.gwt.dnd.gwt-dnd'/>
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.TDDD24Project.client.TDDD24Project'/>
-
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
