@@ -3,6 +3,9 @@ package com.TDDD24Project.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -58,38 +61,54 @@ public class Login extends Composite {
 		Button btnSignIn = new Button("Sign In");
 		btnSignIn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				if (textBoxUsername.getText().length() == 0
-						|| textBoxPassword.getText().length() == 0) {
-					Window.alert("Username or password is empty."); 
-				}
-				else {
-					//TODO: add some server stuff here, to authentication, a rcp call that return the id, 0 if not existing??
-					ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
-					AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
-						public void onFailure(Throwable caught) {
-							System.out.println("failure");
-						}
-						@Override
-						public void onSuccess(Integer result) {
-							if(result == 0){
-								Window.alert("Failed to log in");
-							}
-							else{
-								Window.alert("You have been logged in as user" + result +" . Press ok to proceed");	
-								parent.userLoggedIn(result);
-							}
-
-						}
-
-					};
-
-
-					projectSvc.authUser(textBoxUsername.getText(), textBoxPassword.getText(), callback);
-
-				}
+				doOnClick();
 			}
+		});
+		textBoxPassword.addKeyPressHandler(new KeyPressHandler(){
+
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				if(event.getCharCode()==KeyCodes.KEY_ENTER){
+					doOnClick();
+				}
+				
+			}
+			
 		});
 		flexTable.setWidget(3, 1, btnSignIn);
 	}
 
+	private void doOnClick(){
+
+		if (textBoxUsername.getText().length() == 0
+				|| textBoxPassword.getText().length() == 0) {
+			Window.alert("Username or password is empty."); 
+		}
+		else {
+			//TODO: add some server stuff here, to authentication, a rcp call that return the id, 0 if not existing??
+			ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
+			AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
+				public void onFailure(Throwable caught) {
+					System.out.println("failure");
+				}
+				@Override
+				public void onSuccess(Integer result) {
+					if(result == 0){
+						Window.alert("Failed to log in");
+					}
+					else{
+						Window.alert("You have been logged in as user" + result +" . Press ok to proceed");	
+						parent.userLoggedIn(result);
+					}
+
+				}
+
+			};
+
+
+			projectSvc.authUser(textBoxUsername.getText(), textBoxPassword.getText(), callback);
+
+		}
+	
+	}
 }
