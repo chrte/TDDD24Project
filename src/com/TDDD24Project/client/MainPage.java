@@ -44,7 +44,7 @@ public class MainPage extends Composite {
 	private ArrayList<AbsolutePanel> widgets = new ArrayList<AbsolutePanel>();
 	private ArrayList<FlowPanel> flowPanels = new ArrayList<FlowPanel>();
 
-	private ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
+	protected ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
 
 	public MainPage(int userId) {
 
@@ -61,24 +61,6 @@ public class MainPage extends Composite {
 
 	}
 
-	
-	private void addLinkToDatabase(String link, int userId){
-		AsyncCallback<String> callback = new AsyncCallback<String>() {
-			public void onFailure(Throwable caught) {
-				System.out.println("failure");
-			}
-			@Override
-			public void onSuccess(String result) {
-				System.out.println("success");				
-				
-			}
-			
-		};
-		
-		
-		projectSvc.addWidget(userId, link, 11, callback);
-		
-	}
 	//TODO: Remove/change this test function!!
 	
 	private void deleteFromDatabase(int widgetId){
@@ -103,57 +85,18 @@ public class MainPage extends Composite {
 	
 
 
-	private void addWidget(int index, String url){
+	protected void addWidget(int index, String url){
 		
 		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
 		tempPanel.clear();
-		
-		addLink(tempPanel, url);
+		tempPanel.add(new LinkWidget(this, index, url));	
 		
 	}
 	
-
-
-
-	private void addLink(AbsolutePanel absolutePanel, final String url) {
-//		Image link = new Image("images/link.png");
-		Image link = new Image("http://www.google.com/s2/favicons?domain="+url);
-		link.setPixelSize(160, 160);
-		
-		
-
-		link.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-			
-				String httpUrl;
-				
-				if(!url.substring(0, Math.min(url.length(), 7)).equals("http://")){
-					httpUrl = "http://" + url;
-				}
-				else{
-					httpUrl = url;
-				}
-				Window.Location.assign(httpUrl);
-
-			}
-
-		});
-
-		absolutePanel.add(link); //TODO: shouldn't add plussign eventually!!
-		addLinkToDatabase(url, userId); 
-	}
-
-
-
-
 	private void removeWidget(int column, int row, int userId){
 		int removePos = column*10+row;
 		
-		
 		//TODO: Fix
-
 
 	}
 
@@ -168,7 +111,7 @@ public class MainPage extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 
-				ChooseNewWidget(index);
+				chooseNewWidget(index);
 				System.out.println("You just clicked my buttons!");
 
 			}
@@ -179,9 +122,8 @@ public class MainPage extends Composite {
 
 	}
 
-	private void ChooseNewWidget(final int index) {
+	private void chooseNewWidget(final int index) {
 		final PopupPanel chooseWidget = new PopupPanel(false);	
-
 		chooseWidget.setStyleName("demo-popup");
 		chooseWidget.setPixelSize(200,100);
 		VerticalPanel popUpPanelContents = new VerticalPanel();
@@ -200,7 +142,7 @@ public class MainPage extends Composite {
 		{
 			public void onClick(Widget sender)
 			{
-			
+
 				String url = widgetLink.getText();
 				addWidget(index, url);
 				chooseWidget.hide();
@@ -219,15 +161,12 @@ public class MainPage extends Composite {
 		popUpPanelContents.add(widgetLink);
 		popUpPanelContents.add(holder);
 		popUpPanelContents.add(holder2);
+		
 		chooseWidget.setWidget(popUpPanelContents);
 		chooseWidget.setGlassEnabled(true);
 		chooseWidget.center();
-
-
-
-
-
-	}	
+	}
+		
 
 	private void LoadStandardView(){
 
