@@ -93,6 +93,12 @@ public class MainPage extends Composite {
 		
 	}
 	
+	private void addAlertWidget(int index){
+		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
+		tempPanel.clear();
+		tempPanel.add(new AlertWidget());	
+	}
+	
 	private void removeWidget(int column, int row, int userId){
 		int removePos = column*10+row;
 		
@@ -144,7 +150,8 @@ public class MainPage extends Composite {
 			{
 
 				String url = widgetLink.getText();
-				addWidget(index, url);
+//				addWidget(index, url);
+				addAlertWidget(index);
 				chooseWidget.hide();
 			}
 		};

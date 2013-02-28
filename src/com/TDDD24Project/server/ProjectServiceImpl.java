@@ -32,6 +32,10 @@ public class ProjectServiceImpl extends RemoteServiceServlet implements
 		return userId;
 		
 	}
+	@Override
+	public String getUserData(int userId) {
+		return dbHandler.getUserName(userId);
+	}
 	
 	
 	

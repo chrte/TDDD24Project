@@ -197,6 +197,25 @@ public class DatabaseHandler {
 		return 0; 
 	}
 
+	public String getUserName(int userId) {
+
+		initiateConnection();
+		java.sql.Statement stmt = null;
+		ResultSet rs=null;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery("SELECT "+USERNAME+" FROM " +DATABASENAME+"."+USERS+" WHERE "+USERID+"='"+userId+"';");
+			while (rs.next()){
+				return rs.getString(USERNAME);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+
 
 
 
