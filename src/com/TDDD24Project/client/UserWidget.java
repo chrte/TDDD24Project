@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
 /**
@@ -16,6 +17,8 @@ public class UserWidget extends Composite {
 	private int userId;
 	private String userName;
 	private Label userLabel;
+	private String userImageSrc;
+	private Image userImage;
 
 	/**
 	 * Constructor, initiating the userWidget, for example fetching the username
@@ -33,18 +36,22 @@ public class UserWidget extends Composite {
 		userLabel = new Label();
 		userLabel.setPixelSize(25, 25);
 		content.add(userLabel);
+		userImage = new Image();
+		userImage.setPixelSize(50, 50);
+		content.add(userImage);
 		initWidget(content);
 		
 	}
 	private void getUserDataFromDb(){
 		ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
-		AsyncCallback<String> callback = new AsyncCallback<String>() {
+		AsyncCallback<String[]> callback = new AsyncCallback<String[]>() {
 			public void onFailure(Throwable caught) {
-				System.out.println("failure");
+				System.out.println("failure in the userWidget");
 			}
 			@Override
-			public void onSuccess(String result) {
-				userName=result;
+			public void onSuccess(String[] result) {
+				userName=result[0];
+				userImageSrc= result[1];
 				updateGraphic();
 				
 			}
@@ -60,6 +67,7 @@ public class UserWidget extends Composite {
 	 */
 	private void updateGraphic() {
 		userLabel.setText(userName);
+		userImage.setUrl(userImageSrc);
 		
 	}
 }

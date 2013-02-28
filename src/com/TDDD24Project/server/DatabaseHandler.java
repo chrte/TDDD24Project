@@ -17,6 +17,7 @@ public class DatabaseHandler {
 	private static final String USERID = "userId";
 	private static final String USERNAME = "userName";
 	private static final String USERPASSWORD = "password";
+	private static final String USERIMAGE = "userImage";
 	private static final String WIDGETDATA ="widgetData";	
 	private static final String WIDGETPOSITION ="widgetPosition";
 	private static final String USERNAMEFORDB="TDDD24";
@@ -207,6 +208,24 @@ public class DatabaseHandler {
 			rs = stmt.executeQuery("SELECT "+USERNAME+" FROM " +DATABASENAME+"."+USERS+" WHERE "+USERID+"='"+userId+"';");
 			while (rs.next()){
 				return rs.getString(USERNAME);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+
+	public String getUserImage(int userId) {
+		initiateConnection();
+		java.sql.Statement stmt = null;
+		ResultSet rs=null;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery("SELECT "+USERIMAGE+" FROM " +DATABASENAME+"."+USERS+" WHERE "+USERID+"='"+userId+"';");
+			while (rs.next()){
+				return rs.getString(USERIMAGE);
 			}
 		} catch (SQLException e) {
 

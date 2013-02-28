@@ -8,6 +8,6 @@ public interface ProjectServiceAsync {
 	void removeWidget(int i, AsyncCallback<String> callback);
 	void authUser(String userName, String password, AsyncCallback<Integer> callback);
 
-	void getUserData(int userId, AsyncCallback<String> callback);
+	void getUserData(int userId, AsyncCallback<String[]> callback);
 	
 }

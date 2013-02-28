@@ -33,8 +33,12 @@ public class ProjectServiceImpl extends RemoteServiceServlet implements
 		
 	}
 	@Override
-	public String getUserData(int userId) {
-		return dbHandler.getUserName(userId);
+	public String[] getUserData(int userId) {
+		String[] returnArray = new String[2];
+		returnArray[0] = dbHandler.getUserName(userId);
+		returnArray[1] = dbHandler.getUserImage(userId);
+		return returnArray;
+		 
 	}
 	
 	
