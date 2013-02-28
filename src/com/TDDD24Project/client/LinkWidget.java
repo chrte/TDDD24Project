@@ -12,8 +12,10 @@ public class LinkWidget extends Composite {
 
 	int userId;
 	MainPage parent;
-	public LinkWidget(MainPage parent, int userId, String url){
+	int position;
+	public LinkWidget(MainPage parent, int userId, int position, String url){
 		this.parent=parent;
+		this.position = position;
 		this.userId=userId;
 		addLink(url);
 		
@@ -59,7 +61,7 @@ public class LinkWidget extends Composite {
 			}
 			
 		};
-		parent.projectSvc.addWidget(userId, link, 11, callback);
+		parent.projectSvc.addWidget(userId, link, position, callback);
 		
 	}
 }

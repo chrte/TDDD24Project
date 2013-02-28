@@ -58,11 +58,38 @@ public class MainPage extends Composite {
 
 	private void LoadUserData() {
 		// TODO: Implement this?
+		
+		sysOutAllWidgetData();
 
 	}
 
 	//TODO: Remove/change this test function!!
 	
+	private void sysOutAllWidgetData() {
+		
+		ArrayList<String> widgetData = null;
+		
+		AsyncCallback<ArrayList<String>> callback = new AsyncCallback<ArrayList<String>>() {
+			public void onFailure(Throwable caught) {
+				System.out.println("failure");
+			}
+			
+			@Override
+			public void onSuccess(ArrayList<String> result) {
+				for(int i=0; i<result.size()+1; i++){
+					System.out.println(result.get(i));
+				}
+				
+			}
+			
+		};
+		
+		
+		projectSvc.getUsersWidgetData(userId, callback);
+		
+		
+	}
+
 	private void deleteFromDatabase(int widgetId){
 		
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
@@ -89,7 +116,8 @@ public class MainPage extends Composite {
 		
 		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
 		tempPanel.clear();
-		tempPanel.add(new LinkWidget(this, index, url));	
+		final int position = indexToPosition(index);
+		tempPanel.add(new LinkWidget(this, userId, position, url));	
 		
 	}
 	
@@ -107,6 +135,8 @@ public class MainPage extends Composite {
 	}
 
 	private Widget createEmptyWidget(final int index){
+		
+
 
 		Image plusSign = new Image("images/plus_sign.png");
 		plusSign.setPixelSize(160, 160);
@@ -118,14 +148,34 @@ public class MainPage extends Composite {
 			public void onClick(ClickEvent event) {
 
 				chooseNewWidget(index);
-				System.out.println("You just clicked my buttons!");
-
+				
 			}
 
 		});
 
 		return plusSign;
 
+	}
+
+	private int indexToPosition(int index) {	//TODO: Can this be done more general if we add more fields???
+		
+			
+		int x = (int) Math.floor(index/3.0+1);
+		int y = index%(3)+1;
+		
+		int position = x+10*y;
+		
+		return position;
+	}
+	
+	
+	private int positionToIndex(int position){ //TODO: test, make more general?
+	
+		
+		int index = (int) (Math.floor(position/10.0)+position-Math.floor(position/10.0));
+		
+		
+		return index;
 	}
 
 	private void chooseNewWidget(final int index) {
@@ -150,8 +200,8 @@ public class MainPage extends Composite {
 			{
 
 				String url = widgetLink.getText();
-//				addWidget(index, url);
-				addAlertWidget(index);
+				addWidget(index, url);
+//				addAlertWidget(index);
 				chooseWidget.hide();
 			}
 		};

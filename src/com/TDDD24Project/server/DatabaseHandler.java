@@ -1,5 +1,6 @@
 package com.TDDD24Project.server;
 
+import java.util.ArrayList;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -236,6 +237,26 @@ public class DatabaseHandler {
 	}
 
 
+	public ArrayList<String> getUsersWidgetData(int userId){		//TODO: Change name and fix this function!!
+		ArrayList<String> temp = null;
+		initiateConnection();
+		java.sql.Statement stmt = null;
+		ResultSet rs=null;
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery("SELECT "+WIDGETDATA+" FROM " +DATABASENAME+"."+WIDGETS+" WHERE "+WIDGETID+"=(SELECT MIN( "+USERID+") FROM " +DATABASENAME+"."+USERTOWIDGET+" WHERE "+USERID+"='"+userId+"');");
+			while (rs.next()){
+				temp.add(rs.getString(WIDGETDATA));
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+		
+		
+		return temp;
+	}
 
 
 }

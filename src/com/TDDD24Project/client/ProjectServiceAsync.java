@@ -1,5 +1,7 @@
 package com.TDDD24Project.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ProjectServiceAsync {
@@ -9,5 +11,6 @@ public interface ProjectServiceAsync {
 	void authUser(String userName, String password, AsyncCallback<Integer> callback);
 
 	void getUserData(int userId, AsyncCallback<String[]> callback);
+	void getUsersWidgetData(int userId, AsyncCallback<ArrayList<String>> callback);
 	
 }

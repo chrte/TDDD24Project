@@ -1,5 +1,7 @@
 package com.TDDD24Project.server;
 
+import java.util.ArrayList;
+
 import com.TDDD24Project.client.ProjectService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -39,6 +41,12 @@ public class ProjectServiceImpl extends RemoteServiceServlet implements
 		returnArray[1] = dbHandler.getUserImage(userId);
 		return returnArray;
 		 
+	}
+	@Override
+	public ArrayList<String> getUsersWidgetData(int userId) {
+		ArrayList<String> returnList = null;
+		returnList = dbHandler.getUsersWidgetData(userId);
+		return returnList;
 	}
 	
 	
