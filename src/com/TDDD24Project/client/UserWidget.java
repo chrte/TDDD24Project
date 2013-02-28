@@ -1,9 +1,10 @@
 package com.TDDD24Project.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 
 /**
  * Class for the user widget, i.e display name etc....
@@ -14,6 +15,7 @@ public class UserWidget extends Composite {
 
 	private int userId;
 	private String userName;
+	private Label userLabel;
 
 	/**
 	 * Constructor, initiating the userWidget, for example fetching the username
@@ -21,8 +23,18 @@ public class UserWidget extends Composite {
 	 */
 	public UserWidget(int userId){
 		this.userId=userId;
+		initiateGraphic();
 		getUserDataFromDb();
+		
 
+	}
+	private void initiateGraphic() {
+		AbsolutePanel content = new AbsolutePanel();
+		userLabel = new Label();
+		userLabel.setPixelSize(25, 25);
+		content.add(userLabel);
+		initWidget(content);
+		
 	}
 	private void getUserDataFromDb(){
 		ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
@@ -33,11 +45,22 @@ public class UserWidget extends Composite {
 			@Override
 			public void onSuccess(String result) {
 				userName=result;
+				updateGraphic();
+				
 			}
+			
 
 		};
 		projectSvc.getUserData(userId, callback);
 
+	}
+	
+	/**
+	 * Method for updating the graphic when result is returned from the server
+	 */
+	private void updateGraphic() {
+		userLabel.setText(userName);
+		
 	}
 }
 

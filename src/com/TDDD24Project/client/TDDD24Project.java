@@ -23,6 +23,8 @@ public class TDDD24Project implements EntryPoint {
 
 	public void userLoggedIn(int userId){
 		mainPanel.remove(loginManager);
+		UserWidget userWidget = new UserWidget(userId);
+		mainPanel.add(userWidget);
 		mainPage = new MainPage(userId);
 		mainPanel.add(mainPage);
 	}
