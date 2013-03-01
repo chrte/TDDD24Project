@@ -85,6 +85,8 @@ public class MainPage extends Composite {
 
 			private void AddDataFromDatabase(ArrayList<WidgetInfo> result) {	//TODO: Move
 				for(int i=0; i<result.size(); i++){
+					//System.out.println(result.get(i).getPosition());
+					//System.out.println(positionToIndex(result.get(i).getPosition()));
 					addWidget(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
 				}
 			}
@@ -177,11 +179,15 @@ public class MainPage extends Composite {
 	
 	
 	private int positionToIndex(int position){ //TODO: test, make more general?
-	
-		
-		int index = (int) (Math.floor(position/10.0)+position-Math.floor(position/10.0));
 		
 		
+		int ten = (int) Math.floor(position/10);
+		int one = position-(ten*10);
+		
+		int tenIsWorth = (ten-1)*3;
+		
+		int index = tenIsWorth+one-1;
+					
 		return index;
 	}
 

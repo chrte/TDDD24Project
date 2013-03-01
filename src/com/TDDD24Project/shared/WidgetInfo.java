@@ -11,6 +11,10 @@ public class WidgetInfo implements Serializable {
 	private String widgetData;
 	private int position;
 	
+	public WidgetInfo(){
+		
+	}
+	
 	public WidgetInfo(String widgetData, int position){
 		this.widgetData = widgetData;
 		this.position = position;
