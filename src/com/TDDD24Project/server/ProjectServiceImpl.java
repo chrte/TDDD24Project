@@ -2,6 +2,7 @@ package com.TDDD24Project.server;
 
 import java.util.ArrayList;
 
+import com.TDDD24Project.shared.WidgetInfo;
 import com.TDDD24Project.client.ProjectService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -43,9 +44,9 @@ public class ProjectServiceImpl extends RemoteServiceServlet implements
 		 
 	}
 	@Override
-	public ArrayList<String> getUsersWidgetData(int userId) {
-		ArrayList<String> returnList = null;
-		returnList = dbHandler.getUsersWidgetData(userId);
+	public ArrayList<WidgetInfo> getUsersWidgetData(int userId) {
+
+		 ArrayList<WidgetInfo> returnList = dbHandler.getUsersWidgetData(userId);
 		return returnList;
 	}
 	

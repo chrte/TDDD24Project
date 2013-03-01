@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
 
+import com.TDDD24Project.shared.WidgetInfo;
+
 public class DatabaseHandler {
 
 
@@ -112,7 +114,7 @@ public class DatabaseHandler {
 
 	public void addWidget(int userId, String widgetData, int widgetPosition){
 		initiateConnection();
-		int id = 0;
+	
 
 		//Connects with UserId
 		try {
@@ -127,12 +129,8 @@ public class DatabaseHandler {
 		//Adds data and position
 		try {
 			java.sql.Statement stmt=null;
-			stmt =connection.createStatement();
-			ResultSet rs= stmt.executeQuery("SELECT LAST_INSERT_ID()");
-			while (rs.next()){
-				id = rs.getInt(1);
-			}
-			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES ('"+id+"','"+widgetData+"',"+widgetPosition+");");			
+			stmt =connection.createStatement();			
+			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES (NULL,'"+userId+"','"+widgetData+"',"+widgetPosition+");");			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -237,16 +235,18 @@ public class DatabaseHandler {
 	}
 
 
-	public ArrayList<String> getUsersWidgetData(int userId){		//TODO: Change name and fix this function!!
-		ArrayList<String> temp = null;
+	public ArrayList<WidgetInfo> getUsersWidgetData(int userId){	
+		ArrayList<WidgetInfo> widgets = new ArrayList<WidgetInfo>();
+		 
 		initiateConnection();
 		java.sql.Statement stmt = null;
 		ResultSet rs=null;
 		try {
 			stmt = connection.createStatement();
-			rs = stmt.executeQuery("SELECT "+WIDGETDATA+" FROM " +DATABASENAME+"."+WIDGETS+" WHERE "+WIDGETID+"=(SELECT MIN( "+USERID+") FROM " +DATABASENAME+"."+USERTOWIDGET+" WHERE "+USERID+"='"+userId+"');");
+			rs = stmt.executeQuery("SELECT * FROM " +DATABASENAME+"."+WIDGETS+" WHERE "+USERID+"='"+userId+"';");
 			while (rs.next()){
-				temp.add(rs.getString(WIDGETDATA));
+				WidgetInfo widget = new WidgetInfo((rs.getString(WIDGETDATA)), (rs.getInt(WIDGETPOSITION)));
+				widgets.add(widget);
 			}
 		} catch (SQLException e) {
 
@@ -255,7 +255,10 @@ public class DatabaseHandler {
 		
 		
 		
-		return temp;
+		
+		
+		
+		return widgets;
 	}
 
 

@@ -2,6 +2,7 @@ package com.TDDD24Project.client;
 
 import java.util.ArrayList;
 
+import com.TDDD24Project.shared.WidgetInfo;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -12,7 +13,7 @@ public interface ProjectService extends RemoteService {
 	String removeWidget(int i);
 	int authUser(String userName, String password);
 	String[] getUserData(int userId);
-	ArrayList<String> getUsersWidgetData(int userId);
+	ArrayList<WidgetInfo> getUsersWidgetData(int userId);
 
 
 }

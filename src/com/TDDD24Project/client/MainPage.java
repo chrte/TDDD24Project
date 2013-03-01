@@ -4,6 +4,7 @@ package com.TDDD24Project.client;
 
 import java.util.ArrayList;
 
+import com.TDDD24Project.shared.WidgetInfo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -67,19 +68,25 @@ public class MainPage extends Composite {
 	
 	private void sysOutAllWidgetData() {
 		
-		ArrayList<String> widgetData = null;
 		
-		AsyncCallback<ArrayList<String>> callback = new AsyncCallback<ArrayList<String>>() {
+		
+		AsyncCallback<ArrayList<WidgetInfo>> callback = new AsyncCallback<ArrayList<WidgetInfo>>() {
 			public void onFailure(Throwable caught) {
 				System.out.println("failure");
 			}
 			
 			@Override
-			public void onSuccess(ArrayList<String> result) {
-				for(int i=0; i<result.size()+1; i++){
-					System.out.println(result.get(i));
-				}
+			public void onSuccess(ArrayList<WidgetInfo> result) {
 				
+					AddDataFromDatabase(result);
+			
+				
+			}
+
+			private void AddDataFromDatabase(ArrayList<WidgetInfo> result) {	//TODO: Move
+				for(int i=0; i<result.size(); i++){
+					addWidget(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
+				}
 			}
 			
 		};
