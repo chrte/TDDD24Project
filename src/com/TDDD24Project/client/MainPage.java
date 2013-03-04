@@ -25,6 +25,14 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dnd.client.DragController;
+import com.allen_sauer.gwt.dnd.client.DragHandler;
+import com.allen_sauer.gwt.dnd.client.DragHandlerAdapter;
+import com.allen_sauer.gwt.dnd.client.PickupDragController;
+import com.allen_sauer.gwt.dnd.client.drop.GridConstrainedDropController;
+
+
+
 
 /**
  * Main
@@ -41,6 +49,10 @@ public class MainPage extends Composite {
 //	private Image background = new Image("images/background.jpg");
 	private Image bottomlogo = new Image("images/logo.jpg");
 	private int userId;
+	
+	
+	private GridConstrainedDropController gridConstrainedDropController;
+
 
 	private ArrayList<AbsolutePanel> widgets = new ArrayList<AbsolutePanel>();
 	private ArrayList<FlowPanel> flowPanels = new ArrayList<FlowPanel>();
@@ -48,6 +60,8 @@ public class MainPage extends Composite {
 	protected ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
 
 	public MainPage(int userId) {
+
+	
 
 		this.userId=userId;
 //		RootPanel.get("main").setStyleName("main");	
@@ -60,13 +74,13 @@ public class MainPage extends Composite {
 	private void LoadUserData() {
 		// TODO: Implement this?
 		
-		sysOutAllWidgetData();
+		addAllUserWidgets();
 
 	}
 
 	//TODO: Remove/change this test function!!
 	
-	private void sysOutAllWidgetData() {
+	private void addAllUserWidgets() {
 		
 		
 		
@@ -85,9 +99,9 @@ public class MainPage extends Composite {
 
 			private void AddDataFromDatabase(ArrayList<WidgetInfo> result) {	//TODO: Move
 				for(int i=0; i<result.size(); i++){
-					//System.out.println(result.get(i).getPosition());
-					//System.out.println(positionToIndex(result.get(i).getPosition()));
-					addWidget(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
+//					System.out.println(result.get(i).getPosition());
+//					System.out.println(positionToIndex(result.get(i).getPosition()));
+					addWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
 				}
 			}
 			
@@ -126,9 +140,23 @@ public class MainPage extends Composite {
 		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
 		tempPanel.clear();
 		final int position = indexToPosition(index);
+		LinkWidget linkWidget = new LinkWidget(this, userId, position, url);
+		linkWidget.addLinkToDatabase(url, userId);
+		tempPanel.add(linkWidget);	
+		
+	}
+	
+	
+
+	protected void addWidgetAlreadyInDatabase(int index, String url){
+		
+		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
+		tempPanel.clear();
+		final int position = indexToPosition(index);
 		tempPanel.add(new LinkWidget(this, userId, position, url));	
 		
 	}
+	
 	
 	private void addAlertWidget(int index){
 		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
@@ -180,13 +208,12 @@ public class MainPage extends Composite {
 	
 	private int positionToIndex(int position){ //TODO: test, make more general?
 		
-		
-		int ten = (int) Math.floor(position/10);
-		int one = position-(ten*10);
+		int one = (int) Math.floor(position/10)-1;
+		int ten = position-(one+1)*10;
 		
 		int tenIsWorth = (ten-1)*3;
-		
-		int index = tenIsWorth+one-1;
+
+		int index = tenIsWorth+one;
 					
 		return index;
 	}
@@ -248,6 +275,13 @@ public class MainPage extends Composite {
 		for(int i=0;i<9;i++){
 			AbsolutePanel tempPanel = new AbsolutePanel();
 			tempPanel.getElement().getStyle().setProperty("margin", "10px");
+			
+			
+			final DragHandler demoDragHandler = new DragHandlerAdapter();
+
+
+	
+			
 			Image plusSign = (Image) createEmptyWidget(i);
 			plusSigns.add(plusSign);
 			tempPanel.add(plusSigns.get(i));

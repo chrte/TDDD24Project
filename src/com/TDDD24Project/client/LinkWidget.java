@@ -45,11 +45,11 @@ public class LinkWidget extends Composite {
 		});
 
 		absolutePanel.add(link); //TODO: shouldn't add plussign eventually!!
-		addLinkToDatabase(url, userId); 
+		
 		initWidget(absolutePanel);
 	}
 	
-	private void addLinkToDatabase(String link, int userId){
+	public void addLinkToDatabase(String link, int userId){
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
 				System.out.println("failure");
