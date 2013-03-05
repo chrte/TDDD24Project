@@ -69,7 +69,15 @@ public class MainPage extends Composite {
 		LoadUserData();
 		initWidget(mainPanel);
 		
+		addRssWidget(8, "http://www.aftonbladet.se/rss.xml");
+
+		
 	}
+
+
+		
+		
+
 
 	private void LoadUserData() {
 		// TODO: Implement this?
@@ -135,7 +143,7 @@ public class MainPage extends Composite {
 	
 
 
-	protected void addWidget(int index, String url){
+	protected void addWidget(int index, String url){ 	//TODO: make more general (add support for RSS etc..)
 		
 		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
 		tempPanel.clear();
@@ -154,6 +162,15 @@ public class MainPage extends Composite {
 		tempPanel.clear();
 		final int position = indexToPosition(index);
 		tempPanel.add(new LinkWidget(this, userId, position, url));	
+		
+	}
+	
+	private void addRssWidget(int index, String url){
+		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
+		tempPanel.clear();
+		final int position = indexToPosition(index);
+		tempPanel.add(new RSSWidget(this, userId, position, url));
+		
 		
 	}
 	
