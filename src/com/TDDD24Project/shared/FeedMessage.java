@@ -1,16 +1,26 @@
-package com.TDDD24Project.client;
+package com.TDDD24Project.shared;
+
+import java.io.Serializable;
 
 /*
  * Represents one RSS message - source: http://www.vogella.com
  */
-public class FeedMessage {
+public class FeedMessage implements Serializable {
 
-  String title;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+String title;
   String description;
   String link;
   String author;
   String guid;
 
+  public FeedMessage(){
+	  
+  }
+  
   public String getTitle() {
     return title;
   }

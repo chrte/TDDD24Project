@@ -67,11 +67,11 @@ public class MainPage extends Composite {
 //		RootPanel.get("main").setStyleName("main");	
 		LoadStandardView();
 		LoadUserData();
-		initWidget(mainPanel);
+		
 		
 		addRssWidget(8, "http://www.aftonbladet.se/rss.xml");
 
-		
+		initWidget(mainPanel);
 	}
 
 
@@ -165,7 +165,7 @@ public class MainPage extends Composite {
 		
 	}
 	
-	private void addRssWidget(int index, String url){
+	void addRssWidget(int index, String url){
 		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
 		tempPanel.clear();
 		final int position = indexToPosition(index);

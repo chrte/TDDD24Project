@@ -1,4 +1,4 @@
-package com.TDDD24Project.client;
+package com.TDDD24Project.shared;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class Feed {
   final String language;
   final String copyright;
   final String pubDate;
-  final List<FeedMessage> entries = new ArrayList<FeedMessage>();
+  final ArrayList<FeedMessage> entries = new ArrayList<FeedMessage>();
 
   public Feed(String title, String link, String description, String language,
       String copyright, String pubDate) {
@@ -26,7 +26,7 @@ public class Feed {
     this.pubDate = pubDate;
   }
 
-  public List<FeedMessage> getMessages() {
+  public ArrayList<FeedMessage> getMessages() {
     return entries;
   }
 

@@ -2,6 +2,8 @@ package com.TDDD24Project.server;
 
 import java.util.ArrayList;
 
+import com.TDDD24Project.shared.Feed;
+import com.TDDD24Project.shared.FeedMessage;
 import com.TDDD24Project.shared.WidgetInfo;
 import com.TDDD24Project.client.ProjectService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -50,6 +52,22 @@ public class ProjectServiceImpl extends RemoteServiceServlet implements
 		return returnList;
 	}
 	
+	
+	public ArrayList<FeedMessage> readRSS(String url){
+		
+		
+		RSSFeedParser parser = new RSSFeedParser(url);
+	    Feed feed = parser.readFeed();	   
+	   
+		
+	 
+	    
+	    ArrayList<FeedMessage> message = feed.getMessages();
+		
+		
+		
+		return message;
+	}
 	
 	
 	
