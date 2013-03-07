@@ -61,7 +61,7 @@ public class LinkWidget extends Composite {
 			}
 			
 		};
-		parent.projectSvc.addWidget(userId, link, position, callback);
+		parent.projectSvc.addWidget(userId, link, position,"link", callback);
 		
 	}
 }

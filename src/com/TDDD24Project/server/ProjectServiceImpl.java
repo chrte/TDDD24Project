@@ -21,9 +21,9 @@ public class ProjectServiceImpl extends RemoteServiceServlet implements
 	@Override
 	
 
-	public String addWidget(int userId, String widgetData, int widgetPosition) {
+	public String addWidget(int userId, String widgetData, int widgetPosition, String widgetType) {
 		System.out.println("addWidget");
-		dbHandler.addWidget(userId, widgetData, widgetPosition);
+		dbHandler.addWidget(userId, widgetData, widgetPosition, widgetType);
 		return "return";
 	}
 	@Override

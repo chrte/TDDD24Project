@@ -16,6 +16,7 @@ public class DatabaseHandler {
 	private static final String WIDGETS = "widgets";
 	private static final String USERTOWIDGET = "userToWidgets";
 	private static final String WIDGETID = "widgetId";
+	private static final String WIDGETTYPE="widgetType";
 	private static final String USERS = "users";
 	private static final String USERID = "userId";
 	private static final String USERNAME = "userName";
@@ -112,7 +113,7 @@ public class DatabaseHandler {
 	 */
 
 
-	public void addWidget(int userId, String widgetData, int widgetPosition){
+	public void addWidget(int userId, String widgetData, int widgetPosition, String widgetType){
 		initiateConnection();
 	
 
@@ -130,7 +131,8 @@ public class DatabaseHandler {
 		try {
 			java.sql.Statement stmt=null;
 			stmt =connection.createStatement();			
-			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES (NULL,'"+userId+"','"+widgetData+"',"+widgetPosition+");");			
+//			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES (NULL,'"+userId+"','"+widgetData+"',"+widgetPosition+");");	
+			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES (NULL,'"+userId+"','"+widgetData+"','"+widgetPosition+"','"+widgetType+"');");
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -245,11 +247,11 @@ public class DatabaseHandler {
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM " +DATABASENAME+"."+WIDGETS+" WHERE "+USERID+"='"+userId+"';");
 			while (rs.next()){
-				WidgetInfo widget = new WidgetInfo((rs.getString(WIDGETDATA)), (rs.getInt(WIDGETPOSITION)));
+				WidgetInfo widget = new WidgetInfo((rs.getString(WIDGETDATA)), (rs.getInt(WIDGETPOSITION)), (rs.getString(WIDGETTYPE)));
 				widgets.add(widget);
 			}
 		} catch (SQLException e) {
-
+			
 			e.printStackTrace();
 		}
 		

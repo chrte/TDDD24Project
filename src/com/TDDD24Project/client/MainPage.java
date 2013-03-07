@@ -69,7 +69,7 @@ public class MainPage extends Composite {
 		LoadUserData();
 		
 		
-		addRssWidget(8, "http://www.aftonbladet.se/rss.xml");
+//		addRssWidget(8, "http://www.aftonbladet.se/rss.xml");
 
 		initWidget(mainPanel);
 	}
@@ -94,7 +94,7 @@ public class MainPage extends Composite {
 		
 		AsyncCallback<ArrayList<WidgetInfo>> callback = new AsyncCallback<ArrayList<WidgetInfo>>() {
 			public void onFailure(Throwable caught) {
-				System.out.println("failure");
+				System.out.println("failure");				
 			}
 			
 			@Override
@@ -107,9 +107,18 @@ public class MainPage extends Composite {
 
 			private void AddDataFromDatabase(ArrayList<WidgetInfo> result) {	//TODO: Move
 				for(int i=0; i<result.size(); i++){
-//					System.out.println(result.get(i).getPosition());
-//					System.out.println(positionToIndex(result.get(i).getPosition()));
-					addWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
+					String widgetType = result.get(i).getWidgetType();
+					if(widgetType.equals("link")){
+						
+						addLinkWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
+					}
+					else if(widgetType.equals("RSS")){
+						
+						addRSSWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
+					}
+					else{	//TODO: Something else???
+						addLinkWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
+					}
 				}
 			}
 			
@@ -156,7 +165,7 @@ public class MainPage extends Composite {
 	
 	
 
-	protected void addWidgetAlreadyInDatabase(int index, String url){
+	protected void addLinkWidgetAlreadyInDatabase(int index, String url){
 		
 		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
 		tempPanel.clear();
@@ -165,11 +174,23 @@ public class MainPage extends Composite {
 		
 	}
 	
-	void addRssWidget(int index, String url){
+	
+protected void addRSSWidgetAlreadyInDatabase(int index, String url){
+		
 		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
 		tempPanel.clear();
 		final int position = indexToPosition(index);
-		tempPanel.add(new RSSWidget(this, userId, position, url));
+		tempPanel.add(new RSSWidget(this, userId, position, url));	
+		
+	}
+	
+	void addRssWidget(int index, String url){
+		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
+		tempPanel.clear();
+		final int position = indexToPosition(index);			
+		RSSWidget rssWidget = new RSSWidget(this, userId, position, url);
+		rssWidget.addRSSToDatabase(url, userId);
+		tempPanel.add(rssWidget);
 		
 		
 	}

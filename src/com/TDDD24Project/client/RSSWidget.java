@@ -63,29 +63,23 @@ public class RSSWidget extends Composite {
 		
 		projectSvc.readRSS(url, callback);
 		
-//		
-//		RSSFeedParser parser = new RSSFeedParser(url);
-//	    Feed feed = parser.readFeed();	   
-	   
-//	    for (FeedMessage message : feed.getMessages() ) {
-//	    	      System.out.println(message.getLink());	      
-//	     }
-		
-		
-		
-		
-	    
-//	    FeedMessage message = (FeedMessage) feed.getMessages();
-//		String link = message.getLink();
-//		String title = message.getTitle();
-//		
-//		
-//		Anchor anchor = new Anchor(title, link); 
-//		
-//
-//		absolutePanel.add(anchor); 
-//		
 		initWidget(absolutePanel);
+		
+	}
+	
+	public void addRSSToDatabase(String link, int userId){
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(Throwable caught) {
+				System.out.println("failure");
+			}
+			@Override
+			public void onSuccess(String result) {
+				System.out.println("success");				
+				
+			}
+			
+		};
+		parent.projectSvc.addWidget(userId, link, position,"RSS", callback);
 		
 	}
 	

@@ -10,7 +10,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("project")
 public interface ProjectService extends RemoteService {
 
-	String addWidget(int userId, String widgetData, int widgetPosition);
+	String addWidget(int userId, String widgetData, int widgetPosition, String widgetType);
 	String removeWidget(int i);
 	int authUser(String userName, String password);
 	String[] getUserData(int userId);
