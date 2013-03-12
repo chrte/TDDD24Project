@@ -144,13 +144,13 @@ public class MainPage extends Composite {
 
 	protected void addWidget(int index, String url){ 	//TODO: make more general (add support for RSS etc..)
 
-		Widget tempPanel =  widgets.get(index);
+//		Widget tempPanel =  widgets.get(index);
 //		tempPanel.clear();
 		final int position = indexToPosition(index);
 		LinkWidget linkWidget = new LinkWidget(this, userId, position, url);
 		linkWidget.addLinkToDatabase(url, userId);
 	
-		tempPanel.setLayoutData(linkWidget);  //TODO, correct??
+		droppablePanels.get(indexToColumn(position)-1).setWidget(linkWidget, indexToRow(position)-1);
 		
 
 
@@ -161,7 +161,7 @@ public class MainPage extends Composite {
 
 	protected void addLinkWidgetAlreadyInDatabase(int index, String url){
 
-		Widget tempPanel =  widgets.get(index);
+//		Widget tempPanel =  widgets.get(index);
 //		tempPanel.remove();
 		final int position = indexToPosition(index);
 		LinkWidget tempWidget = new LinkWidget(this, userId, position, url);
@@ -169,8 +169,8 @@ public class MainPage extends Composite {
 		//		tempDragWidget.setDraggingCursor(Cursor.MOVE);
 		//		tempDragWidget.setDraggingZIndex(100);
 
-		droppablePanels.get ((int) Math.floor(index/3.0)).setLayoutData(tempWidget);
-		tempPanel.setLayoutData(tempWidget);	
+		droppablePanels.get(indexToColumn(position)-1).setWidget(tempWidget, indexToRow(position)-1);
+//		tempPanel.setLayoutData(tempWidget);	
 
 
 	}
@@ -178,22 +178,23 @@ public class MainPage extends Composite {
 
 	protected void addRSSWidgetAlreadyInDatabase(int index, String url){
 
-		Widget tempPanel =  widgets.get(index);
+//		Widget tempPanel =  widgets.get(index);
 		
 		final int position = indexToPosition(index);
+		
 		Widget rss = new RSSWidget(this, userId, position, url);
-		tempPanel.setLayoutData(rss);	 //TODO, correct??
-		droppablePanels.get ((int) Math.floor(index/3.0)).setLayoutData(rss);
+//		tempPanel.setLayoutData(rss);	 //TODO, correct??
+		droppablePanels.get(indexToColumn(position)-1).setWidget(rss, indexToRow(position)-1);
 
 	}
 
 	void addRssWidget(int index, String url){
-		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
-		tempPanel.clear();
+//		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
+//		tempPanel.clear();
 		final int position = indexToPosition(index);			
 		RSSWidget rssWidget = new RSSWidget(this, userId, position, url);
 		rssWidget.addRSSToDatabase(url, userId);
-		tempPanel.add(rssWidget);
+		droppablePanels.get(indexToColumn(position)-1).setWidget(rssWidget, indexToRow(position)-1);
 
 
 	}
@@ -254,7 +255,14 @@ public class MainPage extends Composite {
 
 		return index;
 	}
-
+	public int indexToColumn(int position){
+		char temp = String.valueOf(position).charAt(0);
+		return (int) temp - (int) '0';
+	}
+	public int indexToRow(int position){
+		char temp = String.valueOf(position).charAt(1);
+		return (int) temp - (int) '0';
+	}
 	private void chooseNewWidget(final int index) {
 		final PopupPanel chooseWidget = new PopupPanel(false);	
 		chooseWidget.setStyleName("demo-popup");
@@ -335,9 +343,11 @@ public class MainPage extends Composite {
 		
 		
 		droppablePanels.add(new DroppablePanel());
-		portlet = new Portlet("testHeader"+i++, "testin");
-		droppablePanels.get(1).add(portlet);
-		widgets.add(portlet);
+//		portlet = new Portlet("testHeader"+i++, "testin");
+		LinkWidget testLink = new LinkWidget(this, 0, 1, "www.awesome.com");
+		droppablePanels.get(1).add(testLink);
+		widgets.add(testLink);
+		
 		portlet = new Portlet("testHeader"+i++, "testin");
 		droppablePanels.get(1).add(portlet);
 		widgets.add(portlet);
