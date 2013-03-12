@@ -232,7 +232,7 @@ public class MainPage extends Composite {
 
 	}
 
-	private int indexToPosition(int index) {	//TODO: Can this be done more general if we add more fields???
+	protected int indexToPosition(int index) {	//TODO: Can this be done more general if we add more fields???
 
 
 		int x = (int) Math.floor(index/3.0+1);
@@ -244,7 +244,7 @@ public class MainPage extends Composite {
 	}
 
 
-	private int positionToIndex(int position){ //TODO: test, make more general?
+	protected int positionToIndex(int position){ //TODO: test, make more general?
 
 		int one = (int) Math.floor(position/10)-1;
 		int ten = position-(one+1)*10;
@@ -255,11 +255,11 @@ public class MainPage extends Composite {
 
 		return index;
 	}
-	public int indexToColumn(int position){
+	protected int indexToColumn(int position){
 		char temp = String.valueOf(position).charAt(0);
 		return (int) temp - (int) '0';
 	}
-	public int indexToRow(int position){
+	protected int indexToRow(int position){
 		char temp = String.valueOf(position).charAt(1);
 		return (int) temp - (int) '0';
 	}
@@ -312,61 +312,54 @@ public class MainPage extends Composite {
 
 	private void LoadStandardView(){
 
-		//		widgetColumn1.getElement().getStyle().setProperty("margin", "10px");
 
-
-		ArrayList<DraggableWidget<Image>> plusSigns = new ArrayList<DraggableWidget<Image>>();
-
-		int i = 0;
-		//		AbsolutePanel tempPanel = new AbsolutePanel();
-		//		tempPanel.getElement().getStyle().setProperty("margin", "10px");
-		//
-		//		final DragHandler demoDragHandler = new DragHandlerAdapter();			
-				Image plusSign = (Image) createEmptyWidget(i);
+		int i = 0;				
 
 		droppablePanels.add(new DroppablePanel());
-		Widget portlet = new Portlet("testHeader"+i++, "testin");
-		droppablePanels.get(0).add(portlet);
-		widgets.add(portlet);
+		Widget emptyWidget = new EmptyWidget(this,userId,11,"awesome");
+		droppablePanels.get(0).add(emptyWidget);
+		widgets.add(emptyWidget);
 		
 		
-		portlet = new Portlet("testHeader"+i++, "testin");
-		droppablePanels.get(0).add(portlet);
-		widgets.add(portlet);
+		droppablePanels.add(new DroppablePanel());
+		emptyWidget = new EmptyWidget(this,userId,12,"awesome");
+		droppablePanels.get(0).add(emptyWidget);
+		widgets.add(emptyWidget);
 		
 		
-		portlet = new Portlet("testHeader"+i++, "testin");
-		droppablePanels.get(0).add(portlet);
-		widgets.add(portlet);
+		droppablePanels.add(new DroppablePanel());
+		emptyWidget = new EmptyWidget(this,userId,13,"awesome");
+		droppablePanels.get(0).add(emptyWidget);
+		widgets.add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(0));
 
 		
 		
 		droppablePanels.add(new DroppablePanel());
-//		portlet = new Portlet("testHeader"+i++, "testin");
-		LinkWidget testLink = new LinkWidget(this, 0, 1, "www.awesome.com");
-		droppablePanels.get(1).add(testLink);
-		widgets.add(testLink);
+//		droppablePanels.add(new DroppablePanel());
+		emptyWidget = new EmptyWidget(this,userId,21,"awesome");
+		droppablePanels.get(1).add(emptyWidget);
+		widgets.add(emptyWidget);
 		
-		portlet = new Portlet("testHeader"+i++, "testin");
-		droppablePanels.get(1).add(portlet);
-		widgets.add(portlet);
-		portlet = new Portlet("testHeader"+i++, "testin");
-		droppablePanels.get(1).add(portlet);
-		widgets.add(portlet);
+		emptyWidget = new EmptyWidget(this,userId,22,"awesome");
+		droppablePanels.get(1).add(emptyWidget);
+		widgets.add(emptyWidget);
+		emptyWidget = new EmptyWidget(this,userId,23,"awesome");
+		droppablePanels.get(1).add(emptyWidget);
+		widgets.add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(1));
 		
 
 		droppablePanels.add(new DroppablePanel());
-		portlet = new Portlet("testHeader"+i++, "testin");
-		droppablePanels.get(2).add(portlet);
-		widgets.add(portlet);
-		portlet = new Portlet("testHeader"+i++, "testin");
-		droppablePanels.get(2).add(portlet);
-		widgets.add(portlet);
-		portlet = new Portlet("testHeader"+i++, "testin");
-		droppablePanels.get(2).add(portlet);
-		widgets.add(portlet);
+		emptyWidget = new EmptyWidget(this,userId,31,"awesome");
+		droppablePanels.get(2).add(emptyWidget);
+		widgets.add(emptyWidget);
+		emptyWidget = new EmptyWidget(this,userId,32,"awesome");
+		droppablePanels.get(2).add(emptyWidget);
+		widgets.add(emptyWidget);
+		emptyWidget = new EmptyWidget(this,userId,33,"awesome");
+		droppablePanels.get(2).add(emptyWidget);
+		widgets.add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(2));
 
 
