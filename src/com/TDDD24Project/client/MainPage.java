@@ -2,28 +2,15 @@ package com.TDDD24Project.client;
 
 
 
-import gwtquery.plugins.draggable.client.DraggableOptions.RevertOption;
-import gwtquery.plugins.draggable.client.gwt.DraggableWidget;
-import gwtquery.plugins.droppable.client.DroppableOptions.DroppableTolerance;
-import gwtquery.plugins.droppable.client.gwt.DroppableWidget;
 
 import java.util.ArrayList;
 
 import com.TDDD24Project.shared.WidgetInfo;
-import com.allen_sauer.gwt.dnd.client.DragHandler;
-import com.allen_sauer.gwt.dnd.client.DragHandlerAdapter;
-import com.allen_sauer.gwt.dnd.client.drop.GridConstrainedDropController;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Cursor;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.query.client.plugins.Widgets;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -53,7 +40,7 @@ public class MainPage extends Composite {
 	private Image bottomlogo = new Image("images/logo.jpg");
 	private int userId;
 
-	private ArrayList<Widget> widgets = new ArrayList<Widget>();
+	
 	private ArrayList<DroppablePanel> droppablePanels = new ArrayList<DroppablePanel>();
 	//	private ArrayList<FlowPanel> flowPanels = new ArrayList<FlowPanel>();
 
@@ -150,7 +137,7 @@ public class MainPage extends Composite {
 		LinkWidget linkWidget = new LinkWidget(this, userId, position, url);
 		linkWidget.addLinkToDatabase(url, userId);
 	
-		droppablePanels.get(indexToColumn(position)-1).setWidget(linkWidget, indexToRow(position)-1);
+		droppablePanels.get(positionToColumn(position)-1).setWidget(linkWidget, positionToRow(position)-1);
 		
 
 
@@ -169,7 +156,7 @@ public class MainPage extends Composite {
 		//		tempDragWidget.setDraggingCursor(Cursor.MOVE);
 		//		tempDragWidget.setDraggingZIndex(100);
 
-		droppablePanels.get(indexToColumn(position)-1).setWidget(tempWidget, indexToRow(position)-1);
+		droppablePanels.get(positionToColumn(position)-1).setWidget(tempWidget, positionToRow(position)-1);
 //		tempPanel.setLayoutData(tempWidget);	
 
 
@@ -184,7 +171,7 @@ public class MainPage extends Composite {
 		
 		Widget rss = new RSSWidget(this, userId, position, url);
 //		tempPanel.setLayoutData(rss);	 //TODO, correct??
-		droppablePanels.get(indexToColumn(position)-1).setWidget(rss, indexToRow(position)-1);
+		droppablePanels.get(positionToColumn(position)-1).setWidget(rss, positionToRow(position)-1);
 
 	}
 
@@ -194,41 +181,8 @@ public class MainPage extends Composite {
 		final int position = indexToPosition(index);			
 		RSSWidget rssWidget = new RSSWidget(this, userId, position, url);
 		rssWidget.addRSSToDatabase(url, userId);
-		droppablePanels.get(indexToColumn(position)-1).setWidget(rssWidget, indexToRow(position)-1);
+		droppablePanels.get(positionToColumn(position)-1).setWidget(rssWidget, positionToRow(position)-1);
 
-
-	}
-
-
-	private void addAlertWidget(int index){
-		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
-		tempPanel.clear();
-		tempPanel.add(new AlertWidget());	
-	}
-
-	private void removeWidget(int column, int row, int userId){
-		int removePos = column*10+row;
-
-		//TODO: Fix
-
-	}
-
-	private Widget createEmptyWidget(final int index){
-
-		Image plusSign = new Image("images/plus_sign.png");
-		plusSign.setPixelSize(160, 160);
-		plusSign.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-
-				chooseNewWidget(index);
-
-			}
-
-		});
-
-		return plusSign;
 
 	}
 
@@ -255,111 +209,50 @@ public class MainPage extends Composite {
 
 		return index;
 	}
-	protected int indexToColumn(int position){
+	protected int positionToColumn(int position){
 		char temp = String.valueOf(position).charAt(0);
 		return (int) temp - (int) '0';
 	}
-	protected int indexToRow(int position){
+	protected int positionToRow(int position){
 		char temp = String.valueOf(position).charAt(1);
 		return (int) temp - (int) '0';
 	}
-	private void chooseNewWidget(final int index) {
-		final PopupPanel chooseWidget = new PopupPanel(false);	
-		chooseWidget.setStyleName("demo-popup");
-		chooseWidget.setPixelSize(200,100);
-		VerticalPanel popUpPanelContents = new VerticalPanel();
-		chooseWidget.setTitle("Add Widget");
-		final TextBox widgetLink = new TextBox();
-		HTML message = new HTML("Insert link here:");
-		message.setStyleName("demo-PopUpPanel-message");
-		ClickListener cancelListener = new ClickListener()
-		{
-			public void onClick(Widget sender)
-			{
-				chooseWidget.hide();
-			}
-		};
-		ClickListener addListener = new ClickListener()
-		{
-			public void onClick(Widget sender)
-			{
-
-				String url = widgetLink.getText();
-				addWidget(index, url);
-				//				addAlertWidget(index);
-				chooseWidget.hide();
-			}
-		};
-		Button addButton = new Button("Add");
-		addButton.addClickListener(addListener); 		//TODO: deprecated, should use something else probably..
-		Button cancelButton = new Button("Cancel");
-		cancelButton.addClickListener(cancelListener);
-		SimplePanel holder = new SimplePanel();
-		SimplePanel holder2 = new SimplePanel();
-		holder.add(addButton);
-		holder2.add(cancelButton);
-		holder.setStyleName("demo-PopUpPanel-footer");
-		popUpPanelContents.add(message);
-		popUpPanelContents.add(widgetLink);
-		popUpPanelContents.add(holder);
-		popUpPanelContents.add(holder2);
-
-		chooseWidget.setWidget(popUpPanelContents);
-		chooseWidget.setGlassEnabled(true);
-		chooseWidget.center();
-	}
-
-
+	
 	private void LoadStandardView(){
 
 
-		int i = 0;				
 
 		droppablePanels.add(new DroppablePanel());
 		Widget emptyWidget = new EmptyWidget(this,userId,11,"awesome");
 		droppablePanels.get(0).add(emptyWidget);
-		widgets.add(emptyWidget);
-		
 		
 		droppablePanels.add(new DroppablePanel());
 		emptyWidget = new EmptyWidget(this,userId,12,"awesome");
 		droppablePanels.get(0).add(emptyWidget);
-		widgets.add(emptyWidget);
-		
 		
 		droppablePanels.add(new DroppablePanel());
 		emptyWidget = new EmptyWidget(this,userId,13,"awesome");
 		droppablePanels.get(0).add(emptyWidget);
-		widgets.add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(0));
 
 		
 		
 		droppablePanels.add(new DroppablePanel());
-//		droppablePanels.add(new DroppablePanel());
 		emptyWidget = new EmptyWidget(this,userId,21,"awesome");
 		droppablePanels.get(1).add(emptyWidget);
-		widgets.add(emptyWidget);
-		
 		emptyWidget = new EmptyWidget(this,userId,22,"awesome");
 		droppablePanels.get(1).add(emptyWidget);
-		widgets.add(emptyWidget);
 		emptyWidget = new EmptyWidget(this,userId,23,"awesome");
 		droppablePanels.get(1).add(emptyWidget);
-		widgets.add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(1));
 		
-
 		droppablePanels.add(new DroppablePanel());
 		emptyWidget = new EmptyWidget(this,userId,31,"awesome");
 		droppablePanels.get(2).add(emptyWidget);
-		widgets.add(emptyWidget);
 		emptyWidget = new EmptyWidget(this,userId,32,"awesome");
 		droppablePanels.get(2).add(emptyWidget);
-		widgets.add(emptyWidget);
 		emptyWidget = new EmptyWidget(this,userId,33,"awesome");
 		droppablePanels.get(2).add(emptyWidget);
-		widgets.add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(2));
 
 
