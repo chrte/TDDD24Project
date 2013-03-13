@@ -29,13 +29,18 @@ import gwtquery.plugins.droppable.client.gwt.DroppableWidget;
 public class DroppablePanel extends DroppableWidget<FlowPanel> {
 
   private FlowPanel innerPanel;
+  protected int column;
 
-  public DroppablePanel() {
+  public DroppablePanel(int column) {
+	  this.column=column;
     init();
     initWidget(innerPanel);
     setupDrop();
   }
 
+  public int getColumn(){
+	  return this.column;
+  }
   public void add(Widget p) {
     innerPanel.add(p);
     

@@ -213,22 +213,21 @@ public class MainPage extends Composite {
 
 
 
-		droppablePanels.add(new DroppablePanel());
+		droppablePanels.add(new DroppablePanel(1));
 		Widget emptyWidget = new EmptyWidget(this,userId,11,"awesome");
 		droppablePanels.get(0).add(emptyWidget);
 		
-		droppablePanels.add(new DroppablePanel());
+		
 		emptyWidget = new EmptyWidget(this,userId,12,"awesome");
 		droppablePanels.get(0).add(emptyWidget);
 		
-		droppablePanels.add(new DroppablePanel());
 		emptyWidget = new EmptyWidget(this,userId,13,"awesome");
 		droppablePanels.get(0).add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(0));
 
 		
 		
-		droppablePanels.add(new DroppablePanel());
+		droppablePanels.add(new DroppablePanel(1));
 		emptyWidget = new EmptyWidget(this,userId,21,"awesome");
 		droppablePanels.get(1).add(emptyWidget);
 		emptyWidget = new EmptyWidget(this,userId,22,"awesome");
@@ -237,7 +236,7 @@ public class MainPage extends Composite {
 		droppablePanels.get(1).add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(1));
 		
-		droppablePanels.add(new DroppablePanel());
+		droppablePanels.add(new DroppablePanel(3));
 		emptyWidget = new EmptyWidget(this,userId,31,"awesome");
 		droppablePanels.get(2).add(emptyWidget);
 		emptyWidget = new EmptyWidget(this,userId,32,"awesome");

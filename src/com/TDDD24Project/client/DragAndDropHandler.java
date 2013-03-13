@@ -67,6 +67,7 @@ public class DragAndDropHandler implements DropEventHandler,
   public void onDrop(DropEvent event) {
     final DraggableWidget<?> draggable = event.getDraggableWidget();
     panel.insert(draggable, placeHolderIndex);
+    System.out.println("the placerHolderindex is " +placeHolderIndex);
     reset();
 
   }
