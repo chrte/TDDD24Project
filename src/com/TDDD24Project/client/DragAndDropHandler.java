@@ -15,10 +15,6 @@
  */
 package com.TDDD24Project.client;
 
-import static com.google.gwt.query.client.GQuery.$;
-
-import java.util.ArrayList;
-
 import gwtquery.plugins.draggable.client.events.DragEvent;
 import gwtquery.plugins.draggable.client.events.DragEvent.DragEventHandler;
 import gwtquery.plugins.draggable.client.gwt.DraggableWidget;
@@ -29,14 +25,11 @@ import gwtquery.plugins.droppable.client.events.OutDroppableEvent.OutDroppableEv
 import gwtquery.plugins.droppable.client.events.OverDroppableEvent;
 import gwtquery.plugins.droppable.client.events.OverDroppableEvent.OverDroppableEventHandler;
 
-
-import com.TDDD24Project.shared.WidgetInfo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -50,7 +43,7 @@ public class DragAndDropHandler implements DropEventHandler,
 
   private HandlerRegistration dragHandlerRegistration;
   private FlowPanel panel;
-  private SimplePanel placeHolder;
+//  private SimplePanel placeHolder; //TODO: remove later
   private int placeHolderIndex;
   protected ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
 
@@ -74,13 +67,14 @@ public class DragAndDropHandler implements DropEventHandler,
   public void onDrop(DropEvent event) {
     final DraggableWidget<?> draggable = event.getDraggableWidget();
    
-    SuperWidget widget =  (SuperWidget) panel.getWidget(placeHolderIndex); //TODO: make this work for superWidget
+    SuperWidget widget =  (SuperWidget) panel.getWidget(placeHolderIndex); 
     System.out.println(widget.url);
     System.out.println(widget.position);
-    SuperWidget widget2 = (SuperWidget) draggable; //TODO: make this work for superWidget
+    SuperWidget widget2 = (SuperWidget) draggable; 
     System.out.println(widget2.position);
     int userId = widget2.userId;
     
+    int widget2Position =widget2.position%10;
     
     swapWidgetPlaceInDatabase(userId, widget.position, widget2.position);
     
@@ -88,7 +82,7 @@ public class DragAndDropHandler implements DropEventHandler,
     widget.position =  widget2.position;
     widget2.position = tempPosition;
     FlowPanel panel2 =(FlowPanel) widget2.getParent();
-    panel2.insert(widget,1);
+    panel2.insert(widget,widget2Position-1);
     
     panel.insert(draggable, placeHolderIndex);
     System.out.println("the placerHolderindex is " +placeHolderIndex);
@@ -109,7 +103,7 @@ public class DragAndDropHandler implements DropEventHandler,
 				
 			}
 	  };
-	  projectSvc.swapWidgetPlaceInDatabase(userId, position1, position2, callback); //TODO: fix with userId!!!!
+	  projectSvc.swapWidgetPlaceInDatabase(userId, position1, position2, callback); 
 	
 }
 
@@ -147,23 +141,23 @@ public class DragAndDropHandler implements DropEventHandler,
 	    
 }
 
-/**
-   * Create a visual place holder
-   * 
-   * @param draggable
-   * @param initialPosition
-   */
-  private void createPlaceHolder(Widget draggable, int initialPosition) {
-    placeHolder = new SimplePanel();
-    placeHolder.addStyleName(Resources.INSTANCE.css().placeHolder());
-    placeHolder.setHeight("" + $(draggable).height() + "px");
-    placeHolder.setWidth("" + $(draggable).width() + "px");
-
-    if (initialPosition != -1) {
-      panel.insert(placeHolder, initialPosition);
-      placeHolderIndex = initialPosition;
-    }
-  }
+///**	//TODO: Remove later, when all is functional
+//   * Create a visual place holder
+//   * 
+//   * @param draggable
+//   * @param initialPosition
+//   */
+//  private void createPlaceHolder(Widget draggable, int initialPosition) {
+//    placeHolder = new SimplePanel();
+//    placeHolder.addStyleName(Resources.INSTANCE.css().placeHolder());
+//    placeHolder.setHeight("" + $(draggable).height() + "px");
+//    placeHolder.setWidth("" + $(draggable).width() + "px");
+//
+//    if (initialPosition != -1) {
+//      panel.insert(placeHolder, initialPosition);
+//      placeHolderIndex = initialPosition;
+//    }
+//  }
 
   /**
    * Return the index before which we should insert the draggable if this one is
