@@ -3,7 +3,6 @@ package com.TDDD24Project.client;
 import java.util.ArrayList;
 
 import com.TDDD24Project.shared.FeedMessage;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Anchor;
@@ -11,7 +10,7 @@ import com.google.gwt.user.client.ui.Anchor;
 
 public class RSSWidget extends SuperWidget{
 	
-	protected ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
+
 	
 	
 	public RSSWidget(MainPage parent, int userId, int position, String url){

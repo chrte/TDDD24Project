@@ -8,16 +8,10 @@ import java.util.ArrayList;
 import com.TDDD24Project.shared.WidgetInfo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -27,7 +21,6 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Main
  */
-@SuppressWarnings("deprecation")
 public class MainPage extends Composite {
 
 	//Defining globals	
@@ -103,9 +96,7 @@ public class MainPage extends Composite {
 
 		};
 
-
 		projectSvc.getUsersWidgetData(userId, callback);
-
 
 	}
 
@@ -134,7 +125,7 @@ public class MainPage extends Composite {
 //		Widget tempPanel =  widgets.get(index);
 //		tempPanel.clear();
 		final int position = indexToPosition(index);
-		LinkWidget linkWidget = new LinkWidget(this, userId, position, url);
+		LinkWidget linkWidget = new LinkWidget(this, userId, position, url, positionToColumn(position), positionToRow(position));
 		linkWidget.addLinkToDatabase(url, userId);
 	
 		droppablePanels.get(positionToColumn(position)-1).setWidget(linkWidget, positionToRow(position)-1);
@@ -151,7 +142,7 @@ public class MainPage extends Composite {
 //		Widget tempPanel =  widgets.get(index);
 //		tempPanel.remove();
 		final int position = indexToPosition(index);
-		LinkWidget tempWidget = new LinkWidget(this, userId, position, url);
+		LinkWidget tempWidget = new LinkWidget(this, userId, position, url, positionToColumn(position), positionToRow(position));
 		//		DraggableWidget<LinkWidget> tempDragWidget = new DraggableWidget<LinkWidget>(tempWidget);
 		//		tempDragWidget.setDraggingCursor(Cursor.MOVE);
 		//		tempDragWidget.setDraggingZIndex(100);
