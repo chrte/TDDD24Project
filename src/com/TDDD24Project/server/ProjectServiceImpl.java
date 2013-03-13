@@ -80,5 +80,11 @@ ProjectService {
 
 		return message;
 	}
+	
+	public String swapWidgetPlaceInDatabase(int userId, int position1, int position2){
+		dbHandler.swapWidgetPlace(userId, position1, position2);
+		return "";
+		
+	}
 
 }

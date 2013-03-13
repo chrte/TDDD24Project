@@ -18,5 +18,5 @@ public interface ProjectService extends RemoteService {
 	ArrayList<FeedMessage> readRSS(String url);
 	int setWidgetColumnAndRow(int widgetID, int column, int row);
 	int[] getWidgetColumnAndRow(int widgetID);
-
+	String swapWidgetPlaceInDatabase(int userId, int position1, int position2);
 }

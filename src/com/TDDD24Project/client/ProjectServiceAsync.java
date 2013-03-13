@@ -17,4 +17,5 @@ public interface ProjectServiceAsync {
 	void readRSS(String url, AsyncCallback<ArrayList<FeedMessage>> callback);
 	void setWidgetColumnAndRow(int widgetID, int column, int row, AsyncCallback<Integer> callback);
 	void getWidgetColumnAndRow(int widgetID, AsyncCallback<int[]> callback);
+	void swapWidgetPlaceInDatabase(int userId, int position1, int position2, AsyncCallback<String> callback);
 }

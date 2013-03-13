@@ -55,6 +55,7 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 	int column;
 	int row;
 	int widgetId; //TODO, how to do with this?
+	String url;
 	
 	
 

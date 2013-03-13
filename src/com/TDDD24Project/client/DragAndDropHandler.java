@@ -16,6 +16,9 @@
 package com.TDDD24Project.client;
 
 import static com.google.gwt.query.client.GQuery.$;
+
+import java.util.ArrayList;
+
 import gwtquery.plugins.draggable.client.events.DragEvent;
 import gwtquery.plugins.draggable.client.events.DragEvent.DragEventHandler;
 import gwtquery.plugins.draggable.client.gwt.DraggableWidget;
@@ -27,8 +30,11 @@ import gwtquery.plugins.droppable.client.events.OverDroppableEvent;
 import gwtquery.plugins.droppable.client.events.OverDroppableEvent.OverDroppableEventHandler;
 
 
+import com.TDDD24Project.shared.WidgetInfo;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -46,6 +52,7 @@ public class DragAndDropHandler implements DropEventHandler,
   private FlowPanel panel;
   private SimplePanel placeHolder;
   private int placeHolderIndex;
+  protected ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
 
   public DragAndDropHandler(FlowPanel panel) {
     this.panel = panel;
@@ -66,13 +73,47 @@ public class DragAndDropHandler implements DropEventHandler,
    */
   public void onDrop(DropEvent event) {
     final DraggableWidget<?> draggable = event.getDraggableWidget();
+   
+    SuperWidget widget =  (SuperWidget) panel.getWidget(placeHolderIndex); //TODO: make this work for superWidget
+    System.out.println(widget.url);
+    System.out.println(widget.position);
+    SuperWidget widget2 = (SuperWidget) draggable; //TODO: make this work for superWidget
+    System.out.println(widget2.position);
+    int userId = widget2.userId;
+    
+    
+    swapWidgetPlaceInDatabase(userId, widget.position, widget2.position);
+    
+    int tempPosition = widget.position;
+    widget.position =  widget2.position;
+    widget2.position = tempPosition;
+    FlowPanel panel2 =(FlowPanel) widget2.getParent();
+    panel2.insert(widget,1);
+    
     panel.insert(draggable, placeHolderIndex);
     System.out.println("the placerHolderindex is " +placeHolderIndex);
     reset();
 
   }
 
-  /**
+  private void swapWidgetPlaceInDatabase(int userId, int position1, int position2) {
+	
+	  AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(Throwable caught) {
+				System.out.println("failure");				
+			}
+			
+			@Override
+			public void onSuccess(String result) {
+				System.out.println("positions swapped");
+				
+			}
+	  };
+	  projectSvc.swapWidgetPlaceInDatabase(userId, position1, position2, callback); //TODO: fix with userId!!!!
+	
+}
+
+/**
    * When a draggable is out the panel, remove handler on the {@link DragEvent}
    * of this draggable and remove the visual place holder
    */
@@ -87,12 +128,26 @@ public class DragAndDropHandler implements DropEventHandler,
   public void onOverDroppable(OverDroppableEvent event) {
     DraggableWidget<?> draggable = event.getDraggableWidget();
     // create a place holder
-    createPlaceHolder(draggable, panel.getWidgetIndex(draggable));
+//    createPlaceHolder(draggable, panel.getWidgetIndex(draggable));
+    dontCreatePlaceHolder(draggable, panel.getWidgetIndex(draggable));	//TODO: UGLYYYY!!!!
     // listen drag event when draggable is over the droppable
     dragHandlerRegistration = draggable.addDragHandler(this);
   }
 
-  /**
+  private void dontCreatePlaceHolder(Widget draggable, int initialPosition) {	//TODO: NOT A VERY GOOD NAME ;)
+//	  placeHolder = new SimplePanel();
+//	    placeHolder.addStyleName(Resources.INSTANCE.css().placeHolder());
+//	    placeHolder.setHeight("" + $(draggable).height() + "px");
+//	    placeHolder.setWidth("" + $(draggable).width() + "px");
+
+	    if (initialPosition != -1) {
+//	      panel.insert(placeHolder, initialPosition);
+	      placeHolderIndex = initialPosition;
+	    }
+	    
+}
+
+/**
    * Create a visual place holder
    * 
    * @param draggable
@@ -126,11 +181,12 @@ public class DragAndDropHandler implements DropEventHandler,
     // compare absoluteTop of the draggable with absoluteTop od all widget
     // containing in the panel
     int draggableAbsoluteTop = draggableHelper.getAbsoluteTop();
+    
 
     for (int i = 0; i < panel.getWidgetCount(); i++) {
       Widget w = panel.getWidget(i);
       int widgetAbsoluteTop = w.getElement().getAbsoluteTop();
-      if (widgetAbsoluteTop > draggableAbsoluteTop) {
+      if (widgetAbsoluteTop+80 > draggableAbsoluteTop && widgetAbsoluteTop-80 < draggableAbsoluteTop ) {
         return i;
       }
     }
@@ -154,11 +210,11 @@ public class DragAndDropHandler implements DropEventHandler,
 
     if (beforeInsertIndex >= 0) {
       // move the place holder and keep its position
-      panel.insert(placeHolder, beforeInsertIndex);
+//      panel.insert(placeHolder, beforeInsertIndex);
       placeHolderIndex = beforeInsertIndex;
     } else {
       // insert the place holder at the end
-      panel.add(placeHolder);
+//      panel.add(placeHolder);
       placeHolderIndex = panel.getWidgetCount() - 1;
     }
   }
@@ -167,8 +223,8 @@ public class DragAndDropHandler implements DropEventHandler,
     // don't listen drag event on the draggable
     dragHandlerRegistration.removeHandler();
     // remove the place holder
-    placeHolder.removeFromParent();
-    placeHolder = null;
+//    placeHolder.removeFromParent();
+//    placeHolder = null;
     dragHandlerRegistration = null;
     placeHolderIndex = -1;
   }

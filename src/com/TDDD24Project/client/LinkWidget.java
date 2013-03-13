@@ -26,9 +26,7 @@ public class LinkWidget extends SuperWidget {
 DivElement content;
 @UiField
 DivElement header;
-	int userId;
-	MainPage parent;
-	int position;
+	
 	public LinkWidget(MainPage parent, int userId, int position, String url, int column, int row){
 //		 initWidget(uiBinder.createAndBindUi(this));
 		 setup();
@@ -36,6 +34,7 @@ DivElement header;
 		this.position = position;
 		this.userId=userId;
 		addLink(url);
+		this.url = url;
 		
 	}
 	private void addLink(final String url) {
@@ -56,7 +55,7 @@ DivElement header;
 				else{
 					httpUrl = url;
 				}
-				Window.Location.assign(httpUrl);
+//				Window.Location.assign(httpUrl);
 
 			}
 

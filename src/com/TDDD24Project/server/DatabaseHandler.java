@@ -324,6 +324,30 @@ public class DatabaseHandler {
 				
 		return widgets;
 	}
+	
+	public String swapWidgetPlace(int userId, int position1, int position2){
+		
+		
+		initiateConnection();
+		java.sql.Statement stmt = null;
+		
+		try {
+			stmt = connection.createStatement();
+			//positon 999 = temporary placeholder
+			stmt.executeUpdate("UPDATE " +DATABASENAME+"."+WIDGETS+" SET "+WIDGETPOSITION+"="+999+" WHERE "+WIDGETPOSITION+"="+position1+" AND "+USERID+"="+userId+"");
+			stmt.executeUpdate("UPDATE " +DATABASENAME+"."+WIDGETS+" SET "+WIDGETPOSITION+"="+position1+" WHERE "+WIDGETPOSITION+"="+position2+" AND "+USERID+"="+userId+"");
+			stmt.executeUpdate("UPDATE " +DATABASENAME+"."+WIDGETS+" SET "+WIDGETPOSITION+"="+ position2+" WHERE "+WIDGETPOSITION+"="+999+" AND "+USERID+"="+userId+"");
+//			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return "";
+	}
 
 
 }
