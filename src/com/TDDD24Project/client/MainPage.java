@@ -42,12 +42,11 @@ public class MainPage extends Composite {
 	public MainPage(int userId) {
 
 		this.userId=userId;
-		//		RootPanel.get("main").setStyleName("main");	
+
 		LoadStandardView();
 		LoadUserData();
 
 
-		//		addRssWidget(8, "http://www.aftonbladet.se/rss.xml");
 
 		initWidget(mainPanel);
 	}
@@ -216,7 +215,7 @@ public class MainPage extends Composite {
 		droppablePanels.add(new DroppablePanel(1));
 		Widget emptyWidget = new EmptyWidget(this,userId,11,"awesome");
 		droppablePanels.get(0).add(emptyWidget);
-		
+		droppablePanels.get(0).setPixelSize(300,600); //TODO: Set different size?
 		
 		emptyWidget = new EmptyWidget(this,userId,12,"awesome");
 		droppablePanels.get(0).add(emptyWidget);
@@ -227,7 +226,8 @@ public class MainPage extends Composite {
 
 		
 		
-		droppablePanels.add(new DroppablePanel(1));
+		droppablePanels.add(new DroppablePanel(2));
+		droppablePanels.get(1).setPixelSize(300,600); //TODO: Set different size?
 		emptyWidget = new EmptyWidget(this,userId,21,"awesome");
 		droppablePanels.get(1).add(emptyWidget);
 		emptyWidget = new EmptyWidget(this,userId,22,"awesome");
@@ -237,6 +237,7 @@ public class MainPage extends Composite {
 		widgetsPanel.add(droppablePanels.get(1));
 		
 		droppablePanels.add(new DroppablePanel(3));
+		droppablePanels.get(2).setPixelSize(300,600); //TODO: Set different size?
 		emptyWidget = new EmptyWidget(this,userId,31,"awesome");
 		droppablePanels.get(2).add(emptyWidget);
 		emptyWidget = new EmptyWidget(this,userId,32,"awesome");
@@ -247,10 +248,10 @@ public class MainPage extends Composite {
 
 
 		logo.setPixelSize(1024, 60);
-		bottomlogo.setPixelSize(1024, 60);
+//		bottomlogo.setPixelSize(1024, 60);
 		mainPanel.add(logo);
 		mainPanel.add(widgetsPanel);
-		mainPanel.add(bottomlogo);
+//		mainPanel.add(bottomlogo);
 		RootPanel.get("main").add(mainPanel);	
 
 	}

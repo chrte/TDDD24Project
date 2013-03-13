@@ -6,13 +6,14 @@ import com.TDDD24Project.shared.FeedMessage;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 public class RSSWidget extends SuperWidget{
-	
 
-	
-	
+
+
+
 	public RSSWidget(MainPage parent, int userId, int position, String url){
 		this.parent=parent;
 		this.position = position;
@@ -20,12 +21,12 @@ public class RSSWidget extends SuperWidget{
 		addRSS(url);	
 		setup();
 	}
-	
-	
+
+
 	private void addRSS(final String url) {
-		
+
 		final AbsolutePanel absolutePanel = new AbsolutePanel();
-		
+
 		AsyncCallback<ArrayList<FeedMessage>> callback = new AsyncCallback<ArrayList<FeedMessage>>() {
 			public void onFailure(Throwable caught) {
 				System.out.println("failure");
@@ -33,28 +34,32 @@ public class RSSWidget extends SuperWidget{
 			@Override
 			public void onSuccess(ArrayList<FeedMessage> message) {
 				
+				VerticalPanel rssPanel = new VerticalPanel();
+				rssPanel.setPixelSize(160, 160);
+//				rssPanel.setBorderWidth(10);
+				rssPanel.setStyleName("verticalpanel");
 				for(int i=0; i<3;i++){
 					String link = message.get(i).getLink();
 					String title = message.get(i).getTitle();
-			
-				Anchor anchor = new Anchor(title, link); 
-
-				absolutePanel.add(anchor); 
+					
+					Anchor anchor = new Anchor(title, link); 
+					anchor.addStyleName("anchor");
+					rssPanel.add(anchor); 
 				}
-								
+				absolutePanel.add(rssPanel); 
 				
 			}
-			
+
 		};
-		
-		
-		
+
+
+
 		projectSvc.readRSS(url, callback);
-		
+
 		initWidget(absolutePanel);
-		
+
 	}
-	
+
 	public void addRSSToDatabase(String link, int userId){
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
@@ -63,12 +68,12 @@ public class RSSWidget extends SuperWidget{
 			@Override
 			public void onSuccess(String result) {
 				System.out.println("success");				
-				
+
 			}
-			
+
 		};
 		parent.projectSvc.addWidget(userId, link, position,"RSS",parent.positionToColumn(position), parent.positionToRow(position), callback);
-		
+
 	}
-		 
+
 }

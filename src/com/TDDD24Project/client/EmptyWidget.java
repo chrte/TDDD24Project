@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -59,6 +60,9 @@ public class EmptyWidget extends SuperWidget{
 		final TextBox widgetLink = new TextBox();
 		HTML message = new HTML("Insert link here:");
 		message.setStyleName("demo-PopUpPanel-message");
+		final RadioButton linkWidget = new RadioButton("widgetType", "Link");
+		final RadioButton rssWidget = new RadioButton("widgetType", "RSS-feed");
+		linkWidget.setChecked(true);
 		ClickListener cancelListener = new ClickListener()
 		{
 			public void onClick(Widget sender)
@@ -72,7 +76,13 @@ public class EmptyWidget extends SuperWidget{
 			{
 
 				String url = widgetLink.getText();
-				parent.addWidget(index, url);
+				if(linkWidget.getValue()){
+					parent.addWidget(index, url);
+				}
+				else{
+					parent.addRssWidget(index, url);
+				}
+				
 				//				addAlertWidget(index);
 				chooseWidget.hide();
 			}
@@ -88,6 +98,8 @@ public class EmptyWidget extends SuperWidget{
 		holder.setStyleName("demo-PopUpPanel-footer");
 		popUpPanelContents.add(message);
 		popUpPanelContents.add(widgetLink);
+		popUpPanelContents.add(linkWidget);
+		popUpPanelContents.add(rssWidget);
 		popUpPanelContents.add(holder);
 		popUpPanelContents.add(holder2);
 

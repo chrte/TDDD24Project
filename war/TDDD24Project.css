@@ -1,62 +1,73 @@
-
-html{
-		background-image:url('images/background.jpg');
+html {
+	background-image: url('images/background.jpg');
 }
 
 .main {
-	
-	background-image:url('images/background.jpg');
-}
-.login {
-	background-color:gray;
+	background-image: url('images/background.jpg');
 }
 
-.table-center
-{
-    margin-left            :    auto;
-    margin-right           :    auto;
+.login {
+	background-color: gray;
 }
-.placeHolder{
-	border:1px dashed black;
+
+.verticalpanel{
+	border-color:gray;
+	border-style:solid;
+	border-width:2px;
+}
+
+.anchor {
+	font-size: 15px;
+	color: #FFFFFF;
+}
+
+.table-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.placeHolder {
+	border: 1px dashed black;
 	margin-top: 5px;
 }
-.sortablePanel{
-	padding-bottom:100px;
+
+.sortablePanel {
+	padding-bottom: 100px;
 	width: 200px;
 	float: left;
 	margin-left: 10px;
 }
-.demo-popup
-{
-    background-color       :    #999999;
-    border                 :    3px solid #009;
-}
-.demo-Composite
-{
-    margin                 :    0 auto;
-}
-.demo-popup-header
-{
-    background-color       :    #ff0;
-    font-size              :    90%;
-    font-weight            :    bold;
-    border-bottom          :    3px solid #009;
-    padding                :    5px;
-    text-align             :    center;
-}
-.demo-popup-message
-{
-    font-size              :    80%;
-    padding                :    15px;
-}
-.demo-popup-footer
-{
-    padding                :    5px;
-    text-align             :    center;
-    width                  :    100%;
-}
+
+.demo-popup {
+	background-color: #999999;
+	border: 3px solid #009;
 }
 
+.demo-Composite {
+	margin: 0 auto;
+}
+
+.demo-popup-header {
+	background-color: #ff0;
+	font-size: 90%;
+	font-weight: bold;
+	border-bottom: 3px solid #009;
+	padding: 5px;
+	text-align: center;
+}
+
+.demo-popup-message {
+	font-size: 80%;
+	padding: 15px;
+}
+
+.demo-popup-footer {
+	padding: 5px;
+	text-align: center;
+	width: 100%;
+}
+
+}
 .gwt-DialogBox {
 	border: 2px solid #AAAAAA;
 	background-color: white;
@@ -87,6 +98,7 @@ html{
 }
 
 .gwt-Tree {
+	
 }
 
 .gwt-Tree .gwt-TreeItem {
@@ -113,6 +125,7 @@ html{
 }
 
 .gwt-StackPanel .gwt-StackPanelItem-selected {
+	
 }
 
 .gwt-TabPanel {
@@ -162,135 +175,149 @@ html{
 }
 
 .gwt-PushButton-up {
-  background-color: #C3D9FF;
-  padding: 2px;
-  border: 2px solid transparent;
-  border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205) rgb(232, 241, 255);
-  cursor: pointer;
-  cursor: hand;
+	background-color: #C3D9FF;
+	padding: 2px;
+	border: 2px solid transparent;
+	border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205)
+		rgb(232, 241, 255);
+	cursor: pointer;
+	cursor: hand;
 }
 
 .gwt-PushButton-up-hovering {
-  background-color: #C3D9FF;
-  padding: 2px;
-  border: 2px solid transparent;
-  border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205) rgb(232, 241, 255);
-  cursor: pointer;
-  cursor: hand;
+	background-color: #C3D9FF;
+	padding: 2px;
+	border: 2px solid transparent;
+	border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205)
+		rgb(232, 241, 255);
+	cursor: pointer;
+	cursor: hand;
 }
 
 .gwt-PushButton-down {
-  background-color: #C3D9FF;
-  padding: 2px;
-  border: 2px solid transparent;
-  border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255) rgb(157, 174, 205);
-  cursor: pointer;
-  cursor: hand;
+	background-color: #C3D9FF;
+	padding: 2px;
+	border: 2px solid transparent;
+	border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255)
+		rgb(157, 174, 205);
+	cursor: pointer;
+	cursor: hand;
 }
 
 .gwt-PushButton-down-hovering {
-  background-color: #C3D9FF;
-  padding: 2px;
-  border: 2px solid transparent;
-  border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255) rgb(157, 174, 205);
-  cursor: pointer;
-  cursor: hand;
+	background-color: #C3D9FF;
+	padding: 2px;
+	border: 2px solid transparent;
+	border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255)
+		rgb(157, 174, 205);
+	cursor: pointer;
+	cursor: hand;
 }
 
 .gwt-ToggleButton-up {
-  background-color: #C3D9FF;
-  padding: 2px;
-  border: 2px solid transparent;
-  border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205) rgb(232, 241, 255);
-  cursor: pointer;
-  cursor: hand;
+	background-color: #C3D9FF;
+	padding: 2px;
+	border: 2px solid transparent;
+	border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205)
+		rgb(232, 241, 255);
+	cursor: pointer;
+	cursor: hand;
 }
 
 .gwt-ToggleButton-up-hovering {
-  background-color: #C3D9FF;
-  padding: 2px;
-  border: 2px solid transparent;
-  border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205) rgb(232, 241, 255);
-  cursor: pointer;
-  cursor: hand;
+	background-color: #C3D9FF;
+	padding: 2px;
+	border: 2px solid transparent;
+	border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205)
+		rgb(232, 241, 255);
+	cursor: pointer;
+	cursor: hand;
 }
 
 .gwt-ToggleButton-down {
-  background-color: #C3D9FF;
-  padding: 2px;
-  background-color: #E8F1FF;
-  border: 2px solid transparent;
-  border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255) rgb(157, 174, 205);
-  cursor: pointer;
-  cursor: hand;
+	background-color: #C3D9FF;
+	padding: 2px;
+	background-color: #E8F1FF;
+	border: 2px solid transparent;
+	border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255)
+		rgb(157, 174, 205);
+	cursor: pointer;
+	cursor: hand;
 }
 
 .gwt-ToggleButton-down-hovering {
-  background-color: #C3D9FF;
-  padding: 2px;
-  background-color: #E8F1FF;
-  border: 2px solid transparent;
-  border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255) rgb(157, 174, 205);
-  cursor: pointer;
-  cursor: hand;
+	background-color: #C3D9FF;
+	padding: 2px;
+	background-color: #E8F1FF;
+	border: 2px solid transparent;
+	border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255)
+		rgb(157, 174, 205);
+	cursor: pointer;
+	cursor: hand;
 }
 
 .gwt-RichTextArea {
-  border: 1px solid black;
-  background-color: white;
+	border: 1px solid black;
+	background-color: white;
 }
 
 .gwt-RichTextToolbar {
-  background-color: #C3D9FF;
-  padding: 2px;
+	background-color: #C3D9FF;
+	padding: 2px;
 }
 
 .gwt-RichTextToolbar .gwt-PushButton-up {
-  margin-right: 2px;
-  border: 1px solid #C3D9FF;
+	margin-right: 2px;
+	border: 1px solid #C3D9FF;
 }
 
 .gwt-RichTextToolbar .gwt-PushButton-up-hovering {
-  margin-right: 2px;
-  border: 1px solid #C3D9FF;
-  border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205) rgb(232, 241, 255);
+	margin-right: 2px;
+	border: 1px solid #C3D9FF;
+	border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205)
+		rgb(232, 241, 255);
 }
 
 .gwt-RichTextToolbar .gwt-PushButton-down {
-  margin-right: 2px;
-  border: 1px solid #C3D9FF;
-  border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255) rgb(157, 174, 205);
+	margin-right: 2px;
+	border: 1px solid #C3D9FF;
+	border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255)
+		rgb(157, 174, 205);
 }
 
 .gwt-RichTextToolbar .gwt-PushButton-down-hovering {
-  margin-right: 2px;
-  border: 1px solid #C3D9FF;
-  border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255) rgb(157, 174, 205);
+	margin-right: 2px;
+	border: 1px solid #C3D9FF;
+	border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255)
+		rgb(157, 174, 205);
 }
 
 .gwt-RichTextToolbar .gwt-ToggleButton-up {
-  margin-right: 2px;
-  border: 1px solid #C3D9FF;
+	margin-right: 2px;
+	border: 1px solid #C3D9FF;
 }
 
 .gwt-RichTextToolbar .gwt-ToggleButton-up-hovering {
-  margin-right: 2px;
-  border: 1px solid #C3D9FF;
-  border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205) rgb(232, 241, 255);
+	margin-right: 2px;
+	border: 1px solid #C3D9FF;
+	border-color: #E8F1FF rgb(157, 174, 205) rgb(157, 174, 205)
+		rgb(232, 241, 255);
 }
 
 .gwt-RichTextToolbar .gwt-ToggleButton-down {
-  margin-right: 2px;
-  background-color: #E8F1FF;
-  border: 1px solid #C3D9FF;
-  border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255) rgb(157, 174, 205);
+	margin-right: 2px;
+	background-color: #E8F1FF;
+	border: 1px solid #C3D9FF;
+	border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255)
+		rgb(157, 174, 205);
 }
 
 .gwt-RichTextToolbar .gwt-ToggleButton-down-hovering {
-  margin-right: 2px;
-  background-color: #E8F1FF;
-  border: 1px solid #C3D9FF;
-  border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255) rgb(157, 174, 205);
+	margin-right: 2px;
+	background-color: #E8F1FF;
+	border: 1px solid #C3D9FF;
+	border-color: #9DAECD rgb(232, 241, 255) rgb(232, 241, 255)
+		rgb(157, 174, 205);
 }
 
 .gwt-HorizontalSplitPanel {
@@ -303,7 +330,7 @@ html{
 }
 
 .gwt-HorizontalSplitPanel .left {
-  background-color: #E8EEF7;
+	background-color: #E8EEF7;
 }
 
 .gwt-VerticalSplitPanel {
@@ -337,6 +364,7 @@ html{
 	background-color: #e8eef7;
 	cursor: hand;
 }
+
 .gwt-Label-Login {
 	color: Navy;
 	font-size: 14px;
@@ -344,6 +372,7 @@ html{
 	font-family: Arial;
 	font-weight: bold;
 }
+
 .gwt-Login-CheckBox {
 	color: red;
 }
