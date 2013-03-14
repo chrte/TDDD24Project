@@ -28,7 +28,7 @@ ProjectService {
 	}
 	@Override
 	public String removeWidget(int userId, int position) {
-//		dbHandler.removeWidget(widgetId);
+		dbHandler.removeWidget(userId, position);
 		return "";
 	}
 	@Override

@@ -14,7 +14,6 @@ public class DatabaseHandler {
 	private static final String IP ="chrte.dyndns.org"; 
 	private static final String DATABASENAME ="TDDD24";
 	private static final String WIDGETS = "widgets";
-	private static final String USERTOWIDGET = "userToWidgets";
 	private static final String WIDGETID = "widgetId";
 	private static final String WIDGETTYPE="widgetType";
 	private static final String USERS = "users";
@@ -183,22 +182,10 @@ public class DatabaseHandler {
 	public void addWidget(int userId, String widgetData, int widgetPosition, String widgetType, int column, int row){
 		initiateConnection();
 	
-
-		//Connects with UserId
-		try {
-			java.sql.Statement stmt=null;
-			stmt =connection.createStatement();			
-			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+USERTOWIDGET+" VALUES (NULL,"+userId+");");
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-
 		//Adds data and position
 		try {
 			java.sql.Statement stmt=null;
 			stmt =connection.createStatement();			
-//			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES (NULL,'"+userId+"','"+widgetData+"',"+widgetPosition+");");	
 			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES (NULL,'"+userId+"','"+widgetData+"','"+widgetPosition+"','"+widgetType+"','"+column+"','"+row+"');");
 		} catch (SQLException e) {
 
@@ -207,44 +194,19 @@ public class DatabaseHandler {
 	}
 
 
-	public String removeWidget(int widgetId){
+	public String removeWidget(int userId, int widgetPosition){
 		initiateConnection();
 		java.sql.Statement stmt=null;
 		try {
-			stmt =connection.createStatement();
-
-			String query = "DELETE FROM `"+DATABASENAME+"`.`"+WIDGETS+"` WHERE `"+WIDGETS+"`.`"+WIDGETID+"`='"+widgetId+"';";
-			connection.prepareStatement(query);
-
-			int statResult = stmt.executeUpdate(query);
-			System.out.println(statResult+". query:" +query);
-
-
-
-
+			stmt =connection.createStatement();	
+			stmt.executeUpdate("DELETE FROM "+DATABASENAME+"."+WIDGETS+" WHERE "+WIDGETPOSITION+"="+widgetPosition+" AND "+USERID+"="+userId+"");
+	
 		} catch (SQLException e) {
 		
 			e.printStackTrace();
 		}
-		stmt=null;
-		try {
-			stmt =connection.createStatement();
-
-			String query = "DELETE FROM `"+DATABASENAME+"`.`"+USERTOWIDGET+"` WHERE `"+USERTOWIDGET+"`.`"+WIDGETID+"`='"+widgetId+"';";
-			connection.prepareStatement(query);
-
-			int statResult = stmt.executeUpdate(query);
-			System.out.println(statResult+". query:" +query);
-			stmt.close();
-			connection.close();
-
-
-		} catch (SQLException e) {
 		
-			e.printStackTrace();
-		}
-		return("");
-
+		return "";
 	}
 
 	public int authUser(String userName, String password) {
@@ -302,14 +264,12 @@ public class DatabaseHandler {
 
 		return "";
 	}
-	//TODO remove sysouts
+
 	public void setUserImange(int userId, String imageSrc){
 		try {
 			java.sql.Statement stmt=null;
 			stmt =connection.createStatement();	
-			System.out.println("image src on server is "+imageSrc);
 			String query = "UPDATE "+DATABASENAME+"."+USERS+" SET "+USERIMAGE +"='"+imageSrc+"' WHERE "+USERID+ "="+userId+";";
-			System.out.println("query is " +query);
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 

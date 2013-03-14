@@ -138,7 +138,8 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				removeWidget(index,  position);		
+				removeWidget(index,  position);	
+				parent.addEmptyWidget(index);
 				reallyRemove.hide();
 			}
 		});
