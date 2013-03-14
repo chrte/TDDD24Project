@@ -55,7 +55,7 @@ public class DroppablePanel extends DroppableWidget<FlowPanel> {
   }
   private void init() {
     innerPanel = new FlowPanel();
-    innerPanel.addStyleName(Resources.INSTANCE.css().sortablePanel());
+    innerPanel.addStyleName("sortablePanel");
 
   }
 
