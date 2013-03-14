@@ -52,7 +52,7 @@ public class DatabaseHandler {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 	}
@@ -223,7 +223,7 @@ public class DatabaseHandler {
 
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		stmt=null;
@@ -240,7 +240,7 @@ public class DatabaseHandler {
 
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		return("");
@@ -330,22 +330,21 @@ public class DatabaseHandler {
 		
 		initiateConnection();
 		java.sql.Statement stmt = null;
+
 		
 		try {
 			stmt = connection.createStatement();
-			//positon 999 = temporary placeholder
+			//position 999 = temporary placeholder
 			stmt.executeUpdate("UPDATE " +DATABASENAME+"."+WIDGETS+" SET "+WIDGETPOSITION+"="+999+" WHERE "+WIDGETPOSITION+"="+position1+" AND "+USERID+"="+userId+"");
 			stmt.executeUpdate("UPDATE " +DATABASENAME+"."+WIDGETS+" SET "+WIDGETPOSITION+"="+position1+" WHERE "+WIDGETPOSITION+"="+position2+" AND "+USERID+"="+userId+"");
 			stmt.executeUpdate("UPDATE " +DATABASENAME+"."+WIDGETS+" SET "+WIDGETPOSITION+"="+ position2+" WHERE "+WIDGETPOSITION+"="+999+" AND "+USERID+"="+userId+"");
-//			
+		
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+	
+	
 		return "";
 	}
 

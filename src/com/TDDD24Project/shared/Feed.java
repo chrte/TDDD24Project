@@ -1,7 +1,6 @@
 package com.TDDD24Project.shared;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /*
  * Stores an RSS feed - source: http://www.vogella.com
