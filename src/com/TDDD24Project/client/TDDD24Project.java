@@ -2,12 +2,15 @@ package com.TDDD24Project.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.HorizontalSplitPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-
+/**
+ * The main class, starting the project
+ * @author Henrik Tosteberg - hento581, Christian Tennstedt - chrte707 
+ *
+ */
 public class TDDD24Project implements EntryPoint {
 
 	private VerticalPanel mainPanel = new VerticalPanel();
@@ -15,17 +18,19 @@ public class TDDD24Project implements EntryPoint {
 	private LoginManager loginManager;
 	private MainPage mainPage;
 	private Image logo = new Image("images/logo.jpg");
-	@Override
 	
+	@Override	
 	public void onModuleLoad() {
-
 		RootPanel.get("main").setStyleName("main");
 		RootPanel.get("main").add(mainPanel);
 		loginManager = new LoginManager(this);
-		mainPanel.add(loginManager);
-
-		
+		mainPanel.add(loginManager);		
 	}
+	
+	/**
+	 * Creates the main page when the user logs in
+	 * @param userId
+	 */
 
 	public void userLoggedIn(int userId){
 		mainPanel.remove(loginManager);

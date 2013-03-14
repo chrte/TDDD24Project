@@ -53,11 +53,6 @@ public class Login extends Composite {
 		textBoxPassword = new PasswordTextBox();
 		flexTable.setWidget(1, 1, textBoxPassword);
 
-//		CheckBox chckbxRememberMeOn = new CheckBox("Remember me on this computer");
-//		chckbxRememberMeOn.setStyleName("gwt-Login-CheckBox");
-		
-//		flexTable.setWidget(2, 1, chckbxRememberMeOn);
-
 		Button btnSignIn = new Button("Sign In");
 		btnSignIn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -70,10 +65,8 @@ public class Login extends Composite {
 			public void onKeyPress(KeyPressEvent event) {
 				if(event.getCharCode()==KeyCodes.KEY_ENTER){
 					doOnClick();
-				}
-				
-			}
-			
+				}				
+			}			
 		});
 		flexTable.setWidget(3, 1, btnSignIn);
 	}
@@ -99,15 +92,10 @@ public class Login extends Composite {
 						
 						parent.userLoggedIn(result);
 					}
-
 				}
-
 			};
 
-
 			projectSvc.authUser(textBoxUsername.getText(), textBoxPassword.getText(), callback);
-
-		}
-	
+		}	
 	}
 }
