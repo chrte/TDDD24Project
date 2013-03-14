@@ -18,4 +18,5 @@ public interface ProjectServiceAsync {
 	void setWidgetColumnAndRow(int widgetID, int column, int row, AsyncCallback<Integer> callback);
 	void getWidgetColumnAndRow(int widgetID, AsyncCallback<int[]> callback);
 	void swapWidgetPlaceInDatabase(int userId, int position1, int position2, AsyncCallback<String> callback);
+	void editWidget(int userId, String widgetData, int widgetPosition, String widgetType, AsyncCallback<String> callback);
 }

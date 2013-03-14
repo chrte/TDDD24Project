@@ -18,6 +18,7 @@ public class RSSWidget extends SuperWidget{
 		this.parent=parent;
 		this.position = position;
 		this.userId=userId;
+		this.url=url;
 		addRSS(url);	
 		setup();
 		addEditButton();
@@ -77,6 +78,11 @@ public class RSSWidget extends SuperWidget{
 		};
 		parent.projectSvc.addWidget(userId, link, position,"RSS",parent.positionToColumn(position), parent.positionToRow(position), callback);
 
+	}
+	
+	@Override
+	public String getWidgetType(){
+		return "RSS";
 	}
 
 }

@@ -19,4 +19,5 @@ public interface ProjectService extends RemoteService {
 	int setWidgetColumnAndRow(int widgetID, int column, int row);
 	int[] getWidgetColumnAndRow(int widgetID);
 	String swapWidgetPlaceInDatabase(int userId, int position1, int position2);
+	String editWidget(int userId, String widgetData, int widgetPosition, String widgetType);
 }

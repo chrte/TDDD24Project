@@ -1,12 +1,16 @@
 package com.TDDD24Project.client;
 
 import static com.google.gwt.query.client.GQuery.$;
+
+import java.util.ArrayList;
+
 import gwtquery.plugins.draggable.client.events.BeforeDragStartEvent;
 import gwtquery.plugins.draggable.client.events.BeforeDragStartEvent.BeforeDragStartEventHandler;
 import gwtquery.plugins.draggable.client.events.DragStopEvent;
 import gwtquery.plugins.draggable.client.events.DragStopEvent.DragStopEventHandler;
 import gwtquery.plugins.draggable.client.gwt.DraggableWidget;
 
+import com.TDDD24Project.shared.WidgetInfo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,8 +18,15 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.RadioButton;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public abstract class SuperWidget extends DraggableWidget<Widget> {
@@ -59,7 +70,10 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 	String url;
 	Boolean isBeingDragged=false;
 	AbsolutePanel superPanel; 
-	
+
+	String getWidgetType(){
+		return "";
+	}
 	
 
 	protected void setup() {
@@ -81,13 +95,113 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		editButton.addClickHandler(new ClickHandler(){
 
 			@Override
-			public void onClick(ClickEvent event) {
-				Window.alert("you clicked me"); //TODO : Implement this stuff
+			public void onClick(ClickEvent event) {				
 				
-			}
+				editWidget(parent.positionToIndex(position), position);
+			}	
 			
 		});
 		
+	}
+	
+	
+	private void editWidget(final int index, final int widgetPosition) {
+		final PopupPanel chooseWidget = new PopupPanel(false);	
+		chooseWidget.setStyleName("demo-popup");
+		chooseWidget.setPixelSize(200,100);
+		VerticalPanel popUpPanelContents = new VerticalPanel();
+		chooseWidget.setTitle("Add Widget");
+		final TextBox widgetLink = new TextBox();
+		widgetLink.setText(url);
+		
+		HTML message = new HTML("Insert link here:");
+		message.setStyleName("demo-PopUpPanel-message");
+		final RadioButton linkWidget = new RadioButton("widgetType", "Link");
+		final RadioButton rssWidget = new RadioButton("widgetType", "RSS-feed");
+		
+		
+		
+		if(getWidgetType().equals("Link")){
+			linkWidget.setValue(true);
+		}
+		else if(getWidgetType().equals("RSS")){
+			rssWidget.setValue(true);
+		}
+		else{
+			//Should never get here!
+			System.out.println("Something's wrong");
+			linkWidget.setValue(true);
+		}
+			
+		Button editButton = new Button("Edit");
+		editButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				String widgetData = widgetLink.getText();
+				String widgetType;
+				
+				if(linkWidget.getValue()){
+					System.out.println(index);
+					widgetType = "link";		
+					parent.addLinkWidgetAlreadyInDatabase(index,widgetData);
+
+				}
+				else{
+					widgetType = "RSS";
+					parent.addRSSWidgetAlreadyInDatabase(index,widgetData);
+					
+				}
+				editWidgetInDatabase(widgetData, widgetPosition, widgetType);
+				chooseWidget.hide();				
+			}
+			
+		});
+		Button cancelButton = new Button("Cancel");
+	
+		cancelButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				chooseWidget.hide();				
+			}
+			
+			
+		});
+		SimplePanel holder = new SimplePanel();
+		SimplePanel holder2 = new SimplePanel();
+		holder.add(editButton);
+		holder2.add(cancelButton);
+		holder.setStyleName("demo-PopUpPanel-footer");
+		popUpPanelContents.add(message);
+		popUpPanelContents.add(widgetLink);
+		popUpPanelContents.add(linkWidget);
+		popUpPanelContents.add(rssWidget);
+		popUpPanelContents.add(holder);
+		popUpPanelContents.add(holder2);
+
+		chooseWidget.setWidget(popUpPanelContents);
+		chooseWidget.setGlassEnabled(true);
+		chooseWidget.center();
+	}
+	
+	
+	public void editWidgetInDatabase(String widgetData, int widgetPosition, String widgetType){
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(Throwable caught) {
+				System.out.println("failure");				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				System.out.println("Success");
+			}				
+
+		};
+
+		projectSvc.editWidget(userId, widgetData, widgetPosition, widgetType, callback);
+			
+	
 	}
 	
 }
