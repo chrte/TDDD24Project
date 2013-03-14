@@ -21,6 +21,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -73,11 +74,11 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 	String getWidgetType(){
 		return "";
 	}
-	
+
 
 	protected void setup() {
 		superPanel=new AbsolutePanel();
-		
+
 		// opacity of the portlet during the drag
 		setDraggingOpacity(new Float(0.8));
 		// zIndex of the portlet during the drag
@@ -88,22 +89,91 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		initWidget(superPanel);
 
 	}
-	protected void addEditButton(){
+	protected void addButtons(){
 		Button editButton = new Button("editButton");
-		superPanel.add(editButton);
+		Button removeButton = new Button("X");
+		removeButton.addStyleName("removeButton");
+		HorizontalPanel buttonPanel = new HorizontalPanel();
+		buttonPanel.add(editButton);
+		buttonPanel.add(removeButton);
+		superPanel.add(buttonPanel);
 		editButton.addClickHandler(new ClickHandler(){
 
 			@Override
 			public void onClick(ClickEvent event) {				
-				
+
 				editWidget(parent.positionToIndex(position), position);
 			}	
-			
+
+		});
+
+		removeButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {			
+
+				removeWidgetPopUp(parent.positionToIndex(position), position);
+			}
+
+
+		});
+
+	}
+
+
+	private void removeWidgetPopUp(final int index, final int position) {
+		final PopupPanel reallyRemove = new PopupPanel(false);
+		reallyRemove.setStyleName("demo-popup");
+		reallyRemove.setPixelSize(200,100);
+		VerticalPanel popUpPanelContents = new VerticalPanel();
+		reallyRemove.setTitle("Remove?");
+		HTML message = new HTML("Are you sure you would like to remove this widget?");
+		message.setStyleName("demo-PopUpPanel-message");
+		
+		Button yesButton = new Button("Yes");
+		Button noButton = new Button("No");		
+	
+
+		yesButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				removeWidget(index,  position);		
+				reallyRemove.hide();
+			}
 		});
 		
+		noButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				reallyRemove.hide();				
+			}
+
+
+		});
+		
+		SimplePanel holder = new SimplePanel();
+		SimplePanel holder2 = new SimplePanel();
+		holder.add(yesButton);
+		holder2.add(noButton);
+		holder.setStyleName("demo-PopUpPanel-footer");
+		popUpPanelContents.add(message);
+		popUpPanelContents.add(holder);
+		popUpPanelContents.add(holder2);
+		
+		reallyRemove.setWidget(popUpPanelContents);
+		reallyRemove.setGlassEnabled(true);
+		reallyRemove.center();
+	}	
+
+	
+	private void removeWidget(int index, int position) {
+	
+		
+		
 	}
-	
-	
+
 	private void editWidget(final int index, final int widgetPosition) {
 		final PopupPanel chooseWidget = new PopupPanel(false);	
 		chooseWidget.setStyleName("demo-popup");
@@ -112,14 +182,14 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		chooseWidget.setTitle("Add Widget");
 		final TextBox widgetLink = new TextBox();
 		widgetLink.setText(url);
-		
+
 		HTML message = new HTML("Insert link here:");
 		message.setStyleName("demo-PopUpPanel-message");
 		final RadioButton linkWidget = new RadioButton("widgetType", "Link");
 		final RadioButton rssWidget = new RadioButton("widgetType", "RSS-feed");
-		
-		
-		
+
+
+
 		if(getWidgetType().equals("Link")){
 			linkWidget.setValue(true);
 		}
@@ -131,7 +201,7 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 			System.out.println("Something's wrong");
 			linkWidget.setValue(true);
 		}
-			
+
 		Button editButton = new Button("Edit");
 		editButton.addClickHandler(new ClickHandler(){
 
@@ -139,7 +209,7 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 			public void onClick(ClickEvent event) {
 				String widgetData = widgetLink.getText();
 				String widgetType;
-				
+
 				if(linkWidget.getValue()){
 					System.out.println(index);
 					widgetType = "link";		
@@ -149,23 +219,23 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 				else{
 					widgetType = "RSS";
 					parent.addRSSWidgetAlreadyInDatabase(index,widgetData);
-					
+
 				}
 				editWidgetInDatabase(widgetData, widgetPosition, widgetType);
 				chooseWidget.hide();				
 			}
-			
+
 		});
 		Button cancelButton = new Button("Cancel");
-	
+
 		cancelButton.addClickHandler(new ClickHandler(){
 
 			@Override
 			public void onClick(ClickEvent event) {
 				chooseWidget.hide();				
 			}
-			
-			
+
+
 		});
 		SimplePanel holder = new SimplePanel();
 		SimplePanel holder2 = new SimplePanel();
@@ -183,8 +253,8 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		chooseWidget.setGlassEnabled(true);
 		chooseWidget.center();
 	}
-	
-	
+
+
 	public void editWidgetInDatabase(String widgetData, int widgetPosition, String widgetType){
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
@@ -199,9 +269,9 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		};
 
 		projectSvc.editWidget(userId, widgetData, widgetPosition, widgetType, callback);
-			
-	
+
+
 	}
-	
+
 }
 
