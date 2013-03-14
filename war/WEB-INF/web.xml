@@ -10,15 +10,27 @@
     <welcome-file>TDDD24Project.html</welcome-file>
   </welcome-file-list>
 
+
+ 
+  
   <!-- Servlets -->
   <servlet>
     <servlet-name>projectServiceImpl</servlet-name>
     <servlet-class>com.TDDD24Project.server.ProjectServiceImpl</servlet-class>
-  </servlet>
-
+    </servlet>
+    
   <servlet-mapping>
     <servlet-name>projectServiceImpl</servlet-name>
     <url-pattern>/tddd24project/project</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>sampleUploadServlet</servlet-name>
+    <servlet-class>com.TDDD24Project.server.SampleUploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>sampleUploadServlet</servlet-name>
+    <url-pattern>*.gupld</url-pattern>
   </servlet-mapping>
   
   

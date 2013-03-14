@@ -21,6 +21,8 @@
  <inherits name='com.allen_sauer.gwt.dnd.gwt-dnd'/>
  <inherits name='gwtquery.plugins.draggable.Draggable'/>
  <inherits name='gwtquery.plugins.droppable.Droppable'/>
+  <!-- Include GWTUpload library -->
+  <inherits name="gwtupload.GWTUpload"/>
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.TDDD24Project.client.TDDD24Project'/>
   <!-- Specify the paths for translatable code                    -->

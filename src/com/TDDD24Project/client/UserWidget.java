@@ -1,8 +1,12 @@
 package com.TDDD24Project.client;
 
+
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -32,14 +36,26 @@ public class UserWidget extends Composite {
 
 	}
 	private void initiateGraphic() {
-		AbsolutePanel content = new AbsolutePanel();
+		final AbsolutePanel content = new AbsolutePanel();
 		content.setStyleName("userWidget");
 		userLabel = new Label();
-		userLabel.setPixelSize(25, 25);
+		userLabel.setPixelSize(40, 40);
+		userLabel.setStyleName("userName");
 		content.add(userLabel);
 		userImage = new Image();
-		userImage.setPixelSize(50, 50);
+		userImage.setPixelSize(75, 75);
 		content.add(userImage);
+		Button changeImageButton = new Button("ChangeImage");
+		changeImageButton.addClickHandler( new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				UploadImage uploadImage = new UploadImage();
+				content.add(uploadImage); //TODO: TEST				
+			}
+			
+		});
+		content.add(changeImageButton);
 		initWidget(content);
 		
 	}
