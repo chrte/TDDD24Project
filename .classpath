@@ -5,6 +5,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-dnd-3.2.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/mysql-connector-java-5.1.22-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Henrik/git/TDDD24Project/war/WEB-INF/lib/gquery-dnd-bundle-1.0.6.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gquery-dnd-bundle-1.0.6.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
