@@ -39,7 +39,10 @@ public class EmptyWidget extends SuperWidget{
 			@Override
 			public void onClick(ClickEvent event) {
 
+				
+				if(!isBeingDragged){
 				chooseNewWidget(parent.positionToIndex(position));
+				}
 
 			}
 

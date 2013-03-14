@@ -56,6 +56,10 @@ OverDroppableEventHandler, OutDroppableEventHandler, DragEventHandler {
 	 * to move
 	 */
 	public void onDrag(DragEvent event) {
+		final DraggableWidget<?> draggable = event.getDraggableWidget();
+		SuperWidget widget = (SuperWidget) draggable; 
+		widget.isBeingDragged=true;
+		
 		maybeMovePlaceHolder(event.getHelper());
 	}
 
@@ -84,7 +88,9 @@ OverDroppableEventHandler, OutDroppableEventHandler, DragEventHandler {
 
 		panel.insert(draggable, currentDropIndex);
 		System.out.println("the placerHolderindex is " +currentDropIndex);
+		
 		reset();
+		widget2.isBeingDragged=false;
 
 	}
 

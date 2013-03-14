@@ -56,6 +56,7 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 	int row;
 	int widgetId; //TODO, how to do with this?
 	String url;
+	Boolean isBeingDragged=false;
 	
 	
 
