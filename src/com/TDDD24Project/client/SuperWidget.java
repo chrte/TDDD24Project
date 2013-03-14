@@ -14,7 +14,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -29,11 +28,14 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * A class for a super Widget, which all other widgetTypes should extend
+ * @author Henrik Tosteberg - hento581, Christian Tennstedt - chrte707
+ *
+ */
 public abstract class SuperWidget extends DraggableWidget<Widget> {
-	interface SuperUiBinder extends UiBinder<Widget, Portlet> {
+	
 
-
-	}
 	private static class DraggablePositionHandler implements
 	BeforeDragStartEventHandler, DragStopEventHandler {
 
@@ -57,7 +59,6 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 
 	// This handler is stateless
 	protected static DraggablePositionHandler HANDLER = new DraggablePositionHandler();
-	protected static SuperUiBinder uiBinder = GWT.create(SuperUiBinder.class);
 	protected ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
 
 	@UiField

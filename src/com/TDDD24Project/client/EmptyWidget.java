@@ -14,7 +14,11 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-
+/**
+ * A class for an empty Widget
+ * @author Henrik Tosteberg - hento581, Christian Tennstedt - chrte707
+ *
+ */
 
 public class EmptyWidget extends SuperWidget{
 
@@ -24,10 +28,14 @@ public class EmptyWidget extends SuperWidget{
 	@UiField
 	DivElement header;
 	
-
+	/**
+	 * Constructor of the empty widget
+	 * @param parent - the main page
+	 * @param userId
+	 * @param position
+	 * @param url
+	 */
 	public EmptyWidget(final MainPage parent, int userId, final int position, String url){
-		//		 initWidget(uiBinder.createAndBindUi(this));
-
 		setup();
 		this.parent=parent;
 		this.position = position;
@@ -37,23 +45,21 @@ public class EmptyWidget extends SuperWidget{
 		plusSign.addClickHandler(new ClickHandler(){
 
 			@Override
-			public void onClick(ClickEvent event) {
-
-				
+			public void onClick(ClickEvent event) {				
 				if(!isBeingDragged){
 				chooseNewWidget(parent.positionToIndex(position));
 				}
-
 			}
-
 		});
 
-//		initWidget(plusSign);
 		superPanel.add(plusSign);
-
 	}
 
-
+	/**
+	 * Brings up a popup for choosing a new widget and adds it
+	 * to the main page and to the database
+	 * @param index
+	 */
 
 	private void chooseNewWidget(final int index) {
 		final PopupPanel chooseWidget = new PopupPanel(false);	
@@ -80,13 +86,8 @@ public class EmptyWidget extends SuperWidget{
 				else{
 					parent.addRssWidget(index, url);
 				}
-
-				chooseWidget.hide();
-				
-			}
-			
-			
-			
+				chooseWidget.hide();				
+			}			
 		});
 		Button cancelButton = new Button("Cancel");
 	
@@ -95,9 +96,7 @@ public class EmptyWidget extends SuperWidget{
 			@Override
 			public void onClick(ClickEvent event) {
 				chooseWidget.hide();				
-			}
-			
-			
+			}			
 		});
 		SimplePanel holder = new SimplePanel();
 		SimplePanel holder2 = new SimplePanel();
