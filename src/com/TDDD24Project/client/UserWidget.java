@@ -33,6 +33,7 @@ public class UserWidget extends Composite {
 	}
 	private void initiateGraphic() {
 		AbsolutePanel content = new AbsolutePanel();
+		content.setStyleName("userWidget");
 		userLabel = new Label();
 		userLabel.setPixelSize(25, 25);
 		content.add(userLabel);

@@ -9,7 +9,9 @@ html {
 .login {
 	background-color: gray;
 }
-
+.userWidget{
+	float:right;
+}
 .verticalpanel{
 	border-color:gray;
 	border-style:solid;

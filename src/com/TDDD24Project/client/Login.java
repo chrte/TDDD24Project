@@ -55,6 +55,7 @@ public class Login extends Composite {
 
 //		CheckBox chckbxRememberMeOn = new CheckBox("Remember me on this computer");
 //		chckbxRememberMeOn.setStyleName("gwt-Login-CheckBox");
+		
 //		flexTable.setWidget(2, 1, chckbxRememberMeOn);
 
 		Button btnSignIn = new Button("Sign In");
@@ -84,7 +85,6 @@ public class Login extends Composite {
 			Window.alert("Username or password is empty."); 
 		}
 		else {
-			//TODO: add some server stuff here, to authentication, a rcp call that return the id, 0 if not existing??
 			ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
 			AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
 				public void onFailure(Throwable caught) {
@@ -96,7 +96,7 @@ public class Login extends Composite {
 						Window.alert("Failed to log in");
 					}
 					else{
-						Window.alert("You have been logged in as user" + result +" . Press ok to proceed");	
+						
 						parent.userLoggedIn(result);
 					}
 
