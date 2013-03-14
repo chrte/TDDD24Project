@@ -17,8 +17,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Form google tutorial
- * @author google
+ * From google tutorial
+ * @author google, some minor changes made by : chrte707 & hento581
  *
  */
 public class Login extends Composite {
@@ -26,6 +26,10 @@ public class Login extends Composite {
 	private TextBox textBoxPassword;
 	LoginManager parent;
 
+	/**
+	 * Default constructor
+	 * @param parent The loginManager class
+	 */
 	public Login(final LoginManager parent) {
 		this.parent=parent;
 		VerticalPanel verticalPanel = new VerticalPanel();
