@@ -64,17 +64,7 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 
 	protected void setup() {
 		superPanel=new AbsolutePanel();
-		Button editButton = new Button("editButton");
-		superPanel.add(editButton);
-		editButton.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-				Window.alert("you cliked med"); //TODO : Implement this stuff
-				
-			}
-			
-		});
+		
 		// opacity of the portlet during the drag
 		setDraggingOpacity(new Float(0.8));
 		// zIndex of the portlet during the drag
@@ -84,6 +74,20 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		addDragStopHandler(HANDLER);
 		initWidget(superPanel);
 
+	}
+	protected void addEditButton(){
+		Button editButton = new Button("editButton");
+		superPanel.add(editButton);
+		editButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				Window.alert("you clicked me"); //TODO : Implement this stuff
+				
+			}
+			
+		});
+		
 	}
 	
 }
