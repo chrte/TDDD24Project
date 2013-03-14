@@ -75,7 +75,7 @@ public class EmptyWidget extends SuperWidget{
 			public void onClick(ClickEvent event) {
 				String url = widgetLink.getText();
 				if(linkWidget.getValue()){
-					parent.addWidget(index, url);
+					parent.addLinkWidget(index, url);
 				}
 				else{
 					parent.addRssWidget(index, url);
