@@ -8,8 +8,13 @@ import java.sql.Connection;
 
 import com.TDDD24Project.shared.WidgetInfo;
 
-public class DatabaseHandler {
+/**
+ * This is the Databasehandler class
+ * @author chrte707, hento581
+ *
+ */
 
+public class DatabaseHandler {
 
 	private static final String IP ="chrte.dyndns.org"; 
 	private static final String DATABASENAME ="TDDD24";
@@ -30,6 +35,9 @@ public class DatabaseHandler {
 	private Connection connection;
 
 
+	/**
+	 * Default constructor
+	 */
 	public DatabaseHandler(){
 		initiateConnection();
 
@@ -133,7 +141,6 @@ public class DatabaseHandler {
 	 * @return The widget position
 	 */
 
-
 	public int getWidgetPosition(int widgetId){
 		initiateConnection();
 		java.sql.Statement stmt = null;
@@ -194,6 +201,12 @@ public class DatabaseHandler {
 	}
 
 
+	/**
+	 * Method for removing a widget
+	 * @param userId the userid
+	 * @param widgetPosition the position of the widget
+	 * @return a string
+	 */
 	public String removeWidget(int userId, int widgetPosition){
 		initiateConnection();
 		java.sql.Statement stmt=null;
@@ -209,6 +222,12 @@ public class DatabaseHandler {
 		return "";
 	}
 
+	/**
+	 * Method for authenticate the user
+	 * @param userName the user name
+	 * @param password the password
+	 * @return A integer, the user id if the user name and password is correct, 0 else
+	 */
 	public int authUser(String userName, String password) {
 
 		initiateConnection();
@@ -228,6 +247,11 @@ public class DatabaseHandler {
 		return 0; 
 	}
 
+	/**
+	 * Method for getting the user name, given an userId
+	 * @param userId the userid
+	 * @return The user name
+	 */
 	public String getUserName(int userId) {
 
 		initiateConnection();
@@ -247,6 +271,11 @@ public class DatabaseHandler {
 		return "";
 	}
 
+	/**
+	 * Gets the user images src
+	 * @param userId the userid
+	 * @return the src of the userimg
+	 */
 	public String getUserImage(int userId) {
 		initiateConnection();
 		java.sql.Statement stmt = null;
@@ -265,6 +294,11 @@ public class DatabaseHandler {
 		return "";
 	}
 
+	/**
+	 * Sets the src of the userimage
+	 * @param userId the userId
+	 * @param imageSrc the src of the image
+	 */
 	public void setUserImange(int userId, String imageSrc){
 		try {
 			java.sql.Statement stmt=null;
@@ -278,7 +312,11 @@ public class DatabaseHandler {
 	}
 
 
-
+	/**
+	 * A method for getting the users widget data
+	 * @param userId the user Id
+	 * @return An array list with the userInfo
+	 */
 	public ArrayList<WidgetInfo> getUsersWidgetData(int userId){	
 		ArrayList<WidgetInfo> widgets = new ArrayList<WidgetInfo>();
 		 
@@ -300,13 +338,16 @@ public class DatabaseHandler {
 		return widgets;
 	}
 	
-	public String swapWidgetPlace(int userId, int position1, int position2){
-		
-		
+	/**
+	 * A method for swapping two widgets in the database
+	 * @param userId the userid
+	 * @param position1 position 1
+	 * @param position2 position 2
+	 * @return a string
+	 */
+	public String swapWidgetPlace(int userId, int position1, int position2){		
 		initiateConnection();
 		java.sql.Statement stmt = null;
-
-		
 		try {
 			stmt = connection.createStatement();
 			//position 999 = temporary placeholder
@@ -324,6 +365,14 @@ public class DatabaseHandler {
 	}
 	
 	
+	/**
+	 * Edits a widgets in the db given an user id
+	 * @param userId The userid 
+	 * @param widgetData the widget data
+	 * @param widgetPosition the position of the widget
+	 * @param widgetType the type of the widget
+	 * @return a String
+	 */
 	public String editWidget(int userId, String widgetData, int widgetPosition, String widgetType){
 		
 		initiateConnection();
