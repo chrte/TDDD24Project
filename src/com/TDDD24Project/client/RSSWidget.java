@@ -20,6 +20,7 @@ public class RSSWidget extends SuperWidget{
 		this.userId=userId;
 		addRSS(url);	
 		setup();
+		addEditButton();
 		superPanel.add(absolutePanel);
 	}
 

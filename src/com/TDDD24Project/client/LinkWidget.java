@@ -19,6 +19,7 @@ DivElement header;
 	public LinkWidget(MainPage parent, int userId, int position, String url, int column, int row){
 
 		 setup();
+		 addEditButton();
 		this.parent=parent;
 		this.position = position;
 		this.userId=userId;
