@@ -5,7 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
+
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -13,9 +13,9 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
-@SuppressWarnings("deprecation")
+
+
 public class EmptyWidget extends SuperWidget{
 
 
@@ -65,19 +65,13 @@ public class EmptyWidget extends SuperWidget{
 		message.setStyleName("demo-PopUpPanel-message");
 		final RadioButton linkWidget = new RadioButton("widgetType", "Link");
 		final RadioButton rssWidget = new RadioButton("widgetType", "RSS-feed");
-		linkWidget.setChecked(true);
-		ClickListener cancelListener = new ClickListener()
-		{
-			public void onClick(Widget sender)
-			{
-				chooseWidget.hide();
-			}
-		};
-		ClickListener addListener = new ClickListener()
-		{
-			public void onClick(Widget sender)
-			{
+		linkWidget.setValue(true);
+			
+		Button addButton = new Button("Add");
+		addButton.addClickHandler(new ClickHandler(){
 
+			@Override
+			public void onClick(ClickEvent event) {
 				String url = widgetLink.getText();
 				if(linkWidget.getValue()){
 					parent.addWidget(index, url);
@@ -85,15 +79,25 @@ public class EmptyWidget extends SuperWidget{
 				else{
 					parent.addRssWidget(index, url);
 				}
-				
-				//				addAlertWidget(index);
+
 				chooseWidget.hide();
+				
 			}
-		};
-		Button addButton = new Button("Add");
-		addButton.addClickListener(addListener); 		//TODO: deprecated, should use something else probably..
+			
+			
+			
+		});
 		Button cancelButton = new Button("Cancel");
-		cancelButton.addClickListener(cancelListener);
+	
+		cancelButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				chooseWidget.hide();				
+			}
+			
+			
+		});
 		SimplePanel holder = new SimplePanel();
 		SimplePanel holder2 = new SimplePanel();
 		holder.add(addButton);
