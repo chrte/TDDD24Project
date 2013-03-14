@@ -302,6 +302,17 @@ public class DatabaseHandler {
 
 		return "";
 	}
+	public void setUserImange(int userId, String imageSrc){
+		try {
+			java.sql.Statement stmt=null;
+			stmt =connection.createStatement();			
+			stmt.executeUpdate("UPDATE "+DATABASENAME+"."+USERS+" SET "+USERIMAGE +"='"+imageSrc+"' WHERE "+USERID+ "='"+userId+"');");
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+
 
 
 	public ArrayList<WidgetInfo> getUsersWidgetData(int userId){	

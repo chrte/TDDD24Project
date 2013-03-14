@@ -67,17 +67,9 @@ ProjectService {
 
 	public ArrayList<FeedMessage> readRSS(String url){
 
-
 		RSSFeedParser parser = new RSSFeedParser(url);
 		Feed feed = parser.readFeed();	   
-
-
-
-
 		ArrayList<FeedMessage> message = feed.getMessages();
-
-
-
 		return message;
 	}
 	
@@ -89,6 +81,12 @@ ProjectService {
 	
 	public String editWidget(int userId, String widgetData, int widgetPosition, String widgetType){
 		dbHandler.editWidget(userId, widgetData, widgetPosition, widgetType);
+		return "";
+	}
+	
+	@Override
+	public String setUserImage(int userId, String imageSrc){
+		dbHandler.setUserImange(userId, imageSrc);
 		return "";
 	}
 
