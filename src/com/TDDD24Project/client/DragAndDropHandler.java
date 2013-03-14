@@ -39,188 +39,159 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  */
 public class DragAndDropHandler implements DropEventHandler,
-    OverDroppableEventHandler, OutDroppableEventHandler, DragEventHandler {
+OverDroppableEventHandler, OutDroppableEventHandler, DragEventHandler {
 
-  private HandlerRegistration dragHandlerRegistration;
-  private FlowPanel panel;
-//  private SimplePanel placeHolder; //TODO: remove later
-  private int placeHolderIndex;
-  protected ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
+	private HandlerRegistration dragHandlerRegistration;
+	private FlowPanel panel;
+	private int currentDropIndex;
+	protected ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
 
-  public DragAndDropHandler(FlowPanel panel) {
-    this.panel = panel;
-    placeHolderIndex = -1;
-  }
+	public DragAndDropHandler(FlowPanel panel) {
+		this.panel = panel;
+		currentDropIndex = -1;
+	}
 
-  /**
-   * When draggable is dragging inside the panel, check if the place holder has
-   * to move
-   */
-  public void onDrag(DragEvent event) {
-    maybeMovePlaceHolder(event.getHelper());
-  }
+	/**
+	 * When draggable is dragging inside the panel, check if the place holder has
+	 * to move
+	 */
+	public void onDrag(DragEvent event) {
+		maybeMovePlaceHolder(event.getHelper());
+	}
 
-  /**
-   * On drop, insert the draggable at the place holder index, remove handler on
-   * the {@link DragEvent} of this draggable and remove the visual place holder
-   */
-  public void onDrop(DropEvent event) {
-    final DraggableWidget<?> draggable = event.getDraggableWidget();
-   
-    SuperWidget widget =  (SuperWidget) panel.getWidget(placeHolderIndex); 
-    System.out.println(widget.url);
-    System.out.println(widget.position);
-    SuperWidget widget2 = (SuperWidget) draggable; 
-    System.out.println(widget2.position);
-    int userId = widget2.userId;
-    
-    int widget2Position =widget2.position%10;
-    
-    swapWidgetPlaceInDatabase(userId, widget.position, widget2.position);
-    
-    int tempPosition = widget.position;
-    widget.position =  widget2.position;
-    widget2.position = tempPosition;
-    FlowPanel panel2 =(FlowPanel) widget2.getParent();
-    panel2.insert(widget,widget2Position-1);
-    
-    panel.insert(draggable, placeHolderIndex);
-    System.out.println("the placerHolderindex is " +placeHolderIndex);
-    reset();
+	/**
+	 * On drop, insert the draggable at the place holder index, remove handler on
+	 * the {@link DragEvent} of this draggable and remove the visual place holder
+	 */
+	public void onDrop(DropEvent event) {
+		final DraggableWidget<?> draggable = event.getDraggableWidget();
 
-  }
+		SuperWidget widget =  (SuperWidget) panel.getWidget(currentDropIndex); 
 
-  private void swapWidgetPlaceInDatabase(int userId, int position1, int position2) {
-	
-	  AsyncCallback<String> callback = new AsyncCallback<String>() {
+		SuperWidget widget2 = (SuperWidget) draggable; 
+
+		int userId = widget2.userId;
+
+		int widget2Position =widget2.position%10;
+
+		swapWidgetPlaceInDatabase(userId, widget.position, widget2.position);
+
+		int tempPosition = widget.position;
+		widget.position =  widget2.position;
+		widget2.position = tempPosition;
+		FlowPanel panel2 =(FlowPanel) widget2.getParent();
+		panel2.insert(widget,widget2Position-1);
+
+		panel.insert(draggable, currentDropIndex);
+		System.out.println("the placerHolderindex is " +currentDropIndex);
+		reset();
+
+	}
+
+	private void swapWidgetPlaceInDatabase(int userId, int position1, int position2) {
+
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
 				System.out.println("failure");				
 			}
-			
+
 			@Override
 			public void onSuccess(String result) {
 				System.out.println("positions swapped");
-				
+
 			}
-	  };
-	  projectSvc.swapWidgetPlaceInDatabase(userId, position1, position2, callback); 
-	
-}
+		};
+		projectSvc.swapWidgetPlaceInDatabase(userId, position1, position2, callback); 
 
-/**
-   * When a draggable is out the panel, remove handler on the {@link DragEvent}
-   * of this draggable and remove the visual place holder
-   */
-  public void onOutDroppable(OutDroppableEvent event) {
-    reset();
-  }
+	}
 
-  /**
-   * When a draggable is being over the panel, listen on the {@link DragEvent}
-   * of the draggable and put a visaul place holder.
-   */
-  public void onOverDroppable(OverDroppableEvent event) {
-    DraggableWidget<?> draggable = event.getDraggableWidget();
-    // create a place holder
-//    createPlaceHolder(draggable, panel.getWidgetIndex(draggable));
-    dontCreatePlaceHolder(draggable, panel.getWidgetIndex(draggable));	//TODO: UGLYYYY!!!!
-    // listen drag event when draggable is over the droppable
-    dragHandlerRegistration = draggable.addDragHandler(this);
-  }
+	/**
+	 * When a draggable is out the panel, remove handler on the {@link DragEvent}
+	 * of this draggable and remove the visual place holder
+	 */
+	public void onOutDroppable(OutDroppableEvent event) {
+		reset();
+	}
 
-  private void dontCreatePlaceHolder(Widget draggable, int initialPosition) {	//TODO: NOT A VERY GOOD NAME ;)
-//	  placeHolder = new SimplePanel();
-//	    placeHolder.addStyleName(Resources.INSTANCE.css().placeHolder());
-//	    placeHolder.setHeight("" + $(draggable).height() + "px");
-//	    placeHolder.setWidth("" + $(draggable).width() + "px");
+	/**
+	 * When a draggable is being over the panel, listen on the {@link DragEvent}
+	 * of the draggable and put a visaul place holder.
+	 */
+	public void onOverDroppable(OverDroppableEvent event) {
+		DraggableWidget<?> draggable = event.getDraggableWidget();
+		getDragIndex(draggable, panel.getWidgetIndex(draggable));	
+		dragHandlerRegistration = draggable.addDragHandler(this);
+	}
 
-	    if (initialPosition != -1) {
-//	      panel.insert(placeHolder, initialPosition);
-	      placeHolderIndex = initialPosition;
-	    }
-	    
-}
+	private void getDragIndex(Widget draggable, int initialPosition) {	
 
-///**	//TODO: Remove later, when all is functional
-//   * Create a visual place holder
-//   * 
-//   * @param draggable
-//   * @param initialPosition
-//   */
-//  private void createPlaceHolder(Widget draggable, int initialPosition) {
-//    placeHolder = new SimplePanel();
-//    placeHolder.addStyleName(Resources.INSTANCE.css().placeHolder());
-//    placeHolder.setHeight("" + $(draggable).height() + "px");
-//    placeHolder.setWidth("" + $(draggable).width() + "px");
-//
-//    if (initialPosition != -1) {
-//      panel.insert(placeHolder, initialPosition);
-//      placeHolderIndex = initialPosition;
-//    }
-//  }
+		if (initialPosition != -1) {
+			currentDropIndex = initialPosition;
+		}
 
-  /**
-   * Return the index before which we should insert the draggable if this one is
-   * dropped now
-   * 
-   * @param draggableHelper
-   * @return
-   */
-  private int getBeforeInsertIndex(Element draggableHelper) {
-    if (panel.getWidgetCount() == 0) {
-      // no widget, the draggable should just be added to the panel
-      return -1;
-    }
+	}
 
-    // compare absoluteTop of the draggable with absoluteTop od all widget
-    // containing in the panel
-    int draggableAbsoluteTop = draggableHelper.getAbsoluteTop();
-    
 
-    for (int i = 0; i < panel.getWidgetCount(); i++) {
-      Widget w = panel.getWidget(i);
-      int widgetAbsoluteTop = w.getElement().getAbsoluteTop();
-      if (widgetAbsoluteTop+80 > draggableAbsoluteTop && widgetAbsoluteTop-80 < draggableAbsoluteTop ) {
-        return i;
-      }
-    }
 
-    // the draggable should just be added at the end of the panel
-    return -1;
-  }
+	/**
+	 * Return the index before which we should insert the draggable if this one is
+	 * dropped now
+	 * 
+	 * @param draggableHelper
+	 * @return
+	 */
+	private int getBeforeInsertIndex(Element draggableHelper) {
+		if (panel.getWidgetCount() == 0) {
+			// no widget, the draggable should just be added to the panel
+			return -1;
+		}
 
-  /**
-   * Check if we have to move the place holder
-   * 
-   * @param draggableHelper
-   */
-  private void maybeMovePlaceHolder(Element draggableHelper) {
-    int beforeInsertIndex = getBeforeInsertIndex(draggableHelper);
+		// Compare absoluteTop of the draggable with absoluteTop of all widgets in the panel
+		int draggableAbsoluteTop = draggableHelper.getAbsoluteTop();
 
-    if (placeHolderIndex > 0 && beforeInsertIndex == placeHolderIndex) {
-      // placeHolder must not move
-      return;
-    }
 
-    if (beforeInsertIndex >= 0) {
-      // move the place holder and keep its position
-//      panel.insert(placeHolder, beforeInsertIndex);
-      placeHolderIndex = beforeInsertIndex;
-    } else {
-      // insert the place holder at the end
-//      panel.add(placeHolder);
-      placeHolderIndex = panel.getWidgetCount() - 1;
-    }
-  }
+		for (int i = 0; i < panel.getWidgetCount(); i++) {
+			Widget w = panel.getWidget(i);
+			int widgetAbsoluteTop = w.getElement().getAbsoluteTop();
+			if (widgetAbsoluteTop+80 > draggableAbsoluteTop && widgetAbsoluteTop-80 < draggableAbsoluteTop ) {
+				return i;
+			}
+		}
 
-  private void reset() {
-    // don't listen drag event on the draggable
-    dragHandlerRegistration.removeHandler();
-    // remove the place holder
-//    placeHolder.removeFromParent();
-//    placeHolder = null;
-    dragHandlerRegistration = null;
-    placeHolderIndex = -1;
-  }
+		// the draggable should just be added at the end of the panel
+		return -1;
+	}
+
+	/**
+	 * Check if we have to move the place holder
+	 * 
+	 * @param draggableHelper
+	 */
+	private void maybeMovePlaceHolder(Element draggableHelper) {
+		System.out.println("MAYBE MOVE");
+		int beforeInsertIndex = getBeforeInsertIndex(draggableHelper);
+		System.out.println(beforeInsertIndex);
+
+		if (currentDropIndex > 0 && beforeInsertIndex == currentDropIndex) {
+			
+			return;
+		}
+
+		if (beforeInsertIndex >= 0) {
+			
+			currentDropIndex = beforeInsertIndex;
+		} else {
+			
+			currentDropIndex = panel.getWidgetCount() - 1;
+		}
+	}
+
+	private void reset() {
+		// don't listen drag event on the draggable
+		dragHandlerRegistration.removeHandler();
+		
+		dragHandlerRegistration = null;
+		currentDropIndex = -1;
+	}
 
 }
