@@ -14,10 +14,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class LoginManager extends Composite {
 	private TDDD24Project parent;
 	public LoginManager(TDDD24Project parent) {
-//		RootPanel rootPanel = RootPanel.get();
+
 		this.parent=parent;
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-//		rootPanel.add(horizontalPanel, 10, 10);
 		horizontalPanel.setSize("470px", "212px");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();

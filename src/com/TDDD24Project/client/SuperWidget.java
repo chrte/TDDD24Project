@@ -11,7 +11,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 public abstract class SuperWidget extends DraggableWidget<Widget> {
@@ -52,9 +51,6 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 	int userId;
 	MainPage parent;
 	int position;
-	int column;
-	int row;
-	int widgetId; //TODO, how to do with this?
 	String url;
 	Boolean isBeingDragged=false;
 	
@@ -70,23 +66,6 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		addDragStopHandler(HANDLER);
 
 	}
-	protected void getColumnAndRow(){
-		AsyncCallback<int[]> callback = new AsyncCallback<int[]>() {
-			public void onFailure(Throwable caught) {
-				System.out.println("failure");
-			}
-			@Override
-			public void onSuccess(int[] result) {
-				column=result[0];
-				row=result[1];
-			}
-			
-		};
-		
-		
-		
-		projectSvc.getWidgetColumnAndRow(widgetId, callback);
-		
-	}
+	
 }
 

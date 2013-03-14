@@ -25,12 +25,10 @@ public class MainPage extends Composite {
 
 	//Defining globals	
 
-	//private HelperFunctions helperFunctions = new  HelperFunctions();
 	private VerticalPanel mainPanel = new VerticalPanel();
 	private HorizontalPanel widgetsPanel = new HorizontalPanel();
 	private Image logo = new Image("images/logo.jpg");
-	//	private Image background = new Image("images/background.jpg");
-	private Image bottomlogo = new Image("images/logo.jpg");
+
 	private int userId;
 
 	
@@ -79,22 +77,7 @@ public class MainPage extends Composite {
 
 			}
 
-			private void AddDataFromDatabase(ArrayList<WidgetInfo> result) {	//TODO: Move
-				for(int i=0; i<result.size(); i++){
-					String widgetType = result.get(i).getWidgetType();
-					if(widgetType.equals("link")){
-
-						addLinkWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
-					}
-					else if(widgetType.equals("RSS")){
-
-						addRSSWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
-					}
-					else{	//TODO: Something else???
-						addLinkWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
-					}
-				}
-			}
+			
 
 		};
 
@@ -102,34 +85,31 @@ public class MainPage extends Composite {
 
 	}
 
-	private void deleteFromDatabase(int widgetId){
+	
+	private void AddDataFromDatabase(ArrayList<WidgetInfo> result) {	
+		for(int i=0; i<result.size(); i++){
+			String widgetType = result.get(i).getWidgetType();
+			if(widgetType.equals("link")){
 
-		AsyncCallback<String> callback = new AsyncCallback<String>() {
-			public void onFailure(Throwable caught) {
-				System.out.println("failure");
+				addLinkWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
 			}
-			@Override
-			public void onSuccess(String result) {
-				System.out.println("success");				
+			else if(widgetType.equals("RSS")){
 
+				addRSSWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
 			}
-
-		};
-
-		projectSvc.removeWidget(12, callback);
+			else{	//For future implementations
+				addLinkWidgetAlreadyInDatabase(positionToIndex(result.get(i).getPosition()), result.get(i).getWidgetData());
+			}
+		}
 	}
+	
+	
 
+	protected void addWidget(int index, String url){ 
 
-
-
-	protected void addWidget(int index, String url){ 	//TODO: make more general (add support for RSS etc..)
-
-//		Widget tempPanel =  widgets.get(index);
-//		tempPanel.clear();
 		final int position = indexToPosition(index);
 		LinkWidget linkWidget = new LinkWidget(this, userId, position, url, positionToColumn(position), positionToRow(position));
-		linkWidget.addLinkToDatabase(url, userId);
-	
+		linkWidget.addLinkToDatabase(url, userId);	
 		droppablePanels.get(positionToColumn(position)-1).setWidget(linkWidget, positionToRow(position)-1);
 		
 
@@ -141,16 +121,9 @@ public class MainPage extends Composite {
 
 	protected void addLinkWidgetAlreadyInDatabase(int index, String url){
 
-//		Widget tempPanel =  widgets.get(index);
-//		tempPanel.remove();
 		final int position = indexToPosition(index);
 		LinkWidget tempWidget = new LinkWidget(this, userId, position, url, positionToColumn(position), positionToRow(position));
-		//		DraggableWidget<LinkWidget> tempDragWidget = new DraggableWidget<LinkWidget>(tempWidget);
-		//		tempDragWidget.setDraggingCursor(Cursor.MOVE);
-		//		tempDragWidget.setDraggingZIndex(100);
-
 		droppablePanels.get(positionToColumn(position)-1).setWidget(tempWidget, positionToRow(position)-1);
-//		tempPanel.setLayoutData(tempWidget);	
 
 
 	}
@@ -158,19 +131,13 @@ public class MainPage extends Composite {
 
 	protected void addRSSWidgetAlreadyInDatabase(int index, String url){
 
-//		Widget tempPanel =  widgets.get(index);
-		
-		final int position = indexToPosition(index);
-		
+		final int position = indexToPosition(index);		
 		Widget rss = new RSSWidget(this, userId, position, url);
-//		tempPanel.setLayoutData(rss);	 //TODO, correct??
 		droppablePanels.get(positionToColumn(position)-1).setWidget(rss, positionToRow(position)-1);
 
 	}
 
 	void addRssWidget(int index, String url){
-//		AbsolutePanel tempPanel = (AbsolutePanel) widgets.get(index);
-//		tempPanel.clear();
 		final int position = indexToPosition(index);			
 		RSSWidget rssWidget = new RSSWidget(this, userId, position, url);
 		rssWidget.addRSSToDatabase(url, userId);
@@ -179,7 +146,7 @@ public class MainPage extends Composite {
 
 	}
 
-	protected int indexToPosition(int index) {	//TODO: Can this be done more general if we add more fields???
+	protected int indexToPosition(int index) {	
 
 
 		int x = (int) Math.floor(index/3.0+1);
@@ -191,7 +158,7 @@ public class MainPage extends Composite {
 	}
 
 
-	protected int positionToIndex(int position){ //TODO: test, make more general?
+	protected int positionToIndex(int position){ 
 
 		int one = (int) Math.floor(position/10)-1;
 		int ten = position-(one+1)*10;
@@ -218,7 +185,7 @@ public class MainPage extends Composite {
 		droppablePanels.add(new DroppablePanel(1));
 		Widget emptyWidget = new EmptyWidget(this,userId,11,"awesome");
 		droppablePanels.get(0).add(emptyWidget);
-		droppablePanels.get(0).setPixelSize(300,600); //TODO: Set different size?
+		droppablePanels.get(0).setPixelSize(300,600); 
 		
 		emptyWidget = new EmptyWidget(this,userId,12,"awesome");
 		droppablePanels.get(0).add(emptyWidget);
@@ -230,7 +197,7 @@ public class MainPage extends Composite {
 		
 		
 		droppablePanels.add(new DroppablePanel(2));
-		droppablePanels.get(1).setPixelSize(300,600); //TODO: Set different size?
+		droppablePanels.get(1).setPixelSize(300,600);
 		emptyWidget = new EmptyWidget(this,userId,21,"awesome");
 		droppablePanels.get(1).add(emptyWidget);
 		emptyWidget = new EmptyWidget(this,userId,22,"awesome");
@@ -240,7 +207,7 @@ public class MainPage extends Composite {
 		widgetsPanel.add(droppablePanels.get(1));
 		
 		droppablePanels.add(new DroppablePanel(3));
-		droppablePanels.get(2).setPixelSize(300,600); //TODO: Set different size?
+		droppablePanels.get(2).setPixelSize(300,600);
 		emptyWidget = new EmptyWidget(this,userId,31,"awesome");
 		droppablePanels.get(2).add(emptyWidget);
 		emptyWidget = new EmptyWidget(this,userId,32,"awesome");
@@ -251,10 +218,8 @@ public class MainPage extends Composite {
 
 
 		logo.setPixelSize(1024, 60);
-//		bottomlogo.setPixelSize(1024, 60);
 		mainPanel.add(logo);
 		mainPanel.add(widgetsPanel);
-//		mainPanel.add(bottomlogo);
 		RootPanel.get("main").add(mainPanel);	
 
 	}

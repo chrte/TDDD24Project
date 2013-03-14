@@ -33,9 +33,9 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * All logic of the drag and drop operation is contained in this class.
+ * Inspired by the works of Julien Dramaix (julien.dramaix@gmail.com)
  * 
- * @author Julien Dramaix (julien.dramaix@gmail.com)
+ * @author Henrik Tosteberg - hento581, Christian Tennstedt - chrte707
  * 
  */
 public class DragAndDropHandler implements DropEventHandler,
@@ -52,7 +52,7 @@ OverDroppableEventHandler, OutDroppableEventHandler, DragEventHandler {
 	}
 
 	/**
-	 * When draggable is dragging inside the panel, check if the place holder has
+	 * When draggable is dragging inside the panel, check if the index has
 	 * to move
 	 */
 	public void onDrag(DragEvent event) {
@@ -60,22 +60,20 @@ OverDroppableEventHandler, OutDroppableEventHandler, DragEventHandler {
 		SuperWidget widget = (SuperWidget) draggable; 
 		widget.isBeingDragged=true;
 		
-		maybeMovePlaceHolder(event.getHelper());
+		maybeMoveDropIndex(event.getHelper());
 	}
 
 	/**
-	 * On drop, insert the draggable at the place holder index, remove handler on
-	 * the {@link DragEvent} of this draggable and remove the visual place holder
+	 * On drop, insert the draggable at the drop index, remove handler on
+	 * the {@link DragEvent} of this draggable
 	 */
 	public void onDrop(DropEvent event) {
 		final DraggableWidget<?> draggable = event.getDraggableWidget();
 
 		SuperWidget widget =  (SuperWidget) panel.getWidget(currentDropIndex); 
-
 		SuperWidget widget2 = (SuperWidget) draggable; 
 
 		int userId = widget2.userId;
-
 		int widget2Position =widget2.position%10;
 
 		swapWidgetPlaceInDatabase(userId, widget.position, widget2.position);
@@ -87,12 +85,18 @@ OverDroppableEventHandler, OutDroppableEventHandler, DragEventHandler {
 		panel2.insert(widget,widget2Position-1);
 
 		panel.insert(draggable, currentDropIndex);
-		System.out.println("the placerHolderindex is " +currentDropIndex);
 		
 		reset();
 		widget2.isBeingDragged=false;
 
 	}
+	
+	/**
+	 * Swaps the two widgets positions in the database
+	 * @param userId
+	 * @param position1
+	 * @param position2
+	 */
 
 	private void swapWidgetPlaceInDatabase(int userId, int position1, int position2) {
 
@@ -113,7 +117,7 @@ OverDroppableEventHandler, OutDroppableEventHandler, DragEventHandler {
 
 	/**
 	 * When a draggable is out the panel, remove handler on the {@link DragEvent}
-	 * of this draggable and remove the visual place holder
+	 * of this draggable
 	 */
 	public void onOutDroppable(OutDroppableEvent event) {
 		reset();
@@ -121,7 +125,7 @@ OverDroppableEventHandler, OutDroppableEventHandler, DragEventHandler {
 
 	/**
 	 * When a draggable is being over the panel, listen on the {@link DragEvent}
-	 * of the draggable and put a visaul place holder.
+	 * of the draggable
 	 */
 	public void onOverDroppable(OverDroppableEvent event) {
 		DraggableWidget<?> draggable = event.getDraggableWidget();
@@ -164,19 +168,18 @@ OverDroppableEventHandler, OutDroppableEventHandler, DragEventHandler {
 			}
 		}
 
-		// the draggable should just be added at the end of the panel
+		// the draggable should just be added at the end of the panel, should never happen
 		return -1;
 	}
 
 	/**
-	 * Check if we have to move the place holder
+	 * Check if we have to move the drop index
 	 * 
 	 * @param draggableHelper
 	 */
-	private void maybeMovePlaceHolder(Element draggableHelper) {
-		System.out.println("MAYBE MOVE");
+	private void maybeMoveDropIndex(Element draggableHelper) {
+
 		int beforeInsertIndex = getBeforeInsertIndex(draggableHelper);
-		System.out.println(beforeInsertIndex);
 
 		if (currentDropIndex > 0 && beforeInsertIndex == currentDropIndex) {
 			
