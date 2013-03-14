@@ -2,14 +2,17 @@ package com.TDDD24Project.server;
 
 import gwtupload.server.UploadAction;
 import gwtupload.server.exceptions.UploadActionException;
-
 import java.io.File;
 import java.util.Hashtable;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.fileupload.FileItem;
+
+/**
+ * Class that extends the UploadAction 
+ * @author source: https://code.google.com/p/gwtupload/, modified by: hento581 & chrte707
+ *
+ */
 
 public class SampleUploadServlet extends UploadAction {
 

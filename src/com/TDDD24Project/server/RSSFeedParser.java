@@ -15,9 +15,10 @@ import com.TDDD24Project.shared.Feed;
 import com.TDDD24Project.shared.FeedMessage;
 
 
-
-/*
- * Reads the xml-file - source: http://www.vogella.com
+/**
+ * A class for reading the content of an RSS-feed
+ * @author source: http://www.vogella.com, modified by: chrte707 & hento581
+ *
  */
 
 public class RSSFeedParser {
@@ -34,6 +35,10 @@ public class RSSFeedParser {
 
   final URL url;
 
+  /**
+   * Constructor for the class
+   * @param feedUrl The url from which to read the RSS
+   */
   public RSSFeedParser(String feedUrl) {
     try {
       this.url = new URL(feedUrl);
@@ -42,10 +47,12 @@ public class RSSFeedParser {
     }
   }
 
-
+/**
+ * Method for reading the feed
+ * @return The feed
+ */
   public Feed readFeed() {
     Feed feed = null;
-    
     
     try {
 
