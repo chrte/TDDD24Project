@@ -9,7 +9,6 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
@@ -54,9 +53,9 @@ public class Login extends Composite {
 		textBoxPassword = new PasswordTextBox();
 		flexTable.setWidget(1, 1, textBoxPassword);
 
-		CheckBox chckbxRememberMeOn = new CheckBox("Remember me on this computer");
-		chckbxRememberMeOn.setStyleName("gwt-Login-CheckBox");
-		flexTable.setWidget(2, 1, chckbxRememberMeOn);
+//		CheckBox chckbxRememberMeOn = new CheckBox("Remember me on this computer");
+//		chckbxRememberMeOn.setStyleName("gwt-Login-CheckBox");
+//		flexTable.setWidget(2, 1, chckbxRememberMeOn);
 
 		Button btnSignIn = new Button("Sign In");
 		btnSignIn.addClickHandler(new ClickHandler() {
