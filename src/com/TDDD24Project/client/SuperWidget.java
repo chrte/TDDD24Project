@@ -169,7 +169,19 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 
 	
 	private void removeWidget(int index, int position) {
-	
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(Throwable caught) {
+				System.out.println("failure");				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				System.out.println("Success");
+			}				
+
+		};
+
+		projectSvc.removeWidget(userId, position, callback);
 		
 		
 	}

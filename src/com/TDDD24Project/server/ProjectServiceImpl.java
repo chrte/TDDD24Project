@@ -27,8 +27,8 @@ ProjectService {
 		return "return";
 	}
 	@Override
-	public String removeWidget(int widgetId) {
-		dbHandler.removeWidget(widgetId);
+	public String removeWidget(int userId, int position) {
+//		dbHandler.removeWidget(widgetId);
 		return "";
 	}
 	@Override
@@ -89,5 +89,8 @@ ProjectService {
 		dbHandler.setUserImange(userId, imageSrc);
 		return "";
 	}
+	
+	
+	
 
 }
