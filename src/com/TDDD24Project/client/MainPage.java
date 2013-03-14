@@ -27,7 +27,7 @@ public class MainPage extends Composite {
 
 	private VerticalPanel mainPanel = new VerticalPanel();
 	private HorizontalPanel widgetsPanel = new HorizontalPanel();
-	private Image logo = new Image("images/logo.jpg");
+
 	private int userId;	
 	private ArrayList<DroppablePanel> droppablePanels = new ArrayList<DroppablePanel>();
 	protected ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
@@ -212,8 +212,7 @@ public class MainPage extends Composite {
 		widgetsPanel.add(droppablePanels.get(2));
 
 
-		logo.setPixelSize(1024, 60);
-		mainPanel.add(logo);
+
 		mainPanel.add(widgetsPanel);
 		RootPanel.get("main").add(mainPanel);	
 

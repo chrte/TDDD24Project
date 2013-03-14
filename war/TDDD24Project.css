@@ -21,6 +21,16 @@ html {
 	border-width:2px;
 }
 
+.widgetspanel{
+	border-color:gray;
+	border-style:solid;
+	border-width:2px;	
+}
+
+.removeButton{
+	color:red;
+}
+
 .anchor {
 	font-size: 15px;
 	color: #FFFFFF;
