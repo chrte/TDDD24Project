@@ -12,6 +12,9 @@ html {
 .userWidget{
 	float:right;
 }
+.userName{
+	font-size:large;
+}
 .verticalpanel{
 	border-color:gray;
 	border-style:solid;

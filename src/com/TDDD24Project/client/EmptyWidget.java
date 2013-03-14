@@ -48,7 +48,8 @@ public class EmptyWidget extends SuperWidget{
 
 		});
 
-		initWidget(plusSign);
+//		initWidget(plusSign);
+		superPanel.add(plusSign);
 
 	}
 

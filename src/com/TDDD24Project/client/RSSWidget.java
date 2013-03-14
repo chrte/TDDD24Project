@@ -56,7 +56,8 @@ public class RSSWidget extends SuperWidget{
 
 		projectSvc.readRSS(url, callback);
 
-		initWidget(absolutePanel);
+//		initWidget(absolutePanel);
+		superPanel.add(absolutePanel);
 
 	}
 

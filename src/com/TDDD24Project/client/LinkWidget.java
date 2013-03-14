@@ -57,7 +57,8 @@ DivElement header;
 
 		absolutePanel.add(link); 
 		
-		initWidget(absolutePanel);
+		//initWidget(absolutePanel);
+		superPanel.add(absolutePanel);
 	}
 	
 	public void addLinkToDatabase(String link, int userId){

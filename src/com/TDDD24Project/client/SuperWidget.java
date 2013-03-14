@@ -9,8 +9,13 @@ import gwtquery.plugins.draggable.client.gwt.DraggableWidget;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Widget;
 
 public abstract class SuperWidget extends DraggableWidget<Widget> {
@@ -53,10 +58,23 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 	int position;
 	String url;
 	Boolean isBeingDragged=false;
+	AbsolutePanel superPanel; 
 	
 	
 
 	protected void setup() {
+		superPanel=new AbsolutePanel();
+		Button editButton = new Button("editButton");
+		superPanel.add(editButton);
+		editButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				Window.alert("you cliked med"); //TODO : Implement this stuff
+				
+			}
+			
+		});
 		// opacity of the portlet during the drag
 		setDraggingOpacity(new Float(0.8));
 		// zIndex of the portlet during the drag
@@ -64,6 +82,7 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		// add position handler
 		addBeforeDragHandler(HANDLER);
 		addDragStopHandler(HANDLER);
+		initWidget(superPanel);
 
 	}
 	
