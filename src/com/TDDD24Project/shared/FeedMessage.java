@@ -2,9 +2,12 @@ package com.TDDD24Project.shared;
 
 import java.io.Serializable;
 
-/*
- * Represents one RSS message - source: http://www.vogella.com
+/**
+ * A class that represents one feedMessage
+ * @author source: http://www.vogella.com, modified by: chrte707 & hento581
+ *
  */
+
 public class FeedMessage implements Serializable {
 
   /**

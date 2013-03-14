@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.Label;
 
 /**
  * Class for the user widget, i.e display name etc....
- * @author Christian
+ * @author Henrik Tosteberg - hento581, Christian Tennstedt - chrte707 
  *
  */
 public class UserWidget extends Composite {

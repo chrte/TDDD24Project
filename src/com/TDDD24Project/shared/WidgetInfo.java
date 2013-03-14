@@ -2,11 +2,15 @@ package com.TDDD24Project.shared;
 
 import java.io.Serializable;
 
+
+/**
+ * A class containg some info about a widget
+ * @author Henrik Tosteberg - hento581, Christian Tennstedt - chrte707 
+ *
+ */
 public class WidgetInfo implements Serializable {
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private String widgetData;
 	private int position;
@@ -21,8 +25,7 @@ public class WidgetInfo implements Serializable {
 		this.position = position;
 		this.widgetType = widgetType;
 	}
-	
-	
+		
 	public String getWidgetData() {
 		return widgetData;
 	}

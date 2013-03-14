@@ -2,9 +2,12 @@ package com.TDDD24Project.shared;
 
 import java.util.ArrayList;
 
-/*
- * Stores an RSS feed - source: http://www.vogella.com
+/**
+ * A class for storing a RSS-feed
+ * @author source: http://www.vogella.com, modified by: chrte707 & hento581
+ *
  */
+
 public class Feed {
 
   final String title;
