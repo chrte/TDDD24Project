@@ -86,12 +86,9 @@ public class RSSWidget extends SuperWidget{
 		parent.projectSvc.addWidget(userId, link, position,"RSS",parent.positionToColumn(position), parent.positionToRow(position), callback);
 	}
 	
-	/**
-	 * For getting the widget type, which in this case is "RSS"
-	 */	
 	@Override
 	public String getWidgetType(){
 		return "RSS";
 	}
-
+	
 }

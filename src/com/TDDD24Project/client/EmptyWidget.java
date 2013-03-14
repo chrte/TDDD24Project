@@ -115,4 +115,9 @@ public class EmptyWidget extends SuperWidget{
 		chooseWidget.center();
 	}
 
+	@Override
+	String getWidgetType() {		
+		return "Empty";
+	}
+
 }

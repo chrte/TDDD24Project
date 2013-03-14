@@ -40,8 +40,8 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 	BeforeDragStartEventHandler, DragStopEventHandler {
 
 		/**
-		 * before that the drag operation starts, we will "visually" detach the draggable by setting
-		 * it css position to absolute. 
+		 * Before  the drag operation starts, we will "visually" detach the draggable by setting
+		 * it's css position to absolute. 
 		 */
 		public void onBeforeDragStart(BeforeDragStartEvent event) {
 			// "detach" visually the element of the parent
@@ -72,24 +72,28 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 	Boolean isBeingDragged=false;
 	AbsolutePanel superPanel; 
 
-	String getWidgetType(){
-		return "";
-	}
+	/**
+	 * Gets the widgetType
+	 * @return
+	 */
+	abstract String getWidgetType();
 
+	/**
+	 * Sets up the draghandler
+	 */
 
 	protected void setup() {
 		superPanel=new AbsolutePanel();
-
-		// opacity of the portlet during the drag
 		setDraggingOpacity(new Float(0.8));
-		// zIndex of the portlet during the drag
 		setDraggingZIndex(1000);
-		// add position handler
 		addBeforeDragHandler(HANDLER);
 		addDragStopHandler(HANDLER);
 		initWidget(superPanel);
-
 	}
+	
+	/**
+	 * Adds edit- and removebuttons for the widget
+	 */
 	protected void addButtons(){
 		Button editButton = new Button("editButton");
 		Button removeButton = new Button("X");
@@ -105,22 +109,22 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 
 				editWidget(parent.positionToIndex(position), position);
 			}	
-
 		});
 
 		removeButton.addClickHandler(new ClickHandler(){
-
+			
 			@Override
-			public void onClick(ClickEvent event) {			
-
+			public void onClick(ClickEvent event) {		
 				removeWidgetPopUp(parent.positionToIndex(position), position);
 			}
-
-
 		});
-
 	}
 
+	/**
+	 * Displays a popup asking whether one really wants to remove a widget, and if yes it will also remove it from the main page and from teh database
+	 * @param index
+	 * @param position
+	 */
 
 	private void removeWidgetPopUp(final int index, final int position) {
 		final PopupPanel reallyRemove = new PopupPanel(false);
@@ -132,11 +136,8 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		message.setStyleName("demo-PopUpPanel-message");
 		
 		Button yesButton = new Button("Yes");
-		Button noButton = new Button("No");		
-	
-
+		Button noButton = new Button("No");	
 		yesButton.addClickHandler(new ClickHandler(){
-
 			@Override
 			public void onClick(ClickEvent event) {
 				removeWidget(index,  position);	
@@ -146,13 +147,10 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		});
 		
 		noButton.addClickHandler(new ClickHandler(){
-
 			@Override
 			public void onClick(ClickEvent event) {
 				reallyRemove.hide();				
 			}
-
-
 		});
 		
 		SimplePanel holder = new SimplePanel();
@@ -169,6 +167,11 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		reallyRemove.center();
 	}	
 
+	/**
+	 * Removes a widget from the  database and the mainpage
+	 * @param index
+	 * @param position
+	 */
 	
 	private void removeWidget(int index, int position) {
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
@@ -180,13 +183,16 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 			public void onSuccess(String result) {
 				System.out.println("Success");
 			}				
-
 		};
-
 		projectSvc.removeWidget(userId, position, callback);
-		
-		
+
 	}
+	
+	/**
+	 * Displays a popup for editing a widget
+	 * @param index
+	 * @param position
+	 */
 
 	private void editWidget(final int index, final int widgetPosition) {
 		final PopupPanel chooseWidget = new PopupPanel(false);	
@@ -201,9 +207,7 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		message.setStyleName("demo-PopUpPanel-message");
 		final RadioButton linkWidget = new RadioButton("widgetType", "Link");
 		final RadioButton rssWidget = new RadioButton("widgetType", "RSS-feed");
-
-
-
+		
 		if(getWidgetType().equals("Link")){
 			linkWidget.setValue(true);
 		}
@@ -218,7 +222,6 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 
 		Button editButton = new Button("Edit");
 		editButton.addClickHandler(new ClickHandler(){
-
 			@Override
 			public void onClick(ClickEvent event) {
 				String widgetData = widgetLink.getText();
@@ -228,7 +231,6 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 					System.out.println(index);
 					widgetType = "link";		
 					parent.addLinkWidgetAlreadyInDatabase(index,widgetData);
-
 				}
 				else{
 					widgetType = "RSS";
@@ -240,16 +242,14 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 			}
 
 		});
+		
 		Button cancelButton = new Button("Cancel");
-
 		cancelButton.addClickHandler(new ClickHandler(){
 
 			@Override
 			public void onClick(ClickEvent event) {
 				chooseWidget.hide();				
 			}
-
-
 		});
 		SimplePanel holder = new SimplePanel();
 		SimplePanel holder2 = new SimplePanel();
@@ -267,7 +267,13 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 		chooseWidget.setGlassEnabled(true);
 		chooseWidget.center();
 	}
-
+	
+	/**
+	 * Edits a widget in the database
+	 * @param widgetData
+	 * @param widgetPosition
+	 * @param widgetType
+	 */
 
 	public void editWidgetInDatabase(String widgetData, int widgetPosition, String widgetType){
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
@@ -278,14 +284,10 @@ public abstract class SuperWidget extends DraggableWidget<Widget> {
 			@Override
 			public void onSuccess(String result) {
 				System.out.println("Success");
-			}				
-
+			}	
 		};
 
 		projectSvc.editWidget(userId, widgetData, widgetPosition, widgetType, callback);
-
-
 	}
-
 }
 

@@ -87,9 +87,7 @@ public class LinkWidget extends SuperWidget {
 		parent.projectSvc.addWidget(userId, link, position,"link",parent.positionToColumn(position), parent.positionToRow(position), callback);
 	}
 	
-	/**
-	 * For getting the widget type, which in this case is "Link"
-	 */	
+
 	@Override
 	public String getWidgetType(){
 		return "Link";
