@@ -86,5 +86,10 @@ ProjectService {
 		return "";
 		
 	}
+	
+	public String editWidget(int userId, String widgetData, int widgetPosition, String widgetType){
+		dbHandler.editWidget(userId, widgetData, widgetPosition, widgetType);
+		return "";
+	}
 
 }

@@ -28,13 +28,8 @@ public class MainPage extends Composite {
 	private VerticalPanel mainPanel = new VerticalPanel();
 	private HorizontalPanel widgetsPanel = new HorizontalPanel();
 	private Image logo = new Image("images/logo.jpg");
-
-	private int userId;
-
-	
+	private int userId;	
 	private ArrayList<DroppablePanel> droppablePanels = new ArrayList<DroppablePanel>();
-	//	private ArrayList<FlowPanel> flowPanels = new ArrayList<FlowPanel>();
-
 	protected ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
 
 	public MainPage(int userId) {

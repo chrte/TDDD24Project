@@ -347,6 +347,24 @@ public class DatabaseHandler {
 	
 		return "";
 	}
+	
+	
+	public String editWidget(int userId, String widgetData, int widgetPosition, String widgetType){
+		
+		initiateConnection();
+		java.sql.Statement stmt = null;
+		try {
+			stmt = connection.createStatement();
+			
+			stmt.executeUpdate("UPDATE " +DATABASENAME+"."+WIDGETS+" SET "+WIDGETDATA+"='"+widgetData+"', "+WIDGETTYPE+"='"+widgetType+"' WHERE "+WIDGETPOSITION+"="+widgetPosition+" AND "+USERID+"="+userId+"");
+					
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+				
+		return "";
+	}
 
 
 }

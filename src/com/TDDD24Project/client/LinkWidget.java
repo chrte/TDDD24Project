@@ -77,5 +77,9 @@ DivElement header;
 		parent.projectSvc.addWidget(userId, link, position,"link",parent.positionToColumn(position), parent.positionToRow(position), callback);
 		
 	}
+	@Override
+	public String getWidgetType(){
+		return "Link";
+	}
 	 
 }
