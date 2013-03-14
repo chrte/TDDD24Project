@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Creates the main page which is displayed after login, with all the users data
+ * @author Henrik Tosteberg - hento581, Christian Tennstedt - chrte707 
  */
 public class MainPage extends Composite {
 
@@ -95,7 +96,7 @@ public class MainPage extends Composite {
 	protected void addLinkWidget(int index, String url){ 
 
 		final int position = indexToPosition(index);
-		LinkWidget linkWidget = new LinkWidget(this, userId, position, url, positionToColumn(position), positionToRow(position));
+		LinkWidget linkWidget = new LinkWidget(this, userId, position, url);
 		linkWidget.addLinkToDatabase(url, userId);	
 		droppablePanels.get(positionToColumn(position)-1).setWidget(linkWidget, positionToRow(position)-1);
 	}
@@ -109,7 +110,7 @@ public class MainPage extends Composite {
 	protected void addLinkWidgetAlreadyInDatabase(int index, String url){
 
 		final int position = indexToPosition(index);
-		LinkWidget tempWidget = new LinkWidget(this, userId, position, url, positionToColumn(position), positionToRow(position));
+		LinkWidget tempWidget = new LinkWidget(this, userId, position, url);
 		droppablePanels.get(positionToColumn(position)-1).setWidget(tempWidget, positionToRow(position)-1);
 	}
 
@@ -149,7 +150,7 @@ public class MainPage extends Composite {
 		EmptyWidget emptyWidget = new EmptyWidget(this, userId, position, "");
 		droppablePanels.get(positionToColumn(position)-1).setWidget(emptyWidget, positionToRow(position)-1);
 	}
-	
+
 	/**
 	 * Takes a widget index and converts it to the corresponding x,y-position
 	 * @param index - the index of the widget
@@ -170,7 +171,7 @@ public class MainPage extends Composite {
 	 * @param index - the x,y-position of the widget
 	 * @return - the index
 	 */
-	
+
 	protected int positionToIndex(int position){ 
 
 		int one = (int) Math.floor(position/10)-1;
@@ -182,18 +183,30 @@ public class MainPage extends Composite {
 
 		return index;
 	}
-	
-	
-	protected int positionToColumn(int position){	//TODO: Is this really used, probably shouldn't be anyway!
+
+	/**
+	 * Extracts a widgets column number from it's position
+	 * @param position
+	 * @return
+	 */
+
+	protected int positionToColumn(int position){
 		char temp = String.valueOf(position).charAt(0);
 		return (int) temp - (int) '0';
 	}
+
+	/**
+	 * Extracts a widgets row number from it's position
+	 * @param position
+	 * @return
+	 */
+
 	protected int positionToRow(int position){
 		char temp = String.valueOf(position).charAt(1);
 		return (int) temp - (int) '0';
 	}
 
-	
+
 	/**
 	 * Loads the standard, empty view, which is then used if the user has nothing stored in the database
 	 */
