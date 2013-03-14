@@ -23,12 +23,17 @@ public class UserWidget extends Composite {
 	private Label userLabel;
 	private String userImageSrc;
 	private Image userImage;
+	private ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
+	final AbsolutePanel content = new AbsolutePanel();
+	UploadImage uploadImage;
+	
 
 	/**
 	 * Constructor, initiating the userWidget, for example fetching the username
 	 * @param userId The userId
 	 */
 	public UserWidget(int userId){
+		initWidget(content);
 		this.userId=userId;
 		initiateGraphic();
 		getUserDataFromDb();
@@ -36,7 +41,7 @@ public class UserWidget extends Composite {
 
 	}
 	private void initiateGraphic() {
-		final AbsolutePanel content = new AbsolutePanel();
+
 		content.setStyleName("userWidget");
 		userLabel = new Label();
 		userLabel.setPixelSize(40, 40);
@@ -46,21 +51,23 @@ public class UserWidget extends Composite {
 		userImage.setPixelSize(75, 75);
 		content.add(userImage);
 		Button changeImageButton = new Button("ChangeImage");
+		final UserWidget test = this;
 		changeImageButton.addClickHandler( new ClickHandler(){
 
 			@Override
 			public void onClick(ClickEvent event) {
-				UploadImage uploadImage = new UploadImage();
-				content.add(uploadImage); //TODO: TEST				
+				uploadImage = new UploadImage(test);
+				content.add(uploadImage); 	
+				
 			}
 			
 		});
 		content.add(changeImageButton);
-		initWidget(content);
+		
 		
 	}
 	private void getUserDataFromDb(){
-		ProjectServiceAsync projectSvc = GWT.create(ProjectService.class);
+
 		AsyncCallback<String[]> callback = new AsyncCallback<String[]>() {
 			public void onFailure(Throwable caught) {
 				System.out.println("failure in the userWidget");
@@ -79,12 +86,36 @@ public class UserWidget extends Composite {
 
 	}
 	
+	protected void setUserImage(String imageSrc){
+
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(Throwable caught) {
+				System.out.println("failure in the userWidget");
+			}
+			@Override
+			public void onSuccess(String result) {
+//				userImageSrc=result;
+			System.out.println("userimage in setUserImage is" + userImage);
+			content.remove(uploadImage);	
+				
+			}
+			
+
+		};
+		this.userImageSrc=imageSrc;
+		updateGraphic();
+		projectSvc.setUserImage(userId,imageSrc, callback);
+		
+
+	}
+	
 	/**
 	 * Method for updating the graphic when result is returned from the server
 	 */
 	private void updateGraphic() {
 		userLabel.setText(userName);
 		userImage.setUrl(userImageSrc);
+	
 		
 	}
 }

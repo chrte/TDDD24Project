@@ -15,8 +15,10 @@ public class UploadImage extends Composite {
 	
 	// A panel where the thumbnails of uploaded images will be shown
 	  private FlowPanel panelImages = new FlowPanel();
+	  private UserWidget parent;
 
-	  public UploadImage() {
+	  public UploadImage(UserWidget object) {
+		  this.parent=  object;
 	    // Attach the image viewer to the document
 	    RootPanel.get("main").add(panelImages);
 	    
@@ -44,6 +46,7 @@ public class UploadImage extends Composite {
 
 	        // You can send any customized message and parse it 
 	        System.out.println("Server message " + info.message);
+	        parent.setUserImage("images/"+info.name);
 	      }
 	    }
 	  };
