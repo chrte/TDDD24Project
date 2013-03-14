@@ -26,9 +26,9 @@ ProjectService {
 	 * adds a widget to the db
 	 */
 	@Override
-	public String addWidget(int userId, String widgetData, int widgetPosition, String widgetType, int column, int row) {
+	public String addWidget(int userId, String widgetData, int widgetPosition, String widgetType) {
 		System.out.println("addWidget");
-		dbHandler.addWidget(userId, widgetData, widgetPosition, widgetType, column, row);
+		dbHandler.addWidget(userId, widgetData, widgetPosition, widgetType);
 		return "return";
 	}
 	
@@ -73,27 +73,7 @@ ProjectService {
 		return returnList;
 	}
 	
-	/**
-	 * Sets the widget column and row
-	 */
-	@Override
-	public int setWidgetColumnAndRow(int widgetID, int column, int row){
-		dbHandler.setWidgetColumnAndRow(widgetID, column, row);
-		return 0;
-	}
 	
-	/**
-	 * gets the widget column and row in an arraylist
-	 */
-	@Override
-	public int[] getWidgetColumnAndRow(int widgetID){
-		int[] temp = new int[1];
-		temp[0]= dbHandler.getWidgetColumn(widgetID);
-		temp[1]= dbHandler.getWidgetRow(widgetID);
-		return temp;
-	}
-
-
 	/**
 	 * method for reading an RSS, given an URL
 	 */

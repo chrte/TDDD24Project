@@ -84,7 +84,7 @@ public class LinkWidget extends SuperWidget {
 				System.out.println("success");		
 			}
 		};
-		parent.projectSvc.addWidget(userId, link, position,"link",parent.positionToColumn(position), parent.positionToRow(position), callback);
+		parent.projectSvc.addWidget(userId, link, position,"link", callback);
 	}
 	
 

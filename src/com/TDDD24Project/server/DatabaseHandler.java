@@ -28,8 +28,6 @@ public class DatabaseHandler {
 	private static final String USERIMAGE = "userImage";
 	private static final String WIDGETDATA ="widgetData";	
 	private static final String WIDGETPOSITION ="widgetPosition";
-	private static final String WIDGETCOLUMN ="column";
-	private static final String WIDGETROW ="row";
 	private static final String USERNAMEFORDB="TDDD24";
 	private static final String PASSWORD="TDDD24";
 	private Connection connection;
@@ -87,54 +85,7 @@ public class DatabaseHandler {
 
 		return ""; 
 	}
-	/**
-	 * Gets the widget column (int) given a widgetId
-	 * @param widgetId The widget which to get the column for
-	 * @return The widget column
-	 */
-
-
-	public int getWidgetColumn(int widgetId){
-		initiateConnection();
-		java.sql.Statement stmt = null;
-		ResultSet rs=null;
-		try {
-			stmt = connection.createStatement();
-			rs = stmt.executeQuery("SELECT "+WIDGETDATA+" FROM " +DATABASENAME+"."+WIDGETS+" WHERE "+WIDGETPOSITION+"='"+widgetId+"';");
-			while (rs.next()){
-				return rs.getInt(WIDGETCOLUMN);
-			}
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-
-		return 0; 
-	}
-	/**
-	 * Gets the widget row (String) given a widgetId
-	 * @param widgetId The widget which to get the row for
-	 * @return The widget row
-	 */
-
-
-	public int getWidgetRow(int widgetId){
-		initiateConnection();
-		java.sql.Statement stmt = null;
-		ResultSet rs=null;
-		try {
-			stmt = connection.createStatement();
-			rs = stmt.executeQuery("SELECT "+WIDGETDATA+" FROM " +DATABASENAME+"."+WIDGETS+" WHERE "+WIDGETPOSITION+"='"+widgetId+"';");
-			while (rs.next()){
-				return rs.getInt(WIDGETROW);
-			}
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-
-		return 0; 
-	}
+	
 	/**
 	 * Gets the widget position (String) given a widgetId
 	 * @param widgetId The widget which to get the position for
@@ -159,24 +110,8 @@ public class DatabaseHandler {
 		return 0; 
 	}
 	
-	/**
-	 * Method for setting the widget row and column, given a widget ID
-	 * @param widgetID the widget id
-	 * @param column the column
-	 * @param row the row
-	 * 
-	 */
-	public void setWidgetColumnAndRow(int widgetID, int column, int row){
-		try {
-			java.sql.Statement stmt=null;
-			stmt =connection.createStatement();			
-			stmt.executeUpdate("UPDATE "+DATABASENAME+"."+WIDGETS+" SET "+WIDGETROW +"='"+row+"', "+WIDGETCOLUMN+"='"+column+"' WHERE "+WIDGETID+ "='"+widgetID+  "');");
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-	}
-
+	
+	
 	/**
 	 * Inserts a new Widget together with it's data and it's position into the database,
 	 *  and connects it to it's user
@@ -186,14 +121,14 @@ public class DatabaseHandler {
 	 */
 
 
-	public void addWidget(int userId, String widgetData, int widgetPosition, String widgetType, int column, int row){
+	public void addWidget(int userId, String widgetData, int widgetPosition, String widgetType){
 		initiateConnection();
 	
 		//Adds data and position
 		try {
 			java.sql.Statement stmt=null;
 			stmt =connection.createStatement();			
-			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES (NULL,'"+userId+"','"+widgetData+"','"+widgetPosition+"','"+widgetType+"','"+column+"','"+row+"');");
+			stmt.executeUpdate("INSERT IGNORE INTO "+DATABASENAME+"."+WIDGETS+" VALUES (NULL,'"+userId+"','"+widgetData+"','"+widgetPosition+"','"+widgetType+"');");
 		} catch (SQLException e) {
 
 			e.printStackTrace();

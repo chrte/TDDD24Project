@@ -83,7 +83,7 @@ public class RSSWidget extends SuperWidget{
 				System.out.println("success");	
 			}
 		};
-		parent.projectSvc.addWidget(userId, link, position,"RSS",parent.positionToColumn(position), parent.positionToRow(position), callback);
+		parent.projectSvc.addWidget(userId, link, position,"RSS", callback);
 	}
 	
 	@Override
