@@ -140,6 +140,12 @@ public class MainPage extends Composite {
 
 
 	}
+	
+	void addEmptyWidget(int index){
+		final int position = indexToPosition(index);
+		EmptyWidget emptyWidget = new EmptyWidget(this, userId, position, "");
+		droppablePanels.get(positionToColumn(position)-1).setWidget(emptyWidget, positionToRow(position)-1);
+	}
 
 	protected int indexToPosition(int index) {	
 
@@ -178,14 +184,14 @@ public class MainPage extends Composite {
 
 
 		droppablePanels.add(new DroppablePanel(1));
-		Widget emptyWidget = new EmptyWidget(this,userId,11,"awesome");
+		Widget emptyWidget = new EmptyWidget(this,userId,11,"");
 		droppablePanels.get(0).add(emptyWidget);
 		droppablePanels.get(0).setPixelSize(300,600); 
 		
-		emptyWidget = new EmptyWidget(this,userId,12,"awesome");
+		emptyWidget = new EmptyWidget(this,userId,12,"");
 		droppablePanels.get(0).add(emptyWidget);
 		
-		emptyWidget = new EmptyWidget(this,userId,13,"awesome");
+		emptyWidget = new EmptyWidget(this,userId,13,"");
 		droppablePanels.get(0).add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(0));
 
@@ -193,21 +199,21 @@ public class MainPage extends Composite {
 		
 		droppablePanels.add(new DroppablePanel(2));
 		droppablePanels.get(1).setPixelSize(300,600);
-		emptyWidget = new EmptyWidget(this,userId,21,"awesome");
+		emptyWidget = new EmptyWidget(this,userId,21,"");
 		droppablePanels.get(1).add(emptyWidget);
-		emptyWidget = new EmptyWidget(this,userId,22,"awesome");
+		emptyWidget = new EmptyWidget(this,userId,22,"");
 		droppablePanels.get(1).add(emptyWidget);
-		emptyWidget = new EmptyWidget(this,userId,23,"awesome");
+		emptyWidget = new EmptyWidget(this,userId,23,"");
 		droppablePanels.get(1).add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(1));
 		
 		droppablePanels.add(new DroppablePanel(3));
 		droppablePanels.get(2).setPixelSize(300,600);
-		emptyWidget = new EmptyWidget(this,userId,31,"awesome");
+		emptyWidget = new EmptyWidget(this,userId,31,"");
 		droppablePanels.get(2).add(emptyWidget);
-		emptyWidget = new EmptyWidget(this,userId,32,"awesome");
+		emptyWidget = new EmptyWidget(this,userId,32,"");
 		droppablePanels.get(2).add(emptyWidget);
-		emptyWidget = new EmptyWidget(this,userId,33,"awesome");
+		emptyWidget = new EmptyWidget(this,userId,33,"");
 		droppablePanels.get(2).add(emptyWidget);
 		widgetsPanel.add(droppablePanels.get(2));
 
