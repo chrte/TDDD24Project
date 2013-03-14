@@ -13,19 +13,20 @@ public class RSSWidget extends SuperWidget{
 
 
 
-
+	AbsolutePanel absolutePanel;
 	public RSSWidget(MainPage parent, int userId, int position, String url){
 		this.parent=parent;
 		this.position = position;
 		this.userId=userId;
 		addRSS(url);	
 		setup();
+		superPanel.add(absolutePanel);
 	}
 
 
 	private void addRSS(final String url) {
 
-		final AbsolutePanel absolutePanel = new AbsolutePanel();
+		absolutePanel = new AbsolutePanel();
 
 		AsyncCallback<ArrayList<FeedMessage>> callback = new AsyncCallback<ArrayList<FeedMessage>>() {
 			public void onFailure(Throwable caught) {
@@ -57,7 +58,7 @@ public class RSSWidget extends SuperWidget{
 		projectSvc.readRSS(url, callback);
 
 //		initWidget(absolutePanel);
-		superPanel.add(absolutePanel);
+		
 
 	}
 
