@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * The main class, starting the project
+ * The main class, starting the project - TDDD24 CERTIFIED!!!!!
  * @author Henrik Tosteberg - hento581, Christian Tennstedt - chrte707 
  *
  */
